@@ -1,0 +1,67 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Next.js 16.2.9, React 19.2.4, TypeScript 5.x, Tailwind CSS v4, shadcn/ui (base-rhea)
+  Architecture: Next.js App Router, RSC, shadcn primitives, lucide icons, CVA + tailwind-merge
+  Testing: Vitest v4 (unit/integration, jsdom, Testing Library), Playwright v1.60 (E2E, 3 browsers)
+  Style: ESLint strict flat config, Prettier + prettier-plugin-tailwindcss, import ordering, conventional commits
+  CI: GitHub Actions (quality.yml runs npm run check; playwright.yml runs e2e)
+  Husky: pre-commit (lint-staged + react-doctor:staged), pre-push (npm run check), commit-msg (commitlint)
+
+strict_tdd: true
+
+testing:
+  runner:
+    command: npm run test
+    framework: vitest
+  layers:
+    unit:
+      available: true
+      tool: vitest + @testing-library/react + jsdom
+    integration:
+      available: true
+      tool: vitest + @testing-library/react + jsdom
+    e2e:
+      available: true
+      tool: playwright
+  coverage:
+    available: false
+    command: ''
+    note: vitest supports --coverage but no provider configured; add @vitest/coverage-v8 if needed
+  quality:
+    linter:
+      available: true
+      command: npm run lint
+    typechecker:
+      available: true
+      command: npm run typecheck
+    formatter:
+      available: true
+      command: npm run format:check
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    guidance:
+      - Follow existing code patterns
+    tdd: true
+    test_command: npm run test
+  verify:
+    test_command: npm run test
+    e2e_command: npm run test:e2e
+    build_command: npm run build
+    check_command: npm run check
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

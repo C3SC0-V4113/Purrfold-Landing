@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseUrl = 'http://127.0.0.1:3000';
+const port = process.env.PLAYWRIGHT_PORT ?? '3100';
+const host = process.env.PLAYWRIGHT_HOST ?? '127.0.0.1';
+const baseUrl = `http://${host}:${port}`;
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -19,9 +21,9 @@ export default defineConfig({
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {
-    command: 'npm run dev -- --hostname 127.0.0.1 --port 3000',
+    command: `npm run dev -- --hostname ${host} --port ${port}`,
     url: baseUrl,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });

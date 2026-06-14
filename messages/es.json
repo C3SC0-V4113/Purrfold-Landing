@@ -1,0 +1,71 @@
+{
+  "HomePage": {
+    "description": "Un punto de entrada localizado para instalación, skills, controles de calidad y el ecosistema de Purrfold.",
+    "eyebrow": "Landing localizada del CLI",
+    "primaryCta": "Abrir guía de instalación",
+    "secondaryCta": "Revisar skills",
+    "title": "Purrfold para flujos serios con agentes"
+  },
+  "Metadata": {
+    "ecosystem": {
+      "description": "Descubre cómo la landing conecta el CLI, shadcn y Next.js sin agregar ruido innecesario.",
+      "title": "Ecosistema conectado"
+    },
+    "home": {
+      "description": "Punto de entrada localizado para instalación, skills, controles de calidad y contexto del ecosistema.",
+      "title": "Landing de Purrfold"
+    },
+    "install": {
+      "description": "Inicia el flujo de instalación de la Fase 1 con una transición localizada y sobria hacia el CLI.",
+      "title": "Instalar Purrfold"
+    },
+    "quality": {
+      "description": "Revisa los controles, la evidencia y las expectativas de calidad que mantienen confiables las instalaciones de Purrfold.",
+      "title": "Señales de calidad"
+    },
+    "skills": {
+      "description": "Comprende las skills y las capas de flujo de trabajo que estructuran la experiencia de Purrfold.",
+      "title": "Superficie de skills"
+    }
+  },
+  "Navigation": {
+    "ecosystem": "Ecosistema",
+    "github": "GitHub",
+    "home": "Inicio",
+    "install": "Instalación",
+    "label": "Navegación principal",
+    "languageSwitch": "Idioma",
+    "localeNameEn": "English",
+    "localeNameEs": "Español",
+    "nextjs": "Next.js",
+    "quality": "Calidad",
+    "shadcn": "shadcn",
+    "skills": "Skills"
+  },
+  "Pages": {
+    "ecosystem": {
+      "cta": "Vuelve al hub localizado o continúa hacia las referencias externas cuando necesites más detalle de implementación.",
+      "description": "Descubre cómo esta landing se conecta con el CLI, shadcn y Next.js sin agregar ruido.",
+      "routeLabel": "Ecosistema",
+      "title": "Ecosistema conectado"
+    },
+    "install": {
+      "cta": "Usa esta ruta como una transición sobria hacia la instalación mientras las páginas más profundas permanecen intencionalmente livianas.",
+      "description": "Inicia el flujo de instalación con la ruta principal, una explicación breve y navegación directa de regreso al hub.",
+      "routeLabel": "Instalación",
+      "title": "Instalar Purrfold"
+    },
+    "quality": {
+      "cta": "Vuelve al hub cuando necesites el contexto general sobre routing, SEO y verificación amigable para agentes.",
+      "description": "Verifica los controles, las comprobaciones y la evidencia que mantienen confiables las instalaciones.",
+      "routeLabel": "Calidad",
+      "title": "Señales de calidad"
+    },
+    "skills": {
+      "cta": "Usa esta ruta para explicar cómo la landing actual conecta la guía operativa con skills reutilizables.",
+      "description": "Revisa la capa de skills que respalda la instalación, la verificación y la expansión localizada futura.",
+      "routeLabel": "Skills",
+      "title": "Superficie de skills"
+    }
+  }
+}

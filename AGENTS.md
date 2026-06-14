@@ -16,10 +16,18 @@ Run these before claiming implementation complete:
 4. `npm run test`
 
 - Run `npm run test:e2e` when E2E behavior changed.
+- Prefer `CI=1 npx playwright test tests/e2e/localized-routing.spec.ts --project=chromium --workers=1` before full E2E when localized routing changes.
 - `npm run doctor`
 - `npm run check`
 
 Do not use `next lint`; use the ESLint CLI.
+
+## Localized Routing Reminders
+
+- This repo uses Phase 1 locale-prefixed routing at `/en` and `/es`.
+- Treat `proxy.ts` as the only redirect authority for root negotiation and unsupported locale fallback.
+- Next.js 16 `params` are async; use `PageProps`/`LayoutProps` helpers and await params before reading values.
+- Spanish landing copy must remain neutral/professional and avoid country-specific idioms.
 
 ## References
 

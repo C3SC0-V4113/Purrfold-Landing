@@ -1,6 +1,20 @@
-# Next Quality App
+# Purrfold landing
 
-Next.js app scaffolded with strict quality tooling, shadcn, React Doctor, React Scan, agent docs, and Claude hooks.
+Next.js 16 landing app with strict quality tooling, localized Phase 1 routing, shadcn, React Doctor, React Scan, and agent-facing docs.
+
+## Localized routing
+
+Phase 1 ships locale-prefixed routes for English and Spanish:
+
+- `/en`, `/es`
+- `/[locale]/install`
+- `/[locale]/skills`
+- `/[locale]/quality`
+- `/[locale]/ecosystem`
+
+`/` is redirect-only and locale negotiation is handled in `proxy.ts`.
+
+Routing and i18n decisions are documented in `docs/adr/0001-i18n-and-routing.md`.
 
 ## Development
 
@@ -15,9 +29,13 @@ npm run lint
 npm run typecheck
 npm run format:check
 npm run test
+npx playwright test tests/e2e/localized-routing.spec.ts --project=chromium --workers=1
+npm run test:e2e
 npm run doctor
 npm run check
 ```
+
+For safer local E2E iteration, prefer the localized-routing spec first and run full E2E only after targeted coverage is stable.
 
 ## Tooling
 
@@ -63,6 +81,6 @@ npx purrfold@latest my-app --shadcn-args --preset b5eH0WVTX --yes
 ## Agent Docs
 
 - `AGENTS.md`: agent workflow and quality gates.
-- `DESIGN.md`: generic UI/UX guardrails.
+- `DESIGN.md`: UI/UX and localized routing guardrails.
 - `.agents/skills`: local and installed skills.
 - `CLAUDE.md`: Claude Code pointer to `AGENTS.md`.

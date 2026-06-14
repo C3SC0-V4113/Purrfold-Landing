@@ -1,5 +1,8 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
+import { getLocale } from 'next-intl/server';
+
+import { siteUrl } from '@/lib/site';
 
 import type { Metadata } from 'next';
 
@@ -16,17 +19,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Purrfold Landing',
-  description: 'Purrfold Landing web application.',
+  description: 'Localized landing for installation, skills, quality, and ecosystem navigation.',
+  metadataBase: siteUrl,
+  title: {
+    default: 'Purrfold',
+    template: '%s | Purrfold',
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale().catch(() => 'en');
+
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html
+      lang={locale}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
         {process.env.NODE_ENV === 'development' && (
           <Script src="https://unpkg.com/react-scan/dist/auto.global.js" crossOrigin="anonymous" />

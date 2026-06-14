@@ -1,0 +1,71 @@
+{
+  "HomePage": {
+    "description": "A localized entrypoint for installation, skills, quality guardrails, and the broader Purrfold ecosystem.",
+    "eyebrow": "Localized CLI landing",
+    "primaryCta": "Open install guide",
+    "secondaryCta": "Review skills",
+    "title": "Purrfold landing for serious agent workflows"
+  },
+  "Metadata": {
+    "ecosystem": {
+      "description": "See how the landing connects the CLI, shadcn, and Next.js without adding unnecessary noise.",
+      "title": "Connected ecosystem"
+    },
+    "home": {
+      "description": "Localized entrypoint for installation, skills, quality checks, and ecosystem context.",
+      "title": "Purrfold landing"
+    },
+    "install": {
+      "description": "Start the Phase 1 installation flow with a calm, localized handoff into the CLI path.",
+      "title": "Install Purrfold"
+    },
+    "quality": {
+      "description": "Review the checks, evidence, and quality expectations that keep Purrfold installs trustworthy.",
+      "title": "Quality signals"
+    },
+    "skills": {
+      "description": "Understand the skills and workflow layers that shape the Purrfold experience.",
+      "title": "Skill surface"
+    }
+  },
+  "Navigation": {
+    "ecosystem": "Ecosystem",
+    "github": "GitHub",
+    "home": "Home",
+    "install": "Install",
+    "label": "Primary navigation",
+    "languageSwitch": "Language",
+    "localeNameEn": "English",
+    "localeNameEs": "Español",
+    "nextjs": "Next.js",
+    "quality": "Quality",
+    "shadcn": "shadcn",
+    "skills": "Skills"
+  },
+  "Pages": {
+    "ecosystem": {
+      "cta": "Return to the localized hub or continue into the external references when you need implementation detail.",
+      "description": "See how the landing connects the CLI, shadcn, and Next.js without adding unnecessary noise.",
+      "routeLabel": "Ecosystem",
+      "title": "Connected ecosystem"
+    },
+    "install": {
+      "cta": "Use this route as the calm handoff into installation details while the deeper implementation pages stay intentionally light.",
+      "description": "Start the install flow with the core route, a minimal explanation, and direct navigation back to the hub.",
+      "routeLabel": "Install",
+      "title": "Install Purrfold"
+    },
+    "quality": {
+      "cta": "Return to the hub when you need the broader context around routing, SEO, and agent-friendly verification.",
+      "description": "Verify the guardrails, checks, and evidence that keep installs trustworthy.",
+      "routeLabel": "Quality",
+      "title": "Quality signals"
+    },
+    "skills": {
+      "cta": "Use this route to frame how the current landing connects operator guidance with reusable skills.",
+      "description": "Review the skills layer that supports installation, verification, and future localized expansion.",
+      "routeLabel": "Skills",
+      "title": "Skill surface"
+    }
+  }
+}
