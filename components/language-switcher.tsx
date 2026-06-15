@@ -1,7 +1,18 @@
 'use client';
 
+import { LanguagesIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { getLocaleSwitchPath, locales } from '@/i18n/routing';
 
 import type { Locale } from '@/i18n/routing';
@@ -15,27 +26,28 @@ type LanguageSwitcherProps = {
 export function LanguageSwitcher({ activeLocale, label, localeNames }: LanguageSwitcherProps) {
   const router = useRouter();
 
-  return (
-    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-      <span>{label}</span>
-      <div className="flex items-center gap-2">
-        {locales.map((locale) => {
-          const isActive = locale === activeLocale;
+  const switchLocale = (value: string) => {
+    const targetPath = getLocaleSwitchPath(window.location.pathname, value as Locale);
+    router.replace(`${targetPath}${window.location.search}${window.location.hash}`);
+  };
 
-          return (
-            <button
-              key={locale}
-              type="button"
-              aria-pressed={isActive}
-              className="rounded-full border border-border px-3 py-1 font-medium text-foreground transition hover:border-foreground disabled:cursor-default disabled:opacity-100"
-              disabled={isActive}
-              onClick={() => router.replace(getLocaleSwitchPath(window.location.pathname, locale))}
-            >
-              {localeNames[locale]}
-            </button>
-          );
-        })}
-      </div>
-    </div>
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger render={<Button variant="ghost" size="icon" aria-label={label} />}>
+        <LanguagesIcon />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>{label}</DropdownMenuLabel>
+          <DropdownMenuRadioGroup value={activeLocale} onValueChange={switchLocale}>
+            {locales.map((locale) => (
+              <DropdownMenuRadioItem key={locale} value={locale}>
+                {localeNames[locale]}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

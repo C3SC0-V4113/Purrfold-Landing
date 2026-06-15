@@ -38,6 +38,7 @@ declare const messages: {
     "install": "Install",
     "label": "Primary navigation",
     "languageSwitch": "Language",
+    "closeMenu": "Close menu",
     "localeNameEn": "English",
     "localeNameEs": "Español",
     "nextjs": "Next.js",
@@ -47,24 +48,32 @@ declare const messages: {
   },
   "Pages": {
     "ecosystem": {
+      "cardBadge": "Overview",
+      "cardTitle": "Toolchain",
       "cta": "Return to the localized hub or continue into the external references when you need implementation detail.",
       "description": "See how the landing connects the CLI, shadcn, and Next.js without adding unnecessary noise.",
       "routeLabel": "Ecosystem",
       "title": "Connected ecosystem"
     },
     "install": {
+      "cardBadge": "CLI",
+      "cardTitle": "Getting Started",
       "cta": "Use this route as the calm handoff into installation details while the deeper implementation pages stay intentionally light.",
       "description": "Start the install flow with the core route, a minimal explanation, and direct navigation back to the hub.",
       "routeLabel": "Install",
       "title": "Install Purrfold"
     },
     "quality": {
+      "cardBadge": "Guardrails",
+      "cardTitle": "Quality Checks",
       "cta": "Return to the hub when you need the broader context around routing, SEO, and agent-friendly verification.",
       "description": "Verify the guardrails, checks, and evidence that keep installs trustworthy.",
       "routeLabel": "Quality",
       "title": "Quality signals"
     },
     "skills": {
+      "cardBadge": "Workflow",
+      "cardTitle": "Skill Layers",
       "cta": "Use this route to frame how the current landing connects operator guidance with reusable skills.",
       "description": "Review the skills layer that supports installation, verification, and future localized expansion.",
       "routeLabel": "Skills",

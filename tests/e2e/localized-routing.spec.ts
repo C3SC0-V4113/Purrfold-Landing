@@ -56,7 +56,12 @@ test('renders localized navigation on /en and /es', async ({ page }) => {
 test('preserves the deep route when switching locales', async ({ page }) => {
   await page.goto('/es/install');
 
-  await page.getByRole('button', { name: 'English' }).click();
+  await page.getByRole('button', { name: 'Cambiar tema' }).first().click();
+  const dropdown = page.getByRole('menu');
+  await dropdown.getByRole('menuitemradio', { name: 'Claro' }).click();
+
+  await page.getByRole('button', { name: 'Idioma' }).click();
+  await page.getByRole('menuitemradio', { name: 'English' }).click();
   await expect(page).toHaveURL(/\/en\/install$/);
   await expect(page.getByRole('heading', { level: 1, name: 'Install Purrfold' })).toBeVisible();
 });

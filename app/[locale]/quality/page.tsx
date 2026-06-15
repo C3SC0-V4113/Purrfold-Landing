@@ -1,4 +1,6 @@
 import { PageShell } from '@/components/page-shell';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getMessages } from '@/i18n/messages';
 import { resolveLocale } from '@/lib/locale';
 import { buildPageMetadata } from '@/lib/metadata';
@@ -21,7 +23,17 @@ export default async function QualityPage(props: PageProps<'/[locale]/quality'>)
       routeLabel={t.routeLabel}
       title={t.title}
     >
-      {t.cta}
+      <Card size="sm">
+        <CardHeader>
+          <Badge variant="secondary">{t.cardBadge}</Badge>
+          <CardTitle className="text-sm font-medium" role="heading" aria-level={2}>
+            {t.cardTitle}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>{t.cta}</p>
+        </CardContent>
+      </Card>
     </PageShell>
   );
 }

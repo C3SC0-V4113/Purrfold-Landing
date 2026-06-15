@@ -19,6 +19,19 @@ import RootLayout from '@/app/layout';
 describe('RootLayout', () => {
   beforeEach(() => {
     getLocaleMock.mockReset();
+    document.documentElement.classList.remove('dark');
+    if (typeof window !== 'undefined' && !window.matchMedia) {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: vi.fn().mockImplementation((query: string) => ({
+          matches: false,
+          media: query,
+          onchange: null,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+        })),
+      });
+    }
   });
 
   it('sets the html lang attribute from the resolved locale', async () => {

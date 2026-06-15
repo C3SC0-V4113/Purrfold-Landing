@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { PageShell } from '@/components/page-shell';
+import { buttonVariants } from '@/components/ui/button';
 import { getMessages } from '@/i18n/messages';
 import { buildLocalizedPath } from '@/i18n/routing';
 import { resolveLocale } from '@/lib/locale';
@@ -20,20 +21,17 @@ export default async function LocalizedHomePage(props: PageProps<'/[locale]'>) {
   return (
     <PageShell
       actions={
-        <div className="flex flex-wrap gap-3">
-          <Link
-            className="rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background"
-            href={buildLocalizedPath(locale, '/install')}
-          >
+        <>
+          <Link className={buttonVariants()} href={buildLocalizedPath(locale, '/install')}>
             {t.primaryCta}
           </Link>
           <Link
-            className="rounded-full border border-border px-5 py-2 text-sm font-medium text-foreground"
+            className={buttonVariants({ variant: 'outline' })}
             href={buildLocalizedPath(locale, '/skills')}
           >
             {t.secondaryCta}
           </Link>
-        </div>
+        </>
       }
       description={t.description}
       locale={locale}

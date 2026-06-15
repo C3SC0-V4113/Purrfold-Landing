@@ -1,6 +1,9 @@
 import Link from 'next/link';
 
 import { BaseNavigation } from '@/components/base-navigation';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { buildLocalizedPath } from '@/i18n/routing';
 
 import type { Locale } from '@/i18n/routing';
@@ -24,23 +27,35 @@ export function PageShell({
   title,
 }: PageShellProps) {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-10 px-6 py-10 sm:px-10">
-        <BaseNavigation locale={locale} />
-        <section className="flex flex-1 flex-col justify-center gap-6">
-          {routeLabel ? (
-            <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
-              {routeLabel}
-            </p>
-          ) : null}
-          <div className="space-y-4">
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
-            <p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
-              {description}
-            </p>
-          </div>
-          {actions}
-          {children}
+    <div className="min-h-screen bg-background text-foreground">
+      <BaseNavigation locale={locale} />
+      <main className="mx-auto w-full max-w-5xl px-6 py-12 sm:px-10 sm:py-16">
+        <div className="flex flex-col gap-10">
+          <Card size="sm" className="p-0 sm:p-0">
+            <CardHeader className="gap-4">
+              {routeLabel ? <Badge variant="outline">{routeLabel}</Badge> : null}
+              <div className="flex flex-col gap-2">
+                <CardTitle>
+                  <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
+                </CardTitle>
+                <CardDescription className="max-w-2xl text-base leading-7 sm:text-lg">
+                  {description}
+                </CardDescription>
+              </div>
+            </CardHeader>
+            {actions || children ? (
+              <>
+                <Separator />
+                <CardContent className="flex flex-col gap-4 pt-5">
+                  {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
+                  {children ? (
+                    <div className="text-sm leading-6 text-muted-foreground">{children}</div>
+                  ) : null}
+                </CardContent>
+              </>
+            ) : null}
+          </Card>
+
           <div>
             <Link
               className="text-sm font-medium text-foreground underline underline-offset-4"
@@ -49,8 +64,8 @@ export function PageShell({
               {locale === 'es' ? 'Volver al inicio' : 'Back to home'}
             </Link>
           </div>
-        </section>
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
   );
 }
