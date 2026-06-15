@@ -35,7 +35,7 @@ Chain strategy: stacked-to-main
 - [x] 2.1 Add `components/ui/navigation-menu.tsx` from shadcn base-rhea and verify the generated API matches Next.js `Link` composition.
 - [x] 2.2 Refactor `components/base-navigation.tsx` desktop nav to `NavigationMenu`, keep `Sheet` mobile nav, and reduce navbar externals to GitHub only.
 - [x] 2.3 Update `app/[locale]/page.tsx` and `messages/en.json`, `messages/es.json` with a localized home foundations section for shadcn and Next.js links.
-- [ ] 2.4 Add minimal shared motion tokens and reduced-motion guards in `app/globals.css` only.
+- [x] 2.4 Add minimal shared motion tokens and reduced-motion guards in `app/globals.css` only.
 
 ## Phase 3: Integration / REFACTOR
 
@@ -44,10 +44,10 @@ Chain strategy: stacked-to-main
 
 ## Phase 4: Documentation / Decisions
 
-- [ ] 4.1 Create `docs/adr/0002-design-system-boundaries.md` for shadcn/base-rhea boundaries, Base UI `render`, lucide usage, motion limits, and MCP importance.
-- [ ] 4.2 Update `docs/adr/0001-i18n-and-routing.md`, `AGENTS.md`, and `README.md` to align ADR status and document repo-level `opencode.json` shadcn MCP enablement.
+- [x] 4.1 Create `docs/adr/0002-design-system-boundaries.md` for shadcn/base-rhea boundaries, Base UI `render`, lucide usage, motion limits, and MCP importance.
+- [x] 4.2 Update `docs/adr/0001-i18n-and-routing.md`, `AGENTS.md`, and `README.md` to align ADR status and document repo-level `opencode.json` shadcn MCP enablement.
 
 ## Phase 5: Verification
 
-- [ ] 5.1 Run `npm run lint`, `npm run typecheck`, `npm run format:check`, `npm run test`, `npm run test:e2e`, `npm run doctor`, and `npm run check`.
-- [ ] 5.2 Capture verification notes against spec scenarios before `sdd-apply` is considered complete.
+- [x] 5.1 Run `npm run lint`, `npm run typecheck`, `npm run format:check`, `npm run test`, targeted Chromium mobile-navigation E2E, `npm run doctor`, and `npm run check` per the approved apply gate.
+- [x] 5.2 Capture verification notes against spec scenarios before `sdd-apply` is considered complete.

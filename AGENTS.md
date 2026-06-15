@@ -41,7 +41,9 @@ Do not use `next lint`; use the ESLint CLI.
 
 ## shadcn MCP
 
-shadcn MCP setup is optional and was not run by default.
+For this repository, shadcn MCP is enabled through repo-level `opencode.json` and should be treated as important project tooling when working with shadcn/base-rhea components.
+
+shadcn MCP setup is optional globally and was not run by default for every client.
 
 ```bash
 npx shadcn@latest mcp init --client claude

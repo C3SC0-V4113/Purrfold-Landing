@@ -49,7 +49,9 @@ For safer local E2E iteration, prefer the localized-routing spec first and run f
 
 ## shadcn MCP
 
-shadcn MCP setup was not run by default because some clients may update user-level tool config.
+For this repository, shadcn MCP is enabled through repo-level `opencode.json` and should stay available for project-aware shadcn docs, registry access, and component workflows.
+
+shadcn MCP setup was not run by default for every client because some clients may update user-level tool config.
 
 Manual setup commands for this package manager:
 

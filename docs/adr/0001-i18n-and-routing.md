@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
@@ -76,4 +76,4 @@ Using a dedicated `proxy.ts` also keeps redirect logic in one place, which reduc
 
 ## Follow-up
 
-- Mark this ADR as Accepted when the Phase 1 implementation lands and verification passes.
+- Keep this ADR aligned with future locale or proxy changes.
