@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import EcosystemPage from '@/app/[locale]/ecosystem/page';
@@ -86,10 +86,19 @@ describe('localized page rendering', () => {
     expect(screen.getByRole('link', { name: 'Ecosystem' }).getAttribute('href')).toBe(
       '/en/ecosystem'
     );
+    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
     expect(screen.getByRole('link', { name: 'GitHub' }).getAttribute('href')).toContain(
       'github.com'
     );
-    expect(screen.getByRole('link', { name: 'Next.js' }).getAttribute('href')).toContain('nextjs');
+    const main = screen.getByRole('main');
+    expect(within(main).getByRole('link', { name: 'shadcn' }).getAttribute('href')).toBe(
+      'https://ui.shadcn.com'
+    );
+    expect(within(main).getByRole('link', { name: 'Next.js' }).getAttribute('href')).toBe(
+      'https://nextjs.org'
+    );
+    expect(within(navigation).queryByRole('link', { name: 'shadcn' })).toBeNull();
+    expect(within(navigation).queryByRole('link', { name: 'Next.js' })).toBeNull();
   });
 
   it('renders the Spanish home navigation and hub content', async () => {

@@ -5,6 +5,12 @@ declare const messages: {
   "HomePage": {
     "description": "A localized entrypoint for installation, skills, quality guardrails, and the broader Purrfold ecosystem.",
     "eyebrow": "Localized CLI landing",
+    "foundations": {
+      "description": "Reference the design-system and framework foundations from the home surface instead of the persistent header.",
+      "nextjs": "Next.js",
+      "shadcn": "shadcn",
+      "title": "Foundations"
+    },
     "primaryCta": "Open install guide",
     "secondaryCta": "Review skills",
     "title": "Purrfold landing for serious agent workflows"
@@ -41,9 +47,7 @@ declare const messages: {
     "closeMenu": "Close menu",
     "localeNameEn": "English",
     "localeNameEs": "Español",
-    "nextjs": "Next.js",
     "quality": "Quality",
-    "shadcn": "shadcn",
     "skills": "Skills"
   },
   "Pages": {

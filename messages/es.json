@@ -2,6 +2,12 @@
   "HomePage": {
     "description": "Un punto de entrada localizado para instalación, skills, controles de calidad y el ecosistema de Purrfold.",
     "eyebrow": "Landing localizada del CLI",
+    "foundations": {
+      "description": "Consulta las bases del sistema de diseño y del framework desde la portada, no desde el encabezado persistente.",
+      "nextjs": "Next.js",
+      "shadcn": "shadcn",
+      "title": "Bases"
+    },
     "primaryCta": "Abrir guía de instalación",
     "secondaryCta": "Revisar skills",
     "title": "Purrfold para flujos serios con agentes"
@@ -38,9 +44,7 @@
     "closeMenu": "Cerrar menú",
     "localeNameEn": "English",
     "localeNameEs": "Español",
-    "nextjs": "Next.js",
     "quality": "Calidad",
-    "shadcn": "shadcn",
     "skills": "Skills"
   },
   "Pages": {

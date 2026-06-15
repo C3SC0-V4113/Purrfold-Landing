@@ -1,12 +1,19 @@
 'use client';
 
-import { ExternalLinkIcon, MenuIcon, XIcon } from 'lucide-react';
+import { ExternalLinkIcon, GitBranchIcon, MenuIcon, XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Button, buttonVariants } from '@/components/ui/button';
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { getMessages } from '@/i18n/messages';
@@ -19,11 +26,12 @@ type BaseNavigationProps = {
   locale: Locale;
 };
 
-const externalLinkItems = [
-  { href: externalLinks.github, labelKey: 'github' },
-  { href: 'https://ui.shadcn.com', labelKey: 'shadcn' },
-  { href: 'https://nextjs.org', labelKey: 'nextjs' },
-] as const;
+const externalLinkItems = [{ href: externalLinks.github, labelKey: 'github' }] as const;
+
+const externalLinkAttributes = {
+  rel: 'noreferrer noopener',
+  target: '_blank',
+} as const;
 
 export function BaseNavigation({ locale }: BaseNavigationProps) {
   const t = getMessages(locale).Navigation;
@@ -49,20 +57,32 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
           Purrfold
         </Link>
 
-        <nav aria-label={t.label} className="ml-auto hidden items-center gap-1 md:flex">
-          {navLinks.map(({ route, label }) => (
-            <Link
-              key={route}
-              href={buildLocalizedPath(locale, route)}
-              className={buttonVariants({
-                variant: isActive(route) ? 'secondary' : 'ghost',
-                size: 'sm',
+        <nav aria-label={t.label} className="ml-auto hidden items-center gap-2 md:flex">
+          <NavigationMenu>
+            <NavigationMenuList className="gap-1">
+              {navLinks.map(({ route, label }) => {
+                const active = isActive(route);
+
+                return (
+                  <NavigationMenuItem key={route}>
+                    <NavigationMenuLink
+                      render={<Link href={buildLocalizedPath(locale, route)} />}
+                      active={active}
+                      aria-current={active ? 'page' : undefined}
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        active
+                          ? 'bg-secondary text-secondary-foreground hover:bg-secondary focus:bg-secondary'
+                          : 'hover:bg-muted focus:bg-muted'
+                      )}
+                    >
+                      {label}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                );
               })}
-              aria-current={isActive(route) ? 'page' : undefined}
-            >
-              {label}
-            </Link>
-          ))}
+            </NavigationMenuList>
+          </NavigationMenu>
 
           <Separator orientation="vertical" className="mx-1 h-5" />
 
@@ -72,11 +92,14 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
               <a
                 key={item.href}
                 href={item.href}
-                rel="noreferrer"
-                target="_blank"
+                {...externalLinkAttributes}
                 aria-label={externalLabel}
-                className={buttonVariants({ variant: 'ghost', size: 'sm' })}
+                className={cn(
+                  buttonVariants({ variant: 'outline', size: 'sm' }),
+                  'rounded-full border-border/70 bg-background/80 pr-2'
+                )}
               >
+                <GitBranchIcon data-icon="inline-start" />
                 {externalLabel}
                 <ExternalLinkIcon data-icon="inline-end" />
               </a>
@@ -156,14 +179,14 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
                     <a
                       key={item.href}
                       href={item.href}
-                      rel="noreferrer"
-                      target="_blank"
+                      {...externalLinkAttributes}
                       aria-label={externalLabel}
                       className={cn(
-                        buttonVariants({ variant: 'ghost', size: 'sm' }),
+                        buttonVariants({ variant: 'outline', size: 'sm' }),
                         'justify-start'
                       )}
                     >
+                      <GitBranchIcon data-icon="inline-start" />
                       {externalLabel}
                       <ExternalLinkIcon data-icon="inline-end" />
                     </a>
