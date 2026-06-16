@@ -5,17 +5,18 @@ import { buttonVariants } from '@/components/ui/button';
 import { getMessages } from '@/i18n/messages';
 import { buildLocalizedPath, externalLinks } from '@/i18n/routing';
 import { resolveLocale } from '@/lib/locale';
+import { type LocalizedPageProps } from '@/lib/localized-page-props';
 import { buildPageMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
 
 import type { Metadata } from 'next';
 
-export async function generateMetadata(props: PageProps<'/[locale]'>): Promise<Metadata> {
+export async function generateMetadata(props: LocalizedPageProps): Promise<Metadata> {
   const locale = await resolveLocale(props.params);
   return buildPageMetadata(locale, '/');
 }
 
-export default async function LocalizedHomePage(props: PageProps<'/[locale]'>) {
+export default async function LocalizedHomePage(props: LocalizedPageProps) {
   const locale = await resolveLocale(props.params);
   const t = getMessages(locale).HomePage;
 

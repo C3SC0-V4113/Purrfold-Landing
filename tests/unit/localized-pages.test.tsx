@@ -8,11 +8,15 @@ import QualityPage from '@/app/[locale]/quality/page';
 import SkillsPage from '@/app/[locale]/skills/page';
 import { ThemeProvider } from '@/components/theme-provider';
 
+import type { LocalizedPageProps } from '@/lib/localized-page-props';
+
+let mockPathname = '/en';
+
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
     replace: vi.fn(),
   }),
-  usePathname: () => '/en',
+  usePathname: () => mockPathname,
 }));
 
 beforeEach(() => {
@@ -30,41 +34,38 @@ beforeEach(() => {
       })),
     });
   }
+
+  mockPathname = '/en';
 });
 
 function createLocalizedHomePageProps(locale: 'en' | 'es') {
   return {
     params: Promise.resolve({ locale }),
-    searchParams: Promise.resolve({}),
-  } as PageProps<'/[locale]'>;
+  } satisfies LocalizedPageProps;
 }
 
 function createLocalizedInstallPageProps(locale: 'en' | 'es') {
   return {
     params: Promise.resolve({ locale }),
-    searchParams: Promise.resolve({}),
-  } as PageProps<'/[locale]/install'>;
+  } satisfies LocalizedPageProps;
 }
 
 function createLocalizedSkillsPageProps(locale: 'en' | 'es') {
   return {
     params: Promise.resolve({ locale }),
-    searchParams: Promise.resolve({}),
-  } as PageProps<'/[locale]/skills'>;
+  } satisfies LocalizedPageProps;
 }
 
 function createLocalizedQualityPageProps(locale: 'en' | 'es') {
   return {
     params: Promise.resolve({ locale }),
-    searchParams: Promise.resolve({}),
-  } as PageProps<'/[locale]/quality'>;
+  } satisfies LocalizedPageProps;
 }
 
 function createLocalizedEcosystemPageProps(locale: 'en' | 'es') {
   return {
     params: Promise.resolve({ locale }),
-    searchParams: Promise.resolve({}),
-  } as PageProps<'/[locale]/ecosystem'>;
+  } satisfies LocalizedPageProps;
 }
 
 describe('localized page rendering', () => {
@@ -87,9 +88,10 @@ describe('localized page rendering', () => {
       '/en/ecosystem'
     );
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
-    expect(screen.getByRole('link', { name: 'GitHub' }).getAttribute('href')).toContain(
-      'github.com'
-    );
+    const githubNavbarLink = within(navigation).getByRole('link', { name: 'GitHub' });
+    expect(githubNavbarLink.getAttribute('href')).toContain('github.com');
+    expect(githubNavbarLink.getAttribute('target')).toBe('_blank');
+    expect(githubNavbarLink.getAttribute('rel')).toBe('noreferrer noopener');
     const main = screen.getByRole('main');
     expect(within(main).getByRole('link', { name: 'shadcn' }).getAttribute('href')).toBe(
       'https://ui.shadcn.com'
@@ -179,5 +181,16 @@ describe('localized page rendering', () => {
     );
     expect(screen.getByText('Resumen').textContent).toBe('Resumen');
     expect(screen.getByRole('heading', { level: 2, name: 'Herramientas' })).toBeDefined();
+  });
+
+  it('keeps the active desktop route visible on localized deep pages', async () => {
+    mockPathname = '/en/install';
+
+    render(
+      <ThemeProvider>{await InstallPage(createLocalizedInstallPageProps('en'))}</ThemeProvider>
+    );
+
+    expect(screen.getByRole('link', { name: 'Install' }).getAttribute('aria-current')).toBe('page');
+    expect(screen.queryByRole('link', { name: 'Home', current: 'page' })).toBeNull();
   });
 });

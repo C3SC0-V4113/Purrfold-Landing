@@ -20,7 +20,7 @@
     "scan": "next dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node scripts/refresh-next-types.mjs && next typegen && tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run format:check && npm run test && npm run doctor:ci",
     "prepare": "husky"
   },

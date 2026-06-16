@@ -5,8 +5,12 @@ test.use({ viewport: { width: 390, height: 844 } });
 test('opens and closes the mobile sheet without leaving the page', async ({ page }) => {
   await page.goto('/en/install');
 
+  await expect(page).toHaveURL(/\/en\/install$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Install Purrfold' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Open menu' })).toBeVisible();
   await page.getByRole('button', { name: 'Open menu' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Close menu' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Navigation', includeHidden: true })).toHaveCount(
     1
   );

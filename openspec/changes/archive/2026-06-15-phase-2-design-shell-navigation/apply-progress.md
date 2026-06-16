@@ -5,7 +5,7 @@
 - Slice: 2 of 2
 - Delivery: chained PR slice (`stacked-to-main`)
 - Mode: Strict TDD
-- Scope status: slice 1 and slice 2 implementation complete; verification captured for apply handoff
+- Scope status: slice 1 and slice 2 implementation complete; remediation follow-up fixed the post-Playwright typecheck/check blocker by regenerating route types from a clean state, and formal `sdd-verify` remains a separate phase
 
 ## Completed Tasks
 
@@ -47,12 +47,12 @@
 
 - Port 3100 check: `Get-NetTCPConnection -LocalPort 3100 -State Listen` returned no listener; no stale project-owned server needed cleanup.
 - `npm run lint` ✅
-- `npm run typecheck` ✅
+- `npm run typecheck` ✅ after deleting stale `.next/dev/types` artifacts and rerunning `next typegen`
 - `npm run format:check` ✅
 - `npm run test` ✅
 - `CI=1 npx playwright test tests/e2e/mobile-navigation.spec.ts --project=chromium --workers=1` ✅
 - `npm run doctor` ✅ (reported maintainability warnings but did not fail)
-- `npm run check` ✅
+- `npm run check` ✅ after the typecheck script was hardened to clean stale dev route types before regeneration
 
 ### Spec Scenario Coverage
 
@@ -66,5 +66,8 @@
 
 ## Notes
 
+- 2026-06-15 remediation follow-up: the real blocker was stale `.next/dev/types` output left behind after Playwright's `next dev` run. Because `tsconfig.json` includes `.next/dev/types/**/*.ts`, malformed dev route helpers can break `tsc` even though `next typegen` regenerates `next-env.d.ts` back to `.next/types/routes.d.ts`. The durable fix is targeted cleanup of `.next/dev/types` before `next typegen`, which keeps `npm run typecheck` and `npm run check` reproducible without deleting all of `.next/dev` or removing `next-env.d.ts`.
+- 2026-06-15 verifier remediation: added a focused localized-pages assertion that every GitHub navbar external action keeps `target="_blank"` plus `rel="noreferrer noopener"`, closing the last formal spec coverage gap without changing navigation implementation.
+- 2026-06-15 remediation: replaced invalid deep-route `PageProps<'/[locale]/...'>` usage with a shared async locale-props type so Next.js 16 type-checking no longer rejects nested localized pages, and expanded runtime coverage for desktop active-route `aria-current` plus mobile sheet accessible names while re-validating `/en/install`.
 - The task list originally named `npm run test:e2e`; it now matches the explicit apply instruction to avoid a separate full E2E pass and instead use the focused Chromium mobile-navigation spec plus `npm run check` required by the design verification gate.
 - `.prettierignore` now excludes generated `messages/*.d.json.ts` files because the next-intl generator rewrites them in a style that drifts from repo Prettier output during verification.
