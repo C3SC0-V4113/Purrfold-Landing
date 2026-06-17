@@ -1,16 +1,58 @@
 {
   "HomePage": {
-    "description": "A localized entrypoint for installation, skills, quality guardrails, and the broader Purrfold ecosystem.",
-    "eyebrow": "Localized CLI landing",
-    "foundations": {
-      "description": "Reference the design-system and framework foundations from the home surface instead of the persistent header.",
-      "nextjs": "Next.js",
-      "shadcn": "shadcn",
-      "title": "Foundations"
-    },
-    "primaryCta": "Open install guide",
-    "secondaryCta": "Review skills",
-    "title": "Purrfold landing for serious agent workflows"
+    "hub": {
+      "hero": {
+        "eyebrow": "Agent-first",
+        "title": "Purrfold landing for serious agent workflows",
+        "description": "Purrfold scaffolds production-grade projects with quality gates, agent skills, and shadcn UI — so you can focus on code that matters.",
+        "cta": "Get started"
+      },
+      "tabs": {
+        "title": "Quick start",
+        "cli": "CLI",
+        "agent": "Agent",
+        "cliCommand": "npx purrfold@latest <project-directory>",
+        "agentPrompt": "I want to start a new Purrfold project. Please scaffold a Next.js project with i18n, quality gates, shadcn/base-rhea, and agent skills enabled. Run the init flow and show me the first steps.",
+        "copyButton": "Copy",
+        "copied": "Copied!"
+      },
+      "cards": {
+        "title": "Explore",
+        "install": {
+          "title": "Install",
+          "description": "CLI and agent setup flows with flags and presets."
+        },
+        "skills": {
+          "title": "Skills",
+          "description": "Curated agent skills for consistent, high-quality code."
+        },
+        "quality": {
+          "title": "Quality",
+          "description": "ESLint, Prettier, Husky, commitlint, React Doctor, Vitest, Playwright."
+        },
+        "ecosystem": {
+          "title": "Ecosystem",
+          "description": "shadcn-adjacent libraries and design inspirations."
+        }
+      },
+      "roadmap": {
+        "title": "Roadmap",
+        "shipped": "Shipped",
+        "future": "Future",
+        "items": [
+          { "name": "Next.js", "status": "shipped" },
+          { "name": "Astro", "status": "future" },
+          { "name": "Vite", "status": "future" },
+          { "name": "TanStack Start", "status": "future" }
+        ]
+      },
+      "foundations": {
+        "title": "Foundations",
+        "description": "Built on the primitives we trust.",
+        "shadcn": "shadcn/ui",
+        "nextjs": "Next.js"
+      }
+    }
   },
   "Metadata": {
     "ecosystem": {

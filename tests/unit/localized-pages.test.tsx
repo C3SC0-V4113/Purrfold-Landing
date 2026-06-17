@@ -95,14 +95,15 @@ describe('localized page rendering', () => {
     expect(githubNavbarLink.getAttribute('target')).toBe('_blank');
     expect(githubNavbarLink.getAttribute('rel')).toBe('noreferrer noopener');
     const main = screen.getByRole('main');
-    expect(within(main).getByRole('link', { name: 'shadcn' }).getAttribute('href')).toBe(
+    expect(within(main).getByRole('link', { name: 'shadcn/ui' }).getAttribute('href')).toBe(
       'https://ui.shadcn.com'
     );
     expect(within(main).getByRole('link', { name: 'Next.js' }).getAttribute('href')).toBe(
       'https://nextjs.org'
     );
-    expect(within(navigation).queryByRole('link', { name: 'shadcn' })).toBeNull();
+    expect(within(navigation).queryByRole('link', { name: 'shadcn/ui' })).toBeNull();
     expect(within(navigation).queryByRole('link', { name: 'Next.js' })).toBeNull();
+    expect(screen.getByText('npx purrfold@latest <project-directory>')).toBeDefined();
   });
 
   it('renders the Spanish home navigation and hub content', async () => {
@@ -122,6 +123,7 @@ describe('localized page rendering', () => {
     expect(screen.getByRole('link', { name: 'Ecosistema' }).getAttribute('href')).toBe(
       '/es/ecosystem'
     );
+    expect(screen.getByText('npx purrfold@latest <directorio-del-proyecto>')).toBeDefined();
   });
 
   it('renders an English placeholder page with context and a CTA', async () => {

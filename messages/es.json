@@ -1,16 +1,58 @@
 {
   "HomePage": {
-    "description": "Un punto de entrada localizado para instalación, skills, controles de calidad y el ecosistema de Purrfold.",
-    "eyebrow": "Landing localizada del CLI",
-    "foundations": {
-      "description": "Consulta las bases del sistema de diseño y del framework desde la portada, no desde el encabezado persistente.",
-      "nextjs": "Next.js",
-      "shadcn": "shadcn",
-      "title": "Bases"
-    },
-    "primaryCta": "Abrir guía de instalación",
-    "secondaryCta": "Revisar skills",
-    "title": "Purrfold para flujos serios con agentes"
+    "hub": {
+      "hero": {
+        "eyebrow": "Agent-first",
+        "title": "Purrfold para flujos serios con agentes",
+        "description": "Purrfold genera proyectos listos para producción con controles de calidad, skills para agentes y shadcn UI, para que te enfoques en el código que importa.",
+        "cta": "Empezar"
+      },
+      "tabs": {
+        "title": "Inicio rápido",
+        "cli": "CLI",
+        "agent": "Agente",
+        "cliCommand": "npx purrfold@latest <directorio-del-proyecto>",
+        "agentPrompt": "Quiero iniciar un proyecto nuevo con Purrfold. Genera un proyecto de Next.js con i18n, controles de calidad, shadcn/base-rhea y skills para agentes habilitadas. Ejecuta el flujo de init y muéstrame los primeros pasos.",
+        "copyButton": "Copiar",
+        "copied": "¡Copiado!"
+      },
+      "cards": {
+        "title": "Explorar",
+        "install": {
+          "title": "Instalar",
+          "description": "Flujos de instalación para CLI y agente con flags y presets."
+        },
+        "skills": {
+          "title": "Skills",
+          "description": "Skills para agentes seleccionadas para código consistente y de alta calidad."
+        },
+        "quality": {
+          "title": "Calidad",
+          "description": "ESLint, Prettier, Husky, commitlint, React Doctor, Vitest y Playwright."
+        },
+        "ecosystem": {
+          "title": "Ecosistema",
+          "description": "Librerías cercanas a shadcn e inspiraciones de diseño."
+        }
+      },
+      "roadmap": {
+        "title": "Hoja de ruta",
+        "shipped": "Disponible",
+        "future": "Próximo",
+        "items": [
+          { "name": "Next.js", "status": "shipped" },
+          { "name": "Astro", "status": "future" },
+          { "name": "Vite", "status": "future" },
+          { "name": "TanStack Start", "status": "future" }
+        ]
+      },
+      "foundations": {
+        "title": "Bases",
+        "description": "Construido sobre las primitivas en las que confiamos.",
+        "shadcn": "shadcn/ui",
+        "nextjs": "Next.js"
+      }
+    }
   },
   "Metadata": {
     "ecosystem": {
