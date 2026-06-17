@@ -6,16 +6,16 @@ declare const messages: {
     "hub": {
       "hero": {
         "eyebrow": "Agent-first",
-        "title": "Purrfold landing for serious agent workflows",
-        "description": "Purrfold scaffolds production-grade projects with quality gates, agent skills, and shadcn UI — so you can focus on code that matters.",
-        "cta": "Get started"
+        "title": "The solid foundation for agent-driven projects",
+        "description": "Purrfold scaffolds production-ready projects with quality gates, agent skills, and shadcn UI — so your agents build on solid ground from day one.",
+        "cta": "Scaffold a project"
       },
       "tabs": {
         "title": "Quick start",
         "cli": "CLI",
         "agent": "Agent",
         "cliCommand": "npx purrfold@latest <project-directory>",
-        "agentPrompt": "I want to start a new Purrfold project. Please scaffold a Next.js project with i18n, quality gates, shadcn/base-rhea, and agent skills enabled. Run the init flow and show me the first steps.",
+        "agentPrompt": "I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, and agent skills. After scaffolding, run `npm run check` to verify everything works.",
         "copyButton": "Copy",
         "copied": "Copied!"
       },

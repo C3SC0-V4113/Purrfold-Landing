@@ -1,42 +1,65 @@
 import Link from 'next/link';
 
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { getMessages } from '@/i18n/messages';
 import { buildLocalizedPath } from '@/i18n/routing';
 
 import type { Locale } from '@/i18n/routing';
 
-type SummaryCardsProps = {
+type SummarySectionProps = {
   locale: Locale;
 };
 
 const routes = ['install', 'skills', 'quality', 'ecosystem'] as const;
 
-export function SummaryCards({ locale }: SummaryCardsProps) {
+function ctaLabel(route: string, locale: Locale) {
+  if (locale === 'es') {
+    const labels: Record<string, string> = {
+      install: 'Guía de instalación',
+      skills: 'Ver skills',
+      quality: 'Pipeline de calidad',
+      ecosystem: 'Explorar ecosistema',
+    };
+    return labels[route] ?? 'Ver más';
+  }
+
+  const labels: Record<string, string> = {
+    install: 'Install guide',
+    skills: 'View skills',
+    quality: 'Quality pipeline',
+    ecosystem: 'Explore ecosystem',
+  };
+  return labels[route] ?? 'Learn more';
+}
+
+export function SummaryCards({ locale }: SummarySectionProps) {
   const t = getMessages(locale).HomePage.hub.cards;
 
   return (
     <section
-      className="flex animate-shell-enter-up flex-col gap-4"
+      className="flex animate-shell-enter-up flex-col gap-8"
       style={{ animationDelay: '160ms' }}
     >
       <h2 className="text-sm font-semibold text-foreground">{t.title}</h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {routes.map((route) => {
+      <div className="flex flex-col gap-8">
+        {routes.map((route, index) => {
           const card = t[route];
           return (
-            <Link
-              key={route}
-              href={buildLocalizedPath(locale, `/${route}` as const)}
-              className="group focus-visible:outline-none"
-            >
-              <Card className="h-full transition-colors hover:bg-muted/50">
-                <CardHeader>
-                  <CardTitle>{card.title}</CardTitle>
-                  <CardDescription>{card.description}</CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
+            <article key={route}>
+              <div className="flex flex-col gap-3">
+                <h3 className="text-base font-medium text-foreground">{card.title}</h3>
+                <p className="text-sm leading-6 text-muted-foreground">{card.description}</p>
+                <div>
+                  <Link
+                    href={buildLocalizedPath(locale, `/${route}`)}
+                    className="text-sm font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+                  >
+                    {ctaLabel(route, locale)} &rarr;
+                  </Link>
+                </div>
+              </div>
+              {index < routes.length - 1 ? <Separator className="mt-8" /> : null}
+            </article>
           );
         })}
       </div>

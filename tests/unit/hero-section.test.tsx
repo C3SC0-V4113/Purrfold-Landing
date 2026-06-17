@@ -15,15 +15,15 @@ describe('HeroSection', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: 'Purrfold landing for serious agent workflows',
+        name: 'The solid foundation for agent-driven projects',
       })
     ).toBeDefined();
     expect(
       screen.getByText(
-        'Purrfold scaffolds production-grade projects with quality gates, agent skills, and shadcn UI — so you can focus on code that matters.'
+        'Purrfold scaffolds production-ready projects with quality gates, agent skills, and shadcn UI — so your agents build on solid ground from day one.'
       )
     ).toBeDefined();
-    const cta = screen.getByRole('link', { name: 'Get started' });
+    const cta = screen.getByRole('link', { name: 'Scaffold a project' });
     expect(cta.getAttribute('href')).toBe('/en/install');
   });
 
@@ -32,14 +32,14 @@ describe('HeroSection', () => {
 
     expect(screen.getByText('Agent-first')).toBeDefined();
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Purrfold para flujos serios con agentes' })
+      screen.getByRole('heading', { level: 1, name: 'La base sólida para proyectos con agentes' })
     ).toBeDefined();
     expect(
       screen.getByText(
-        'Purrfold genera proyectos listos para producción con controles de calidad, skills para agentes y shadcn UI, para que te enfoques en el código que importa.'
+        'Purrfold genera proyectos listos para producción con controles de calidad, skills para agentes y shadcn UI — para que tus agentes construyan sobre terreno firme desde el día uno.'
       )
     ).toBeDefined();
-    const cta = screen.getByRole('link', { name: 'Empezar' });
+    const cta = screen.getByRole('link', { name: 'Crear proyecto' });
     expect(cta.getAttribute('href')).toBe('/es/install');
   });
 });

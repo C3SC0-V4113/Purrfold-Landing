@@ -3,16 +3,16 @@
     "hub": {
       "hero": {
         "eyebrow": "Agent-first",
-        "title": "Purrfold para flujos serios con agentes",
-        "description": "Purrfold genera proyectos listos para producción con controles de calidad, skills para agentes y shadcn UI, para que te enfoques en el código que importa.",
-        "cta": "Empezar"
+        "title": "La base sólida para proyectos con agentes",
+        "description": "Purrfold genera proyectos listos para producción con controles de calidad, skills para agentes y shadcn UI — para que tus agentes construyan sobre terreno firme desde el día uno.",
+        "cta": "Crear proyecto"
       },
       "tabs": {
         "title": "Inicio rápido",
         "cli": "CLI",
         "agent": "Agente",
         "cliCommand": "npx purrfold@latest <directorio-del-proyecto>",
-        "agentPrompt": "Quiero iniciar un proyecto nuevo con Purrfold. Genera un proyecto de Next.js con i18n, controles de calidad, shadcn/base-rhea y skills para agentes habilitadas. Ejecuta el flujo de init y muéstrame los primeros pasos.",
+        "agentPrompt": "Quiero generar un proyecto nuevo de Next.js con purrfold. Ejecuta `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` para crear el proyecto con controles de calidad, tests y skills para agentes. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
         "copyButton": "Copiar",
         "copied": "¡Copiado!"
       },

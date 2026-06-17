@@ -36,7 +36,7 @@ describe('Hub page composition', () => {
     expect(
       within(main).getByRole('heading', {
         level: 1,
-        name: 'Purrfold landing for serious agent workflows',
+        name: 'The solid foundation for agent-driven projects',
       })
     ).toBeDefined();
     expect(within(main).getByText('npx purrfold@latest <project-directory>')).toBeDefined();
@@ -56,7 +56,7 @@ describe('Hub page composition', () => {
     expect(
       within(main).getByRole('heading', {
         level: 1,
-        name: 'Purrfold para flujos serios con agentes',
+        name: 'La base sólida para proyectos con agentes',
       })
     ).toBeDefined();
     expect(within(main).getByRole('heading', { name: 'Hoja de ruta' })).toBeDefined();

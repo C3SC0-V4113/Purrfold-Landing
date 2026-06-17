@@ -82,7 +82,7 @@ describe('phase 2 design shell navigation artifacts', () => {
       reducedMotionRules.filter(
         ({ declarations, selectors }) =>
           motionProperties.test(declarations) &&
-          selectors.some((selector) => !selector.startsWith('.animate-shell-'))
+          selectors.some((selector) => !selector.startsWith('.animate-'))
       )
     ).toEqual([]);
   });

@@ -77,7 +77,7 @@ describe('localized page rendering', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: 'Purrfold landing for serious agent workflows',
+        name: 'The solid foundation for agent-driven projects',
       })
     ).toBeDefined();
     expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href')).toBe('/en');
@@ -112,7 +112,7 @@ describe('localized page rendering', () => {
     );
 
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Purrfold para flujos serios con agentes' })
+      screen.getByRole('heading', { level: 1, name: 'La base sólida para proyectos con agentes' })
     ).toBeDefined();
     expect(screen.getByRole('link', { name: 'Inicio' }).getAttribute('href')).toBe('/es');
     expect(screen.getByRole('link', { name: 'Instalación' }).getAttribute('href')).toBe(

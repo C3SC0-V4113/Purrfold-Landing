@@ -10,7 +10,7 @@ test('redirects Spanish root traffic to /es', async ({ page, request }) => {
 
   await page.goto('/es');
   await expect(
-    page.getByRole('heading', { level: 1, name: 'Purrfold para flujos serios con agentes' })
+    page.getByRole('heading', { level: 1, name: 'La base sólida para proyectos con agentes' })
   ).toBeVisible();
 });
 
@@ -24,7 +24,7 @@ test('defaults unsupported root traffic to /en', async ({ page, request }) => {
 
   await page.goto('/en');
   await expect(
-    page.getByRole('heading', { level: 1, name: 'Purrfold landing for serious agent workflows' })
+    page.getByRole('heading', { level: 1, name: 'The solid foundation for agent-driven projects' })
   ).toBeVisible();
 });
 

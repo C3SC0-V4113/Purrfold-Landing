@@ -6,7 +6,7 @@ test('switches between CLI and Agent tabs on the English home', async ({ page })
   const agentTab = page.getByRole('tab', { name: 'Agent' });
   const cliCommand = page.getByText('npx purrfold@latest <project-directory>');
   const agentPrompt = page.getByText(
-    'I want to start a new Purrfold project. Please scaffold a Next.js project with i18n, quality gates, shadcn/base-rhea, and agent skills enabled.'
+    'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, and agent skills. After scaffolding, run `npm run check` to verify everything works.'
   );
 
   await expect(cliCommand).toBeVisible();
@@ -32,7 +32,7 @@ test('copies the active tab content to the clipboard', async ({ page, context })
   await page.getByRole('button', { name: 'Copy' }).first().click();
 
   const agentClipboardText = await page.evaluate(async () => navigator.clipboard.readText());
-  expect(agentClipboardText).toContain('I want to start a new Purrfold project');
+  expect(agentClipboardText).toContain('I want to scaffold a new Next.js app with purrfold');
 });
 
 test('summary cards link to localized deep routes', async ({ page }) => {
@@ -61,7 +61,7 @@ test('renders bilingual Spanish hub content', async ({ page }) => {
   await page.goto('/es');
 
   await expect(
-    page.getByRole('heading', { level: 1, name: 'Purrfold para flujos serios con agentes' })
+    page.getByRole('heading', { level: 1, name: 'La base sólida para proyectos con agentes' })
   ).toBeVisible();
   await expect(page.getByRole('tab', { name: 'Agente' })).toBeVisible();
   await expect(page.getByText('npx purrfold@latest <directorio-del-proyecto>')).toBeVisible();

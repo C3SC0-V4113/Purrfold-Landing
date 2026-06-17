@@ -119,7 +119,7 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
           <ThemeSwitcher locale={locale} />
         </div>
 
-        <div className="flex items-center md:hidden">
+        <div className="ml-auto flex items-center md:hidden">
           <LanguageSwitcher
             activeLocale={locale}
             label={t.languageSwitch}
