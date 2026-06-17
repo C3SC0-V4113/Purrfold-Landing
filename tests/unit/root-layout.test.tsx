@@ -37,6 +37,11 @@ describe('RootLayout', () => {
   it('sets the html lang attribute from the resolved locale', async () => {
     getLocaleMock.mockResolvedValue('es');
 
+    // Note: this test emits a spurious jsdom stderr warning:
+    //   "In HTML, <html> cannot be a child of <div>."
+    // because the layout component renders <html> as its root element.
+    // This is a known jsdom/testing-library limitation when testing layout
+    // components directly and does not affect production behavior.
     render(await RootLayout({ children: <div>content</div> }));
 
     expect(document.documentElement.lang).toBe('es');

@@ -87,6 +87,8 @@ describe('localized page rendering', () => {
     expect(screen.getByRole('link', { name: 'Ecosystem' }).getAttribute('href')).toBe(
       '/en/ecosystem'
     );
+    const topHeader = screen.getByRole('banner');
+    expect(topHeader.className).toContain('animate-shell-fade-in');
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
     const githubNavbarLink = within(navigation).getByRole('link', { name: 'GitHub' });
     expect(githubNavbarLink.getAttribute('href')).toContain('github.com');

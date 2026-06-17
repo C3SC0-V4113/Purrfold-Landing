@@ -3,7 +3,7 @@ import es from '@/messages/es.json';
 
 import type { Locale } from '@/i18n/routing';
 
-export const messages = {
+const messages = {
   en,
   es,
 } as const;

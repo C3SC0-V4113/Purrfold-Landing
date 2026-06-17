@@ -48,7 +48,7 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
   });
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-40 w-full animate-shell-fade-in border-b border-border bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center gap-2 px-6 sm:px-10">
         <Link
           href={buildLocalizedPath(locale, '/')}
