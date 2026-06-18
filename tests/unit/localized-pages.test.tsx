@@ -163,7 +163,8 @@ describe('localized page rendering', () => {
       <ThemeProvider>{await InstallPage(createLocalizedInstallPageProps('es'))}</ThemeProvider>
     );
     expect(screen.getByText('CLI').textContent).toBe('CLI');
-    expect(screen.getByRole('heading', { level: 2, name: 'Primeros pasos' })).toBeDefined();
+    expect(screen.getByRole('heading', { level: 1, name: 'Instalar Purrfold' })).toBeDefined();
+    expect(screen.getByText('Configura tu instalación')).toBeDefined();
 
     document.body.innerHTML = '';
     render(<ThemeProvider>{await SkillsPage(createLocalizedSkillsPageProps('es'))}</ThemeProvider>);

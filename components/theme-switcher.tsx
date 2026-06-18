@@ -32,14 +32,23 @@ const triggerLabels: Record<Locale, string> = {
 };
 
 export function ThemeSwitcher({ locale }: ThemeSwitcherProps) {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         render={<Button variant="ghost" size="icon" aria-label={triggerLabels[locale]} />}
       >
-        {resolvedTheme === 'dark' ? <MoonIcon /> : <SunIcon />}
+        {/* Render both icons; CSS hides/shows based on the `dark` class
+            set by the inline theme script before hydration. This avoids
+            hydration mismatches since the server can't read the client
+            theme preference. */}
+        <span className="hidden dark:inline">
+          <MoonIcon />
+        </span>
+        <span className="inline dark:hidden">
+          <SunIcon />
+        </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>

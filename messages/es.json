@@ -104,7 +104,76 @@
       "cta": "Usa esta ruta como una transición sobria hacia la instalación mientras las páginas más profundas permanecen intencionalmente livianas.",
       "description": "Inicia el flujo de instalación con la ruta principal, una explicación breve y navegación directa de regreso al hub.",
       "routeLabel": "Instalación",
-      "title": "Instalar Purrfold"
+      "title": "Instalar Purrfold",
+      "tabs": {
+        "cli": "CLI",
+        "agent": "Agente"
+      },
+      "configurator": {
+        "title": "Configura tu instalación",
+        "hide": "Ocultar flags",
+        "show": "Configurar flags",
+        "unit": "Tests unitarios (Vitest)",
+        "e2e": "Tests E2E (Playwright)",
+        "commitlint": "Convención de commits (commitlint)",
+        "mcp": "shadcn MCP para Claude/Codex/OpenCode",
+        "yes": "Modo no interactivo (--yes)",
+        "pm": "Administrador de paquetes",
+        "presetId": "ID de preset de shadcn",
+        "presetPlaceholder": "p. ej. b3REw8vwo"
+      },
+      "output": {
+        "cliLabel": "Comando CLI",
+        "agentLabel": "Prompt para agente",
+        "command": "npx purrfold@latest <directorio-del-proyecto>",
+        "agentIntro": "Genera un proyecto nuevo de Next.js con purrfold (https://www.npmjs.com/package/purrfold). Lee el README o ejecuta `npx purrfold@latest info --json` para descubrir las opciones disponibles.",
+        "agentInclude": "Incluye {options}.",
+        "agentExclude": "NO incluyas {options}.",
+        "agentOptionUnit": "tests unitarios (Vitest)",
+        "agentOptionE2e": "tests E2E (Playwright)",
+        "agentOptionCommitlint": "commitlint + Husky",
+        "agentOptionMcp": "shadcn MCP",
+        "agentOptionYes": "modo no interactivo",
+        "agentPm": "Usa {pm} como administrador de paquetes.",
+        "agentIcons": "Usa iconos de {icons}.",
+        "agentPreset": "Usa el preset {presetId} de shadcn.",
+        "agentOutro": "Después del scaffolding, ejecuta `npm run check` para verificar que todo funcione."
+      },
+      "flagsReference": {
+        "title": "Todos los flags disponibles",
+        "items": [
+          {
+            "flag": "--unit / --no-unit",
+            "description": "Incluir u omitir Vitest + React Testing Library"
+          },
+          { "flag": "--e2e / --no-e2e", "description": "Incluir u omitir Playwright" },
+          {
+            "flag": "--commitlint / --no-commitlint",
+            "description": "Incluir u omitir commitlint + el hook commit-msg de Husky"
+          },
+          {
+            "flag": "--shadcn-args <args...>",
+            "description": "Reenviar argumentos extra a shadcn init, incluyendo --preset <id>"
+          },
+          { "flag": "--pm npm|pnpm|bun", "description": "Elegir el administrador de paquetes" },
+          {
+            "flag": "--mcp / --no-mcp",
+            "description": "Instalar shadcn MCP para Claude, Codex y OpenCode"
+          },
+          {
+            "flag": "--icons <lucide|phosphor|tabler>",
+            "description": "Librería de iconos fallback para el gato de la home"
+          },
+          { "flag": "--yes", "description": "Usar valores por defecto no interactivos" },
+          { "flag": "--dry-run", "description": "Previsualizar operaciones sin escribir archivos" }
+        ]
+      },
+      "preset": {
+        "title": "Usar un preset de shadcn",
+        "description": "Pasa un ID de preset a shadcn init para omitir la selección interactiva de estilo:",
+        "command": "npx purrfold@latest my-app --shadcn-args --preset b3REw8vwo --yes",
+        "presetLabel": "ID de preset (ejemplo)"
+      }
     },
     "quality": {
       "cardBadge": "Controles",

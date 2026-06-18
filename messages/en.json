@@ -104,7 +104,76 @@
       "cta": "Use this route as the calm handoff into installation details while the deeper implementation pages stay intentionally light.",
       "description": "Start the install flow with the core route, a minimal explanation, and direct navigation back to the hub.",
       "routeLabel": "Install",
-      "title": "Install Purrfold"
+      "title": "Install Purrfold",
+      "tabs": {
+        "cli": "CLI",
+        "agent": "Agent"
+      },
+      "configurator": {
+        "title": "Configure your install",
+        "hide": "Hide flags",
+        "show": "Configure flags",
+        "unit": "Unit tests (Vitest)",
+        "e2e": "E2E tests (Playwright)",
+        "commitlint": "Commit convention (commitlint)",
+        "mcp": "shadcn MCP for Claude/Codex/OpenCode",
+        "yes": "Non-interactive mode (--yes)",
+        "pm": "Package manager",
+        "presetId": "shadcn preset ID",
+        "presetPlaceholder": "e.g. b3REw8vwo"
+      },
+      "output": {
+        "cliLabel": "CLI command",
+        "agentLabel": "Agent prompt",
+        "command": "npx purrfold@latest <project-directory>",
+        "agentIntro": "Scaffold a new Next.js app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.",
+        "agentInclude": "Include {options}.",
+        "agentExclude": "Do NOT include {options}.",
+        "agentOptionUnit": "unit tests (Vitest)",
+        "agentOptionE2e": "E2E tests (Playwright)",
+        "agentOptionCommitlint": "commitlint + Husky",
+        "agentOptionMcp": "shadcn MCP",
+        "agentOptionYes": "non-interactive mode",
+        "agentPm": "Use {pm} as the package manager.",
+        "agentIcons": "Use {icons} icons.",
+        "agentPreset": "Use shadcn preset {presetId}.",
+        "agentOutro": "Run `npm run check` after scaffolding to verify everything works."
+      },
+      "flagsReference": {
+        "title": "All available flags",
+        "items": [
+          {
+            "flag": "--unit / --no-unit",
+            "description": "Include or skip Vitest + React Testing Library"
+          },
+          { "flag": "--e2e / --no-e2e", "description": "Include or skip Playwright" },
+          {
+            "flag": "--commitlint / --no-commitlint",
+            "description": "Include or skip commitlint + Husky commit-msg hook"
+          },
+          {
+            "flag": "--shadcn-args <args...>",
+            "description": "Forward extra arguments to shadcn init, including --preset <id>"
+          },
+          { "flag": "--pm npm|pnpm|bun", "description": "Choose the package manager" },
+          {
+            "flag": "--mcp / --no-mcp",
+            "description": "Install shadcn MCP for Claude, Codex, and OpenCode"
+          },
+          {
+            "flag": "--icons <lucide|phosphor|tabler>",
+            "description": "Fallback icon library for the home-page cat"
+          },
+          { "flag": "--yes", "description": "Use non-interactive defaults" },
+          { "flag": "--dry-run", "description": "Preview operations without writing files" }
+        ]
+      },
+      "preset": {
+        "title": "Using a shadcn preset",
+        "description": "Pass a preset ID to shadcn init to skip the interactive style selection:",
+        "command": "npx purrfold@latest my-app --shadcn-args --preset b3REw8vwo --yes",
+        "presetLabel": "Preset ID (example)"
+      }
     },
     "quality": {
       "cardBadge": "Guardrails",

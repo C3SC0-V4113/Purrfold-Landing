@@ -31,7 +31,7 @@ export function PageShell({
       <BaseNavigation locale={locale} />
       <main className="mx-auto w-full max-w-5xl px-6 py-12 sm:px-10 sm:py-16">
         <div className="flex flex-col gap-10">
-          <Card size="sm" className="p-0 sm:p-0">
+          <Card size="sm">
             <CardHeader className="gap-4">
               {routeLabel ? <Badge variant="outline">{routeLabel}</Badge> : null}
               <div className="flex flex-col gap-2">
