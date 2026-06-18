@@ -1,4 +1,4 @@
-import { PageShell } from '@/components/page-shell';
+import { PageShell } from '@/components/common/page-shell';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getMessages } from '@/i18n/messages';

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { HeroSection } from '@/components/hero-section';
+import { HeroSection } from '@/components/home/hero-section';
 
 describe('HeroSection', () => {
   beforeEach(() => {

@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import { BaseNavigation } from '@/components/base-navigation';
-import { FoundationsSection } from '@/components/foundations-section';
-import { QuickInstall } from '@/components/quick-install';
-import { RoadmapSection } from '@/components/roadmap-section';
-import { SummaryCards } from '@/components/summary-cards';
+import { BaseNavigation } from '@/components/common/base-navigation';
+import { FoundationsSection } from '@/components/home/foundations-section';
+import { QuickInstall } from '@/components/home/quick-install';
+import { RoadmapSection } from '@/components/home/roadmap-section';
+import { SummaryCards } from '@/components/home/summary-cards';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { getMessages } from '@/i18n/messages';

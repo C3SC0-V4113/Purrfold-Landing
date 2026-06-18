@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import LocalizedHomePage from '@/app/[locale]/page';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/common/theme-provider';
 
 import type { LocalizedPageProps } from '@/lib/localized-page-props';
 

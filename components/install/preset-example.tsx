@@ -2,12 +2,11 @@
 
 import { ExternalLinkIcon } from 'lucide-react';
 
-import { CopyButton } from '@/components/copy-button';
+import { CodeBlock } from '@/components/common/code-block';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { buildCliCommand, type FlagState } from '@/lib/build-command';
 
 export type PresetMessages = {
@@ -67,16 +66,7 @@ export function PresetExample({ messages, presetId, onPresetChange }: PresetExam
             </Button>
           </a>
         </div>
-        <div className="relative">
-          <ScrollArea className="max-h-[200px] rounded-2xl bg-muted">
-            <pre className="p-4 pr-12 font-mono text-sm whitespace-pre-wrap">
-              <code className="break-all">{command}</code>
-            </pre>
-          </ScrollArea>
-          <div className="absolute top-2 right-3 z-10">
-            <CopyButton text={command} />
-          </div>
-        </div>
+        <CodeBlock text={command} />
       </CardContent>
     </Card>
   );

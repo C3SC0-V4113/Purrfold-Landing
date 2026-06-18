@@ -4,8 +4,8 @@ import { ExternalLinkIcon, GitBranchIcon, MenuIcon, XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { LanguageSwitcher } from '@/components/language-switcher';
-import { ThemeSwitcher } from '@/components/theme-switcher';
+import { LanguageSwitcher } from '@/components/common/language-switcher';
+import { ThemeSwitcher } from '@/components/common/theme-switcher';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   NavigationMenu,

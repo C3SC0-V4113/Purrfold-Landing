@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { GeneratedOutput } from '@/components/generated-output';
+import { GeneratedOutput } from '@/components/install/generated-output';
 
 describe('GeneratedOutput', () => {
   beforeEach(() => {

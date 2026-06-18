@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { SummaryCards } from '@/components/summary-cards';
+import { SummaryCards } from '@/components/home/summary-cards';
 
 describe('SummaryCards', () => {
   beforeEach(() => {

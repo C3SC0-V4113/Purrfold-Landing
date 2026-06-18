@@ -1,5 +1,4 @@
-import { CopyButton } from '@/components/copy-button';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { CodeBlock } from '@/components/common/code-block';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getMessages } from '@/i18n/messages';
 
@@ -22,28 +21,12 @@ export function QuickInstall({ locale }: QuickInstallProps) {
         </TabsList>
         <TabsContent value="cli" className="max-w-full">
           <div className="animate-tab-enter">
-            <div className="relative">
-              <ScrollArea className="max-h-[200px] rounded-2xl bg-muted">
-                <pre className="p-4 pr-12 font-mono text-sm">
-                  <code className="break-all">{t.cliCommand}</code>
-                </pre>
-              </ScrollArea>
-              <div className="absolute top-2 right-3 z-10">
-                <CopyButton text={t.cliCommand} />
-              </div>
-            </div>
+            <CodeBlock text={t.cliCommand} />
           </div>
         </TabsContent>
         <TabsContent value="agent" className="max-w-full">
           <div className="animate-tab-enter">
-            <div className="relative">
-              <pre className="overflow-x-auto rounded-2xl bg-muted p-4 pr-10 font-mono text-sm whitespace-pre-wrap">
-                <code>{t.agentPrompt}</code>
-              </pre>
-              <div className="absolute top-2 right-2">
-                <CopyButton text={t.agentPrompt} />
-              </div>
-            </div>
+            <CodeBlock text={t.agentPrompt} />
           </div>
         </TabsContent>
       </Tabs>

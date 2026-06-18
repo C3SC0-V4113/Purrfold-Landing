@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { FlagsReference } from '@/components/flags-reference';
+import { FlagsReference } from '@/components/install/flags-reference';
 
 import { enInstallMessages, esInstallMessages } from './fixtures/install-messages';
 

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { RoadmapSection } from '@/components/roadmap-section';
+import { RoadmapSection } from '@/components/home/roadmap-section';
 
 describe('RoadmapSection', () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { InstallView } from '@/components/install-view';
+import { InstallView } from '@/components/install/install-view';
 import { buildAgentPrompt, buildCliCommand, defaultFlags } from '@/lib/build-command';
 
 import { enInstallMessages, esInstallMessages } from './fixtures/install-messages';

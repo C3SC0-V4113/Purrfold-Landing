@@ -6,9 +6,9 @@ import {
   FlagConfigurator,
   type BooleanFlagKey,
   type ConfiguratorMessages,
-} from '@/components/flag-configurator';
-import { GeneratedOutput } from '@/components/generated-output';
-import { PresetExample, type PresetMessages } from '@/components/preset-example';
+} from '@/components/install/flag-configurator';
+import { GeneratedOutput } from '@/components/install/generated-output';
+import { PresetExample, type PresetMessages } from '@/components/install/preset-example';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   buildAgentPrompt,

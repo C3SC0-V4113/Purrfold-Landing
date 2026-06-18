@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { PresetExample } from '@/components/preset-example';
+import { PresetExample } from '@/components/install/preset-example';
 
 import { enInstallMessages, esInstallMessages } from './fixtures/install-messages';
 

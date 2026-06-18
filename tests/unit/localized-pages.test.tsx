@@ -6,7 +6,7 @@ import InstallPage from '@/app/[locale]/install/page';
 import LocalizedHomePage from '@/app/[locale]/page';
 import QualityPage from '@/app/[locale]/quality/page';
 import SkillsPage from '@/app/[locale]/skills/page';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/common/theme-provider';
 
 import type { LocalizedPageProps } from '@/lib/localized-page-props';
 

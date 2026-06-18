@@ -1,6 +1,6 @@
-import { FlagsReference } from '@/components/flags-reference';
-import { InstallView } from '@/components/install-view';
-import { PageShell } from '@/components/page-shell';
+import { PageShell } from '@/components/common/page-shell';
+import { FlagsReference } from '@/components/install/flags-reference';
+import { InstallView } from '@/components/install/install-view';
 import { getMessages } from '@/i18n/messages';
 import { resolveLocale } from '@/lib/locale';
 import { type LocalizedPageProps } from '@/lib/localized-page-props';

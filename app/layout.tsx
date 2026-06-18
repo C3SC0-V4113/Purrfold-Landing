@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
 import { getLocale } from 'next-intl/server';
 
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/common/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { siteUrl } from '@/lib/site';
 

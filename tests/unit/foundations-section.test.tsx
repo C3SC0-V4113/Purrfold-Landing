@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { FoundationsSection } from '@/components/foundations-section';
+import { FoundationsSection } from '@/components/home/foundations-section';
 
 describe('FoundationsSection', () => {
   beforeEach(() => {

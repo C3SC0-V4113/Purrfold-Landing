@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { FlagConfigurator } from '@/components/flag-configurator';
+import { FlagConfigurator } from '@/components/install/flag-configurator';
 import { defaultFlags, type FlagState } from '@/lib/build-command';
 
 import { enInstallMessages, esInstallMessages } from './fixtures/install-messages';

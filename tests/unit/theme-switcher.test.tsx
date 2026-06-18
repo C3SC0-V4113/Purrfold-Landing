@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ThemeProvider } from '@/components/theme-provider';
-import { ThemeSwitcher } from '@/components/theme-switcher';
+import { ThemeProvider } from '@/components/common/theme-provider';
+import { ThemeSwitcher } from '@/components/common/theme-switcher';
 
 function mockMatchMedia(matches: boolean) {
   Object.defineProperty(window, 'matchMedia', {

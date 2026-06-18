@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import InstallPage from '@/app/[locale]/install/page';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/common/theme-provider';
 
 import type { LocalizedPageProps } from '@/lib/localized-page-props';
 
