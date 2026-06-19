@@ -158,7 +158,7 @@ describe('localized page rendering', () => {
     expect(screen.getByRole('link', { name: 'Volver al inicio' }).getAttribute('href')).toBe('/es');
   });
 
-  it('renders localized sub-card labels on Spanish placeholder pages', async () => {
+  it('renders localized sub-card labels on Spanish pages', async () => {
     render(
       <ThemeProvider>{await InstallPage(createLocalizedInstallPageProps('es'))}</ThemeProvider>
     );
@@ -168,8 +168,10 @@ describe('localized page rendering', () => {
 
     document.body.innerHTML = '';
     render(<ThemeProvider>{await SkillsPage(createLocalizedSkillsPageProps('es'))}</ThemeProvider>);
-    expect(screen.getByText('Flujo de trabajo').textContent).toBe('Flujo de trabajo');
-    expect(screen.getByRole('heading', { level: 2, name: 'Capas de skills' })).toBeDefined();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Skills con el mismo peso' })
+    ).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Arquitectura y diseño' })).toBeDefined();
 
     document.body.innerHTML = '';
     render(

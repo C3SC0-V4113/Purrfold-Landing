@@ -189,7 +189,123 @@
       "cta": "Usa esta ruta para explicar cómo la landing actual conecta la guía operativa con skills reutilizables.",
       "description": "Revisa la capa de skills que respalda la instalación, la verificación y la expansión localizada futura.",
       "routeLabel": "Skills",
-      "title": "Superficie de skills"
+      "title": "Superficie de skills",
+      "overview": {
+        "title": "Skills con el mismo peso",
+        "description": "Cada skill resuelve un problema distinto. Esta página muestra dónde encaja, en qué ayuda y un ejemplo breve de su utilidad."
+      },
+      "linkLabel": "Abrir skill",
+      "categories": {
+        "architecture": {
+          "title": "Arquitectura y diseño"
+        },
+        "framework": {
+          "title": "Framework y UI"
+        },
+        "quality": {
+          "title": "Calidad y testing"
+        },
+        "typescript": {
+          "title": "TypeScript"
+        }
+      },
+      "skills": {
+        "vercel-composition-patterns": {
+          "name": "Patrones de composición de Vercel",
+          "purpose": "Patrones de composición en React para APIs de componentes flexibles y mantenibles.",
+          "whenHelp": "Cuando se crean componentes reutilizables o se refactorizan componentes con proliferación de props booleanas.",
+          "example": "Ejemplo: divide una card en Card, CardHeader y CardBody en lugar de sumar props booleanas."
+        },
+        "project-architecture": {
+          "name": "Arquitectura del proyecto",
+          "purpose": "Guardrails de arquitectura para UI, layout, flujo de estado, theming y límites server/client.",
+          "whenHelp": "Cuando se diseña la estructura de componentes, la gestión de estado o los límites entre servidor y cliente.",
+          "example": "Ejemplo: decide si una página sigue siendo server-first o necesita una client island."
+        },
+        "architecture-decision-records": {
+          "name": "Registros de decisiones de arquitectura",
+          "purpose": "Documenta decisiones técnicas significativas con contexto, tradeoffs y justificación.",
+          "whenHelp": "Cuando se toma una decisión arquitectónica no trivial que futuros agentes deberían entender.",
+          "example": "Ejemplo: registra por qué elegiste server actions en lugar de route handlers."
+        },
+        "decision-doc-sync": {
+          "name": "Sincronización de documentación de decisiones",
+          "purpose": "Mantiene sincronizada la documentación cuando cambian la arquitectura, la UI o las convenciones.",
+          "whenHelp": "Después de cambios estructurales que afectan documentación, ADRs o controles de calidad.",
+          "example": "Ejemplo: actualiza el ADR cuando cambia el límite de un componente."
+        },
+        "next-best-practices": {
+          "name": "Buenas prácticas de Next.js",
+          "purpose": "Convenciones de archivos de Next.js, límites RSC, patrones de datos, APIs asíncronas y optimización.",
+          "whenHelp": "Cuando se crean páginas, layouts, rutas o data fetching en App Router.",
+          "example": "Ejemplo: mantén las route components server-first y espera los params asíncronos."
+        },
+        "vercel-react-best-practices": {
+          "name": "Buenas prácticas de React de Vercel",
+          "purpose": "Guías de optimización de rendimiento para React y Next.js.",
+          "whenHelp": "Cuando se optimizan renderizado, tamaño de bundle o patrones de carga de datos.",
+          "example": "Ejemplo: memoiza solo cuando el profiling muestre un costo real de render."
+        },
+        "shadcn": {
+          "name": "shadcn/ui",
+          "purpose": "Gestiona componentes shadcn, estilos, presets y configuración del proyecto.",
+          "whenHelp": "Cuando se agregan, personalizan o diagnostican componentes shadcn.",
+          "example": "Ejemplo: compón un formulario con primitives de shadcn antes de escribir UI propia."
+        },
+        "vitest": {
+          "name": "Vitest",
+          "purpose": "Patrones de testing para tests unitarios e integración con Vitest y Testing Library.",
+          "whenHelp": "Cuando se escriben o depuran tests de Vitest, mocks o snapshots.",
+          "example": "Ejemplo: prueba comportamiento async de la UI con await y aserciones precisas."
+        },
+        "playwright-best-practices": {
+          "name": "Buenas prácticas de Playwright",
+          "purpose": "Patrones completos de testing E2E con Playwright.",
+          "whenHelp": "Cuando se escriben tests E2E, se depuran tests inestables o se configura infraestructura de testing.",
+          "example": "Ejemplo: cubre un cambio de locale con selectores estables y aserciones claras."
+        },
+        "playwright-cli": {
+          "name": "Playwright CLI",
+          "purpose": "Automatización de navegador y testing web desde CLI.",
+          "whenHelp": "Cuando se automatizan interacciones de navegador o se depuran tests de Playwright.",
+          "example": "Ejemplo: reproduce un bug ejecutando un flujo acotado desde la CLI."
+        },
+        "react-doctor": {
+          "name": "React Doctor",
+          "purpose": "Diagnósticos de mantenibilidad y rendimiento para React.",
+          "whenHelp": "Antes de los commits para detectar problemas de mantenibilidad temprano.",
+          "example": "Ejemplo: revisa una página antes del commit para detectar trabajo de cliente innecesario."
+        },
+        "verification-before-completion": {
+          "name": "Verificación antes de completar",
+          "purpose": "Ejecuta comandos de verificación antes de afirmar que el trabajo está completo.",
+          "whenHelp": "Al finalizar una tarea: asegura que la evidencia coincida con las afirmaciones.",
+          "example": "Ejemplo: ejecuta el comando de verificación antes de decir que el fix terminó."
+        },
+        "project-min-evaluation": {
+          "name": "Evaluación mínima del proyecto",
+          "purpose": "Ejecuta los controles locales mínimos antes de marcar una implementación como completa.",
+          "whenHelp": "Antes de dar una funcionalidad por terminada: ejecuta lint, typecheck, format y tests.",
+          "example": "Ejemplo: corre lint, typecheck, format y tests antes de cerrar una tarea."
+        },
+        "systematic-debugging": {
+          "name": "Debugging sistemático",
+          "purpose": "Metodología estructurada para depurar bugs y fallos de tests.",
+          "whenHelp": "Cuando aparece comportamiento inesperado, fallos de tests o bugs difíciles de aislar.",
+          "example": "Ejemplo: reduce un test fallido aislando una suposición por vez."
+        },
+        "typescript-advanced-types": {
+          "name": "Tipos avanzados de TypeScript",
+          "purpose": "Funciones avanzadas del sistema de tipos para aplicaciones type-safe.",
+          "whenHelp": "Cuando se implementa lógica de tipos compleja o utilidades de tipos reutilizables.",
+          "example": "Ejemplo: modela una unión discriminada para una skill entry."
+        }
+      },
+      "badges": {
+        "local": "Local",
+        "skillsSh": "skills.sh",
+        "reactDoctor": "React Doctor"
+      }
     }
   }
 }

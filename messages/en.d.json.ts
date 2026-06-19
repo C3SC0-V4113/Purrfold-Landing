@@ -192,7 +192,123 @@ declare const messages: {
       "cta": "Use this route to frame how the current landing connects operator guidance with reusable skills.",
       "description": "Review the skills layer that supports installation, verification, and future localized expansion.",
       "routeLabel": "Skills",
-      "title": "Skill surface"
+      "title": "Skill surface",
+      "overview": {
+        "title": "Skills with equal weight",
+        "description": "Each skill solves a different problem. This page shows where it fits, what it helps with, and a short example of its utility."
+      },
+      "linkLabel": "Open skill",
+      "categories": {
+        "architecture": {
+          "title": "Architecture & Design"
+        },
+        "framework": {
+          "title": "Framework & UI"
+        },
+        "quality": {
+          "title": "Quality & Testing"
+        },
+        "typescript": {
+          "title": "TypeScript"
+        }
+      },
+      "skills": {
+        "vercel-composition-patterns": {
+          "name": "Vercel Composition Patterns",
+          "purpose": "React composition patterns for flexible, maintainable component APIs.",
+          "whenHelp": "When building reusable components or refactoring components with boolean prop proliferation.",
+          "example": "Example: split a card into Card, CardHeader, and CardBody instead of adding boolean props."
+        },
+        "project-architecture": {
+          "name": "Project Architecture",
+          "purpose": "Architecture guardrails for UI, layout, state flow, theming, and server/client boundaries.",
+          "whenHelp": "When designing component structure, state management, or deciding server vs client boundaries.",
+          "example": "Example: decide whether a page stays server-first or needs a client island."
+        },
+        "architecture-decision-records": {
+          "name": "Architecture Decision Records",
+          "purpose": "Document significant technical decisions with context, tradeoffs, and rationale.",
+          "whenHelp": "When making a non-trivial architectural choice that future agents should understand.",
+          "example": "Example: capture why you chose server actions over route handlers."
+        },
+        "decision-doc-sync": {
+          "name": "Decision Doc Sync",
+          "purpose": "Keep documentation synchronized when architecture, UI, or conventions change.",
+          "whenHelp": "After structural changes that affect docs, ADRs, or quality gates.",
+          "example": "Example: update the ADR when a component boundary changes."
+        },
+        "next-best-practices": {
+          "name": "Next.js Best Practices",
+          "purpose": "Next.js file conventions, RSC boundaries, data patterns, async APIs, and optimization.",
+          "whenHelp": "When building pages, layouts, routes, or data fetching in the App Router.",
+          "example": "Example: keep route components server-first and await async params."
+        },
+        "vercel-react-best-practices": {
+          "name": "Vercel React Best Practices",
+          "purpose": "React and Next.js performance optimization guidelines.",
+          "whenHelp": "When optimizing rendering, bundle size, or data loading patterns.",
+          "example": "Example: memoize only when profiling shows a real rendering cost."
+        },
+        "shadcn": {
+          "name": "shadcn/ui",
+          "purpose": "Manages shadcn components, styling, presets, and project configuration.",
+          "whenHelp": "When adding, customizing, or troubleshooting shadcn components.",
+          "example": "Example: compose a form from shadcn primitives before writing custom UI."
+        },
+        "vitest": {
+          "name": "Vitest",
+          "purpose": "Testing patterns for unit and integration tests with Vitest and Testing Library.",
+          "whenHelp": "When writing or debugging Vitest tests, mocking, or snapshot testing.",
+          "example": "Example: test async UI behavior with await and precise assertions."
+        },
+        "playwright-best-practices": {
+          "name": "Playwright Best Practices",
+          "purpose": "Comprehensive E2E testing patterns with Playwright.",
+          "whenHelp": "When writing E2E tests, debugging flaky tests, or setting up test infrastructure.",
+          "example": "Example: cover a locale switch with stable locators and assertions."
+        },
+        "playwright-cli": {
+          "name": "Playwright CLI",
+          "purpose": "Browser automation and CLI-driven web testing.",
+          "whenHelp": "When automating browser interactions or debugging Playwright tests.",
+          "example": "Example: reproduce a bug by running a focused browser flow from the CLI."
+        },
+        "react-doctor": {
+          "name": "React Doctor",
+          "purpose": "React maintainability and performance diagnostics.",
+          "whenHelp": "Before commits to catch maintainability issues early.",
+          "example": "Example: scan a page before commit to catch unnecessary client work."
+        },
+        "verification-before-completion": {
+          "name": "Verification Before Completion",
+          "purpose": "Run verification commands before claiming work is complete.",
+          "whenHelp": "When finishing a task — ensures evidence matches claims.",
+          "example": "Example: run the verification command before saying the fix is done."
+        },
+        "project-min-evaluation": {
+          "name": "Project Minimum Evaluation",
+          "purpose": "Run minimum local quality checks before marking implementation complete.",
+          "whenHelp": "Before marking a feature as done — runs lint, typecheck, format, tests.",
+          "example": "Example: run lint, typecheck, format, and tests before closing a task."
+        },
+        "systematic-debugging": {
+          "name": "Systematic Debugging",
+          "purpose": "Structured methodology for debugging bugs and test failures.",
+          "whenHelp": "When encountering unexpected behavior, test failures, or elusive bugs.",
+          "example": "Example: reduce a failing test by isolating one assumption at a time."
+        },
+        "typescript-advanced-types": {
+          "name": "Advanced TypeScript Types",
+          "purpose": "Advanced type system features for type-safe applications.",
+          "whenHelp": "When implementing complex type logic or reusable type utilities.",
+          "example": "Example: model a discriminated union for a skill entry."
+        }
+      },
+      "badges": {
+        "local": "Local",
+        "skillsSh": "skills.sh",
+        "reactDoctor": "React Doctor"
+      }
     }
   }
 };
