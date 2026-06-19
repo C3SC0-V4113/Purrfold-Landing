@@ -44,8 +44,8 @@ test('renders the English quality page with official links', async ({ page }) =>
     nodes.map((node) => (node as HTMLAnchorElement).href)
   );
   expect(hrefs.map((href) => href.replace(/\/$/, ''))).toEqual([
-    'https://github.com/millionco/react-doctor',
-    'https://github.com/aidenybai/react-scan',
+    'https://www.react.doctor',
+    'https://react-scan.com',
     'https://eslint.org',
     'https://prettier.io',
     'https://typicode.github.io/husky',
@@ -79,8 +79,8 @@ test('renders the Spanish quality page with official links', async ({ page }) =>
     nodes.map((node) => (node as HTMLAnchorElement).href)
   );
   expect(hrefs.map((href) => href.replace(/\/$/, ''))).toEqual([
-    'https://github.com/millionco/react-doctor',
-    'https://github.com/aidenybai/react-scan',
+    'https://www.react.doctor',
+    'https://react-scan.com',
     'https://eslint.org',
     'https://prettier.io',
     'https://typicode.github.io/husky',

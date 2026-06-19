@@ -45,8 +45,8 @@ function assertQualityPage(locale: 'en' | 'es') {
   const officialDocs = screen.getAllByRole('link', { name: messages.linkLabel });
   expect(officialDocs).toHaveLength(9);
   expect(officialDocs.map((link) => link.getAttribute('href'))).toEqual([
-    'https://github.com/millionco/react-doctor',
-    'https://github.com/aidenybai/react-scan',
+    'https://www.react.doctor/',
+    'https://react-scan.com/',
     'https://eslint.org',
     'https://prettier.io',
     'https://typicode.github.io/husky',
