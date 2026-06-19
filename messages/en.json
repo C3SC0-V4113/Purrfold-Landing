@@ -177,11 +177,86 @@
     },
     "quality": {
       "cardBadge": "Guardrails",
-      "cardTitle": "Quality Checks",
-      "cta": "Return to the hub when you need the broader context around routing, SEO, and agent-friendly verification.",
-      "description": "Verify the guardrails, checks, and evidence that keep installs trustworthy.",
+      "cardTitle": "Quality checks",
+      "cta": "Review the quality stack Purrfold installs so projects start with safe defaults and fast feedback.",
+      "description": "See why the baseline tooling ships by default and which optional tools appear when you opt into deeper testing.",
       "routeLabel": "Quality",
-      "title": "Quality signals"
+      "title": "Quality signals",
+      "linkLabel": "Official docs",
+      "overview": {
+        "title": "Default quality stack",
+        "description": "Purrfold installs the baseline checks by default to catch regressions early and keep feedback close to the code.",
+        "defaultNote": "React Doctor and React Scan are part of the default stack. Vitest, commitlint, and Playwright only appear when their install choices are selected."
+      },
+      "sections": {
+        "qualityGates": {
+          "title": "Quality gates",
+          "description": "Default signals that catch issues before they spread."
+        },
+        "commitHygiene": {
+          "title": "Commit hygiene",
+          "description": "Formatting and commit checks that keep changes clean."
+        },
+        "ciConfidence": {
+          "title": "CI confidence",
+          "description": "Signals that make automation trustworthy."
+        },
+        "runtimeInsight": {
+          "title": "Runtime insight",
+          "description": "Visibility that helps confirm the app stays healthy in the browser."
+        }
+      },
+      "tools": {
+        "eslint": {
+          "name": "ESLint",
+          "purpose": "Linting that enforces real project rules: effect discipline, boolean prop naming, ordered imports, type-only imports, promise safety, and console output limited to warn/error.",
+          "whenHelp": "When you want feedback that catches React, TypeScript, and import hygiene issues before review."
+        },
+        "prettier": {
+          "name": "Prettier",
+          "purpose": "Opinionated formatting for consistent diffs.",
+          "whenHelp": "When you want formatting to stay automatic and boring."
+        },
+        "husky": {
+          "name": "Husky",
+          "purpose": "Git hooks that run local checks before commits.",
+          "whenHelp": "When you want commit-time guardrails without extra ceremony."
+        },
+        "commitlint": {
+          "name": "commitlint",
+          "purpose": "Commit message validation for conventional commits.",
+          "whenHelp": "When commit hygiene is part of the install you chose."
+        },
+        "react-doctor": {
+          "name": "React Doctor",
+          "purpose": "React diagnostics for maintainability and performance.",
+          "whenHelp": "When you want quality gates to surface issues before review."
+        },
+        "react-scan": {
+          "name": "React Scan",
+          "purpose": "Runtime scanning that highlights rendering problems.",
+          "whenHelp": "When browser behavior needs an extra health check."
+        },
+        "vitest": {
+          "name": "Vitest",
+          "purpose": "Fast unit tests for code that needs repeatable assertions.",
+          "whenHelp": "When you enabled unit testing during installation."
+        },
+        "playwright": {
+          "name": "Playwright",
+          "purpose": "End-to-end tests for user flows that need browser coverage.",
+          "whenHelp": "When you enabled E2E testing during installation."
+        },
+        "typescript": {
+          "name": "TypeScript",
+          "purpose": "Static typing that catches mistakes before runtime.",
+          "whenHelp": "When type safety is the fastest way to prevent regressions."
+        }
+      },
+      "badges": {
+        "default": "Default",
+        "optional": "Optional"
+      }
     },
     "skills": {
       "cardBadge": "Workflow",

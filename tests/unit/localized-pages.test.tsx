@@ -126,36 +126,32 @@ describe('localized page rendering', () => {
     expect(screen.getByText('npx purrfold@latest <directorio-del-proyecto>')).toBeDefined();
   });
 
-  it('renders an English placeholder page with context and a CTA', async () => {
+  it('renders the English quality view with ordered sections', async () => {
     render(
       <ThemeProvider>{await QualityPage(createLocalizedQualityPageProps('en'))}</ThemeProvider>
     );
 
     expect(screen.getByRole('heading', { level: 1, name: 'Quality signals' })).toBeDefined();
-    expect(screen.getByText('Guardrails').textContent).toBe('Guardrails');
-    expect(screen.getByRole('heading', { level: 2, name: 'Quality Checks' })).toBeDefined();
-    expect(
-      screen.getByText(
-        'Verify the guardrails, checks, and evidence that keep installs trustworthy.'
-      ).textContent
-    ).toBe('Verify the guardrails, checks, and evidence that keep installs trustworthy.');
-    expect(screen.getByRole('link', { name: 'Back to home' }).getAttribute('href')).toBe('/en');
+    expect(screen.getByText('Default quality stack')).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Quality gates' })).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Commit hygiene' })).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'CI confidence' })).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Runtime insight' })).toBeDefined();
   });
 
-  it('renders a Spanish placeholder page with equivalent localized content', async () => {
+  it('renders the Spanish quality view with equivalent localized content', async () => {
     render(
-      <ThemeProvider>{await EcosystemPage(createLocalizedEcosystemPageProps('es'))}</ThemeProvider>
+      <ThemeProvider>{await QualityPage(createLocalizedQualityPageProps('es'))}</ThemeProvider>
     );
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Ecosistema conectado' })).toBeDefined();
-    expect(screen.getByText('Resumen').textContent).toBe('Resumen');
-    expect(screen.getByRole('heading', { level: 2, name: 'Herramientas' })).toBeDefined();
+    expect(screen.getByRole('heading', { level: 1, name: 'Señales de calidad' })).toBeDefined();
+    expect(screen.getByText('Base de calidad por defecto')).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Controles de calidad' })).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Higiene de commits' })).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Confianza en CI' })).toBeDefined();
     expect(
-      screen.getByText(
-        'Descubre cómo esta landing se conecta con el CLI, shadcn y Next.js sin agregar ruido.'
-      ).textContent
-    ).toBe('Descubre cómo esta landing se conecta con el CLI, shadcn y Next.js sin agregar ruido.');
-    expect(screen.getByRole('link', { name: 'Volver al inicio' }).getAttribute('href')).toBe('/es');
+      screen.getByRole('heading', { level: 2, name: 'Visibilidad del runtime' })
+    ).toBeDefined();
   });
 
   it('renders localized sub-card labels on Spanish pages', async () => {
@@ -177,10 +173,8 @@ describe('localized page rendering', () => {
     render(
       <ThemeProvider>{await QualityPage(createLocalizedQualityPageProps('es'))}</ThemeProvider>
     );
-    expect(screen.getByText('Controles').textContent).toBe('Controles');
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'Comprobaciones de calidad' })
-    ).toBeDefined();
+    expect(screen.getByText('Base de calidad por defecto')).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Controles de calidad' })).toBeDefined();
 
     document.body.innerHTML = '';
     render(

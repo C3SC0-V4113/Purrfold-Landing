@@ -176,12 +176,87 @@
       }
     },
     "quality": {
-      "cardBadge": "Controles",
+      "cardBadge": "Guardrails",
       "cardTitle": "Comprobaciones de calidad",
-      "cta": "Vuelve al hub cuando necesites el contexto general sobre routing, SEO y verificación amigable para agentes.",
-      "description": "Verifica los controles, las comprobaciones y la evidencia que mantienen confiables las instalaciones.",
+      "cta": "Revisa la base de calidad que Purrfold instala para que los proyectos empiecen con valores seguros y feedback rápido.",
+      "description": "Ve por qué el tooling base se instala por defecto y qué herramientas opcionales aparecen cuando activas pruebas más profundas.",
       "routeLabel": "Calidad",
-      "title": "Señales de calidad"
+      "title": "Señales de calidad",
+      "linkLabel": "Documentación oficial",
+      "overview": {
+        "title": "Base de calidad por defecto",
+        "description": "Purrfold instala las comprobaciones base por defecto para detectar regresiones temprano y mantener el feedback cerca del código.",
+        "defaultNote": "React Doctor y React Scan forman parte de la base por defecto. Vitest, commitlint y Playwright solo aparecen cuando se seleccionan sus decisiones de instalación."
+      },
+      "sections": {
+        "qualityGates": {
+          "title": "Controles de calidad",
+          "description": "Señales por defecto que detectan problemas antes de que se propaguen."
+        },
+        "commitHygiene": {
+          "title": "Higiene de commits",
+          "description": "Checks de formato y commits que mantienen los cambios limpios."
+        },
+        "ciConfidence": {
+          "title": "Confianza en CI",
+          "description": "Señales que hacen confiable la automatización."
+        },
+        "runtimeInsight": {
+          "title": "Visibilidad del runtime",
+          "description": "Visibilidad que ayuda a confirmar que la app se mantiene sana en el navegador."
+        }
+      },
+      "tools": {
+        "eslint": {
+          "name": "ESLint",
+          "purpose": "Linting que aplica reglas reales del proyecto: disciplina de effects, nombres de props booleanas, orden de imports, imports solo de tipos, seguridad de promesas y console limitado a warn/error.",
+          "whenHelp": "Cuando necesitas feedback que detecte problemas de React, TypeScript e higiene de imports antes de la revisión."
+        },
+        "prettier": {
+          "name": "Prettier",
+          "purpose": "Formateo opinado para diffs consistentes.",
+          "whenHelp": "Cuando necesitas que el formato siga siendo automático y predecible."
+        },
+        "husky": {
+          "name": "Husky",
+          "purpose": "Git hooks que ejecutan checks locales antes de los commits.",
+          "whenHelp": "Cuando necesitas controles al commit sin agregar fricción extra."
+        },
+        "commitlint": {
+          "name": "commitlint",
+          "purpose": "Validación de mensajes de commit para conventional commits.",
+          "whenHelp": "Cuando la higiene de commits forma parte de la instalación que elegiste."
+        },
+        "react-doctor": {
+          "name": "React Doctor",
+          "purpose": "Diagnósticos de React para mantenibilidad y rendimiento.",
+          "whenHelp": "Cuando necesitas que los controles de calidad detecten problemas antes de la revisión."
+        },
+        "react-scan": {
+          "name": "React Scan",
+          "purpose": "Escaneo de runtime que detecta problemas de render.",
+          "whenHelp": "Cuando el comportamiento en navegador necesita un control extra."
+        },
+        "vitest": {
+          "name": "Vitest",
+          "purpose": "Tests unitarios rápidos para código que necesita aserciones repetibles.",
+          "whenHelp": "Cuando activaste unit testing durante la instalación."
+        },
+        "playwright": {
+          "name": "Playwright",
+          "purpose": "Tests end-to-end para flujos que necesitan cobertura de navegador.",
+          "whenHelp": "Cuando activaste E2E testing durante la instalación."
+        },
+        "typescript": {
+          "name": "TypeScript",
+          "purpose": "Tipado estático que detecta errores antes del runtime.",
+          "whenHelp": "Cuando la seguridad de tipos es la forma más rápida de evitar regresiones."
+        }
+      },
+      "badges": {
+        "default": "Por defecto",
+        "optional": "Opcional"
+      }
     },
     "skills": {
       "cardBadge": "Flujo de trabajo",
