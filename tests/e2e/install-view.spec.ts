@@ -67,7 +67,7 @@ test('switches to the Agent tab and preserves flag selections', async ({ page })
   await page.getByRole('checkbox', { name: 'E2E tests (Playwright)' }).click();
   await page.getByRole('tab', { name: 'Agent' }).click();
 
-  await expect(page.getByText('I want to scaffold a new Next.js app with purrfold.')).toBeVisible();
+  await expect(page.getByText('Scaffold a new Next.js app with purrfold')).toBeVisible();
   await expect(page.getByRole('checkbox', { name: 'E2E tests (Playwright)' })).toBeChecked();
 
   await page.getByRole('tab', { name: 'CLI' }).click();
