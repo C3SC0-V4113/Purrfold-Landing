@@ -61,12 +61,12 @@ export default async function RootLayout({
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <TooltipProvider>
-            {process.env.NODE_ENV === 'development' && (
+            {process.env.NODE_ENV === 'development' ? (
               <Script
                 src="https://unpkg.com/react-scan/dist/auto.global.js"
                 crossOrigin="anonymous"
               />
-            )}
+            ) : null}
             {children}
           </TooltipProvider>
         </ThemeProvider>

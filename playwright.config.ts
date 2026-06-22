@@ -21,7 +21,7 @@ export default defineConfig({
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {
-    command: `npm run dev -- --hostname ${host} --port ${port}`,
+    command: `npm run build && npm run start -- --hostname ${host} --port ${port}`,
     url: baseUrl,
     reuseExistingServer: false,
     timeout: 120_000,
