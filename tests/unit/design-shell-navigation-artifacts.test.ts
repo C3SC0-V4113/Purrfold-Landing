@@ -51,6 +51,57 @@ function targetsGlobalUniversalSelector(selector: string) {
   return /^\*(?:$|::?|[\s>+~#[.])/.test(selector);
 }
 
+function getCssVariables(cssBlock: string) {
+  return Object.fromEntries(
+    Array.from(cssBlock.matchAll(/--([\w-]+):\s*([^;]+);/g)).map(([, name, value]) => [
+      name,
+      value.trim(),
+    ])
+  );
+}
+
+function resolveCssVariable(variables: Record<string, string>, name: string): string {
+  const value = variables[name];
+  expect(value).toBeDefined();
+
+  const reference = value.match(/^var\(--([\w-]+)\)$/);
+  return reference ? resolveCssVariable(variables, reference[1]) : value;
+}
+
+function oklchToLinearSrgb(value: string) {
+  const match = value.match(/^oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*[\d.]+%?)?\s*\)$/);
+  expect(match).not.toBeNull();
+
+  const lightness = Number(match?.[1]);
+  const chroma = Number(match?.[2]);
+  const hue = (Number(match?.[3]) * Math.PI) / 180;
+  const a = chroma * Math.cos(hue);
+  const b = chroma * Math.sin(hue);
+
+  const l = lightness + 0.3963377774 * a + 0.2158037573 * b;
+  const m = lightness - 0.1055613458 * a - 0.0638541728 * b;
+  const s = lightness - 0.0894841775 * a - 1.291485548 * b;
+  const l3 = l ** 3;
+  const m3 = m ** 3;
+  const s3 = s ** 3;
+
+  return [
+    4.0767416621 * l3 - 3.3077115913 * m3 + 0.2309699292 * s3,
+    -1.2684380046 * l3 + 2.6097574011 * m3 - 0.3413193965 * s3,
+    -0.0041960863 * l3 - 0.7034186147 * m3 + 1.707614701 * s3,
+  ];
+}
+
+function contrastRatio(first: string, second: string) {
+  const luminance = (value: string) => {
+    const [red, green, blue] = oklchToLinearSrgb(value);
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+  };
+  const [lighter, darker] = [luminance(first), luminance(second)].sort((a, b) => b - a);
+
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
 describe('phase 2 design shell navigation artifacts', () => {
   it('defines minimal shared motion tokens and reduced-motion guards in globals.css', () => {
     const globalsCss = readProjectFile('app/globals.css');
@@ -101,6 +152,87 @@ describe('phase 2 design shell navigation artifacts', () => {
     expect(adr0004).toContain('(hover: hover) and (pointer: fine)');
     expect(design).toContain('Use CSS-only motion');
     expect(design).toContain('Keyboard focus must remain visible');
+  });
+
+  it('defines the cat-inspired semantic palette with AA text contrast', () => {
+    const globalsCss = readProjectFile('app/globals.css');
+    const lightTheme = getCssVariables(extractCssBlock(globalsCss, '\n:root {'));
+    const darkTheme = getCssVariables(extractCssBlock(globalsCss, '\n.dark {'));
+    const expectedTokens = [
+      'background',
+      'foreground',
+      'card',
+      'card-foreground',
+      'popover',
+      'popover-foreground',
+      'primary',
+      'primary-foreground',
+      'secondary',
+      'secondary-foreground',
+      'muted',
+      'muted-foreground',
+      'accent',
+      'accent-foreground',
+      'destructive',
+      'border',
+      'input',
+      'ring',
+      'chart-1',
+      'chart-2',
+      'chart-3',
+      'chart-4',
+      'chart-5',
+      'sidebar',
+      'sidebar-foreground',
+      'sidebar-primary',
+      'sidebar-primary-foreground',
+      'sidebar-accent',
+      'sidebar-accent-foreground',
+      'sidebar-border',
+      'sidebar-ring',
+    ];
+    const contrastPairs = [
+      ['background', 'foreground'],
+      ['card', 'card-foreground'],
+      ['popover', 'popover-foreground'],
+      ['primary', 'primary-foreground'],
+      ['secondary', 'secondary-foreground'],
+      ['muted', 'muted-foreground'],
+      ['accent', 'accent-foreground'],
+    ] as const;
+
+    expect(Object.keys(lightTheme)).toEqual(expect.arrayContaining(expectedTokens));
+    expect(Object.keys(darkTheme)).toEqual(expect.arrayContaining(expectedTokens));
+    expect(lightTheme.primary).toBe('oklch(0.518 0.081 236.9)');
+    expect(darkTheme.primary).toBe('oklch(0.748 0.078 229.6)');
+    expect([
+      lightTheme['chart-1'],
+      lightTheme['chart-2'],
+      lightTheme['chart-3'],
+      lightTheme['chart-4'],
+      lightTheme['chart-5'],
+    ]).toEqual([
+      'oklch(0.603 0.08 234.3)',
+      'oklch(0.702 0.077 39.8)',
+      'oklch(0.617 0.086 104.7)',
+      'oklch(0.58 0.032 48.1)',
+      'oklch(0.394 0.008 53.3)',
+    ]);
+    expect(lightTheme['sidebar-primary']).toBe('var(--primary)');
+    expect(darkTheme['sidebar-primary']).toBe('var(--primary)');
+
+    for (const theme of [lightTheme, darkTheme]) {
+      for (const [surface, text] of contrastPairs) {
+        expect(
+          contrastRatio(resolveCssVariable(theme, surface), resolveCssVariable(theme, text))
+        ).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+
+    const design = readProjectFile('DESIGN.md');
+    expect(design).toContain('Siamese eye blue');
+    expect(design).toContain('Faded calico cream and peach');
+    expect(design).toContain('Black tabby charcoal and taupe');
   });
 
   it('records the accepted design-system boundary ADR and aligns ADR 0001 status', () => {
