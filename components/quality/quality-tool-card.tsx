@@ -27,7 +27,7 @@ export function QualityToolCard({
   statusLabels,
 }: QualityToolCardProps) {
   return (
-    <Card className="h-full transition-colors hover:bg-muted/50">
+    <Card className="animate-card-lift h-full hover:bg-muted/50">
       <CardHeader className="gap-2">
         <div className="flex items-start justify-between gap-2">
           <CardTitle>{name}</CardTitle>

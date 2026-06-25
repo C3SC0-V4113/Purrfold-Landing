@@ -98,6 +98,20 @@
   }
 }
 
+@layer components {
+  .animate-card-lift {
+    transition:
+      transform 180ms ease,
+      background-color 150ms ease;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .animate-card-lift:hover {
+    transform: translateY(-0.125rem);
+  }
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -171,13 +185,19 @@
   :root {
     --animate-shell-fade-in: none;
     --animate-shell-enter-up: none;
+    --animate-hero-enter: none;
+    --animate-tab-enter: none;
   }
 
+  .animate-button-press,
+  .animate-card-lift,
   .animate-tab-enter,
   .animate-hero-enter,
   .animate-shell-fade-in,
   .animate-shell-enter-up {
     animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }
 

@@ -62,6 +62,10 @@ describe('phase 2 design shell navigation artifacts', () => {
     expect(globalsCss).toContain('@media (prefers-reduced-motion: reduce)');
     expect(globalsCss).toContain('--animate-shell-fade-in: none;');
     expect(globalsCss).toContain('--animate-shell-enter-up: none;');
+    expect(globalsCss).toContain('--animate-hero-enter: none;');
+    expect(globalsCss).toContain('--animate-tab-enter: none;');
+    expect(globalsCss).toContain('.animate-button-press,');
+    expect(globalsCss).toContain('.animate-card-lift,');
     expect(globalsCss).toContain('.animate-shell-fade-in,');
     expect(globalsCss).toContain('.animate-shell-enter-up {');
 
@@ -85,6 +89,18 @@ describe('phase 2 design shell navigation artifacts', () => {
           selectors.some((selector) => !selector.startsWith('.animate-'))
       )
     ).toEqual([]);
+  });
+
+  it('records the accepted CSS-only animation policy', () => {
+    const adr0004 = readProjectFile('docs/adr/0004-css-only-animation-policy.md');
+    const design = readProjectFile('DESIGN.md');
+
+    expect(adr0004).toContain('# ADR 0004: CSS-only animation policy');
+    expect(adr0004).toContain('prefers-reduced-motion');
+    expect(adr0004).toContain('scale(0.97)');
+    expect(adr0004).toContain('(hover: hover) and (pointer: fine)');
+    expect(design).toContain('Use CSS-only motion');
+    expect(design).toContain('Keyboard focus must remain visible');
   });
 
   it('records the accepted design-system boundary ADR and aligns ADR 0001 status', () => {

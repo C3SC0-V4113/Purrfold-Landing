@@ -91,12 +91,53 @@
   },
   "Pages": {
     "ecosystem": {
-      "cardBadge": "Resumen",
-      "cardTitle": "Herramientas",
-      "cta": "Vuelve al hub localizado o continúa hacia las referencias externas cuando necesites más detalle de implementación.",
-      "description": "Descubre cómo esta landing se conecta con el CLI, shadcn y Next.js sin agregar ruido.",
+      "description": "Comienza con el fundamento de shadcn/ui y explora proyectos de la comunidad con componentes e ideas compatibles para tu producto.",
       "routeLabel": "Ecosistema",
-      "title": "Ecosistema conectado"
+      "title": "Ecosistema de componentes",
+      "linkLabel": "Explorar recurso",
+      "overview": {
+        "title": "Explora recursos compatibles",
+        "description": "Purrfold no instala estos proyectos de la comunidad. Este directorio ayuda a comenzar con una base sólida de shadcn/ui y a descubrir componentes compatibles que cada equipo puede evaluar según sus necesidades."
+      },
+      "categories": {
+        "foundation": {
+          "title": "Fundamento",
+          "description": "La base accesible y componible de componentes utilizada para iniciar un proyecto con Purrfold.",
+          "badge": "Fundamento"
+        },
+        "community": {
+          "title": "Proyectos de la comunidad",
+          "description": "Recursos independientes que pueden ampliar las opciones de componentes sin ser instalados ni adoptados por Purrfold.",
+          "badge": "Comunidad"
+        }
+      },
+      "resources": {
+        "shadcn-ui": {
+          "name": "shadcn/ui",
+          "summary": "El fundamento accesible y componible para construir y controlar la interfaz de un producto.",
+          "usage": "Comienza con sus primitivas, tokens semánticos y patrones de composición, y extiende el sistema solo cuando el producto lo necesite."
+        },
+        "chanh-dai": {
+          "name": "Chánh Đại",
+          "summary": "Un proyecto de código abierto con patrones de interfaz reutilizables y una presentación técnica cuidada.",
+          "usage": "Explora sus componentes y detalles de implementación cuando necesites ejemplos de presentación de código, interacciones de copiado o interfaces orientadas a desarrolladores."
+        },
+        "magic-ui": {
+          "name": "Magic UI",
+          "summary": "Una colección comunitaria de componentes animados y visualmente expresivos para interfaces modernas.",
+          "usage": "Úsala para descubrir ideas de interacción y presentación, y evalúa las dependencias, la accesibilidad y el movimiento de cada componente antes de adoptarlo."
+        },
+        "coss-ui": {
+          "name": "coss ui",
+          "summary": "Una colección de componentes para copiar y adaptar, construida sobre Base UI y pensada para proyectos modernos con Tailwind.",
+          "usage": "Explora componentes individuales cuando busques alternativas que conserven una base similar de primitivas accesibles."
+        },
+        "remocn": {
+          "name": "remocn",
+          "summary": "Un registro comunitario de componentes cinematográficos de Remotion distribuido mediante un flujo compatible con shadcn.",
+          "usage": "Explóralo cuando un proyecto necesite video programable o componentes de contenido cinematográfico más allá de una interfaz web convencional."
+        }
+      }
     },
     "install": {
       "cardBadge": "CLI",

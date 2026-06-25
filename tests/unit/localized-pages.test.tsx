@@ -180,8 +180,8 @@ describe('localized page rendering', () => {
     render(
       <ThemeProvider>{await EcosystemPage(createLocalizedEcosystemPageProps('es'))}</ThemeProvider>
     );
-    expect(screen.getByText('Resumen').textContent).toBe('Resumen');
-    expect(screen.getByRole('heading', { level: 2, name: 'Herramientas' })).toBeDefined();
+    expect(screen.getByText('Explora recursos compatibles')).toBeDefined();
+    expect(screen.getByRole('heading', { level: 2, name: 'Fundamento' })).toBeDefined();
   });
 
   it('keeps the active desktop route visible on localized deep pages', async () => {

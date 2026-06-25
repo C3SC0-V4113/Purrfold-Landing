@@ -108,5 +108,3 @@ export const qualityTools: QualityTool[] = [
     href: 'https://www.typescriptlang.org',
   },
 ];
-
-export const qualityToolIds = qualityTools.map((tool) => tool.id);

@@ -24,8 +24,14 @@ This file is the UI/UX source of truth for this app.
 - Use lucide icons for icon buttons and provide accessible labels.
 - Use tables for detailed records, cards for repeated metrics, and charts only when they answer a clear comparison question.
 - Do not nest cards inside cards.
+- Keep repeated feature data in typed catalogs and localized copy in message files; view components should compose those sources rather than duplicate them.
 
 ## Motion
 
-- Use subtle transitions only when they clarify state.
-- Respect reduced-motion preferences for non-trivial animation.
+- Use CSS-only motion; do not add Motion, Framer Motion, or another animation runtime.
+- Animate only `transform` and `opacity` for movement. Color transitions may be used for state feedback.
+- Use short, purposeful timings: 100–150ms for button feedback and up to 220ms for standard entrance motion.
+- Use section reveal only for initial page hierarchy, card lift only on precise hover devices, and `scale(0.97)` for button press feedback.
+- Do not animate layout properties such as width, height, margin, padding, or position offsets.
+- Every project-owned animation must have an explicit `prefers-reduced-motion` fallback that removes animation, transition, and transform.
+- Keyboard focus must remain visible and must not depend on motion or hover.

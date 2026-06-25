@@ -39,9 +39,9 @@ export function FoundationsSection({ locale }: FoundationsSectionProps) {
             href={href}
             aria-label={t[key]}
             {...externalLinkAttributes}
-            className="group focus-visible:outline-none"
+            className="group rounded-3xl focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none"
           >
-            <Card className="h-full transition-colors hover:bg-muted/50">
+            <Card className="animate-card-lift h-full hover:bg-muted/50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   {t[key]}

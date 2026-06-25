@@ -24,10 +24,11 @@ Do not use `next lint`; use the ESLint CLI.
 
 ## Localized Routing Reminders
 
-- This repo uses Phase 1 locale-prefixed routing at `/en` and `/es`.
+- This repo uses locale-prefixed routing at `/en` and `/es`.
 - Treat `proxy.ts` as the only redirect authority for root negotiation and unsupported locale fallback.
 - Next.js 16 `params` are async; use `PageProps`/`LayoutProps` helpers and await params before reading values.
 - Spanish landing copy must remain neutral/professional and avoid country-specific idioms.
+- Project-owned motion is CSS-only and must follow `docs/adr/0004-css-only-animation-policy.md`.
 
 ## References
 
