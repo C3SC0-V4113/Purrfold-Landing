@@ -1,6 +1,6 @@
 'use client';
 
-import { ExternalLinkIcon, GitBranchIcon, MenuIcon, XIcon } from 'lucide-react';
+import { GitBranchIcon, MenuIcon, XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -15,7 +15,15 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
-import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { getMessages } from '@/i18n/messages';
 import { buildLocalizedPath, externalLinks, phaseOneRoutes } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
@@ -25,8 +33,6 @@ import type { Locale, PhaseOneRoute } from '@/i18n/routing';
 type BaseNavigationProps = {
   locale: Locale;
 };
-
-const externalLinkItems = [{ href: externalLinks.github, labelKey: 'github' }] as const;
 
 const externalLinkAttributes = {
   rel: 'noreferrer noopener',
@@ -86,25 +92,14 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
 
           <Separator orientation="vertical" className="mx-1 h-5" />
 
-          {externalLinkItems.map((item) => {
-            const externalLabel = t[item.labelKey] as string;
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                {...externalLinkAttributes}
-                aria-label={externalLabel}
-                className={cn(
-                  buttonVariants({ variant: 'outline', size: 'sm' }),
-                  'rounded-full border-border/70 bg-background/80 pr-2'
-                )}
-              >
-                <GitBranchIcon data-icon="inline-start" />
-                {externalLabel}
-                <ExternalLinkIcon data-icon="inline-end" />
-              </a>
-            );
-          })}
+          <a
+            href={externalLinks.github}
+            {...externalLinkAttributes}
+            aria-label={t.github}
+            className={cn(buttonVariants({ variant: 'ghost', size: 'icon-sm' }), 'rounded-full')}
+          >
+            <GitBranchIcon />
+          </a>
         </nav>
 
         <div className="hidden items-center gap-0.5 md:flex">
@@ -130,30 +125,22 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
           />
           <ThemeSwitcher locale={locale} />
           <Sheet>
-            <SheetTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label={locale === 'es' ? 'Abrir menú' : 'Open menu'}
-                />
-              }
-            >
+            <SheetTrigger render={<Button variant="ghost" size="icon" aria-label={t.openMenu} />}>
               <MenuIcon />
             </SheetTrigger>
-            <SheetContent side="right" showCloseButton={false}>
-              <SheetClose
-                render={
-                  <Button variant="secondary" className="absolute top-4 right-4" size="icon-sm" />
-                }
-              >
-                <XIcon />
-                <span className="sr-only">{t.closeMenu}</span>
-              </SheetClose>
-              <SheetTitle className="sr-only">
-                {locale === 'es' ? 'Navegación' : 'Navigation'}
-              </SheetTitle>
-              <nav className="mt-6 flex flex-col gap-2">
+            <SheetContent side="right" showCloseButton={false} className="w-80 max-w-[85vw]">
+              <SheetHeader className="flex-row items-start justify-between gap-4 border-b border-border p-6">
+                <div className="flex flex-col gap-1">
+                  <SheetTitle>{t.mobileMenuTitle}</SheetTitle>
+                  <p className="text-sm text-muted-foreground">Purrfold</p>
+                </div>
+                <SheetClose render={<Button variant="ghost" size="icon-sm" />}>
+                  <XIcon />
+                  <span className="sr-only">{t.closeMenu}</span>
+                </SheetClose>
+              </SheetHeader>
+
+              <nav aria-label={t.label} className="flex flex-col gap-2 p-6">
                 {navLinks.map(({ route, label }) => (
                   <Link
                     key={route}
@@ -171,28 +158,20 @@ export function BaseNavigation({ locale }: BaseNavigationProps) {
                   </Link>
                 ))}
               </nav>
-              <Separator className="my-4" />
-              <div className="flex flex-col gap-2">
-                {externalLinkItems.map((item) => {
-                  const externalLabel = t[item.labelKey] as string;
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      {...externalLinkAttributes}
-                      aria-label={externalLabel}
-                      className={cn(
-                        buttonVariants({ variant: 'outline', size: 'sm' }),
-                        'justify-start'
-                      )}
-                    >
-                      <GitBranchIcon data-icon="inline-start" />
-                      {externalLabel}
-                      <ExternalLinkIcon data-icon="inline-end" />
-                    </a>
-                  );
-                })}
-              </div>
+
+              <SheetFooter className="mt-auto border-t border-border p-6">
+                <a
+                  href={externalLinks.github}
+                  {...externalLinkAttributes}
+                  className={cn(
+                    buttonVariants({ variant: 'outline', size: 'sm' }),
+                    'justify-start'
+                  )}
+                >
+                  <GitBranchIcon data-icon="inline-start" />
+                  {t.github}
+                </a>
+              </SheetFooter>
             </SheetContent>
           </Sheet>
         </div>

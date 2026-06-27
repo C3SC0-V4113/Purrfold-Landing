@@ -39,15 +39,15 @@ test('summary cards link to localized deep routes', async ({ page }) => {
   await page.goto('/en');
 
   const main = page.locator('main');
-  await expect(main.getByRole('link', { name: /^Install\b/i })).toHaveAttribute(
+  await expect(main.getByRole('link', { name: /^Open install guide\b/i })).toHaveAttribute(
     'href',
     '/en/install'
   );
-  await expect(main.getByRole('link', { name: /^View skills\b/i })).toHaveAttribute(
+  await expect(main.getByRole('link', { name: /^Review skills\b/i })).toHaveAttribute(
     'href',
     '/en/skills'
   );
-  await expect(main.getByRole('link', { name: /^Quality pipeline\b/i })).toHaveAttribute(
+  await expect(main.getByRole('link', { name: /^Review quality stack\b/i })).toHaveAttribute(
     'href',
     '/en/quality'
   );

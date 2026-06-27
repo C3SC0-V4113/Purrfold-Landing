@@ -7,6 +7,7 @@ import LocalizedHomePage from '@/app/[locale]/page';
 import QualityPage from '@/app/[locale]/quality/page';
 import SkillsPage from '@/app/[locale]/skills/page';
 import { ThemeProvider } from '@/components/common/theme-provider';
+import { externalLinks } from '@/i18n/routing';
 
 import type { LocalizedPageProps } from '@/lib/localized-page-props';
 
@@ -91,7 +92,8 @@ describe('localized page rendering', () => {
     expect(topHeader.className).toContain('animate-shell-fade-in');
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
     const githubNavbarLink = within(navigation).getByRole('link', { name: 'GitHub' });
-    expect(githubNavbarLink.getAttribute('href')).toContain('github.com');
+    expect(githubNavbarLink.getAttribute('href')).toBe(externalLinks.github);
+    expect(githubNavbarLink.textContent).toBe('');
     expect(githubNavbarLink.getAttribute('target')).toBe('_blank');
     expect(githubNavbarLink.getAttribute('rel')).toBe('noreferrer noopener');
     const main = screen.getByRole('main');

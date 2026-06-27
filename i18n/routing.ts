@@ -9,8 +9,10 @@ export const phaseOneRoutes = ['/', '/install', '/skills', '/quality', '/ecosyst
 export type PhaseOneRoute = (typeof phaseOneRoutes)[number];
 
 export const externalLinks = {
-  github: 'https://github.com',
+  github: 'https://github.com/C3SC0-V4113/Scaffold',
+  linkedin: 'https://www.linkedin.com/in/francisco-jos%C3%A9-valle-cornejo/',
   nextjs: 'https://nextjs.org',
+  personalWebsite: 'https://www.cescovalle.com/',
   shadcn: 'https://ui.shadcn.com',
 } as const;
 

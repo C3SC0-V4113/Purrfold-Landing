@@ -115,7 +115,9 @@
     "localeNameEn": "English",
     "localeNameEs": "Español",
     "quality": "Calidad",
-    "skills": "Skills"
+    "skills": "Skills",
+    "openMenu": "Abrir menú",
+    "mobileMenuTitle": "Navegación"
   },
   "Pages": {
     "ecosystem": {
@@ -462,6 +464,16 @@
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor"
       }
+    }
+  },
+  "Footer": {
+    "label": "Enlaces del pie de página",
+    "description": "Una superficie sobria para scaffolding con agentes, controles de calidad y guía técnica reutilizable.",
+    "credit": "Construido por Francisco José Valle.",
+    "links": {
+      "github": "GitHub",
+      "website": "Sitio web",
+      "linkedin": "LinkedIn"
     }
   }
 }

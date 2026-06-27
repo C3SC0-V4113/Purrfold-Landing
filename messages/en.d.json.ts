@@ -118,7 +118,9 @@ declare const messages: {
     "localeNameEn": "English",
     "localeNameEs": "Español",
     "quality": "Quality",
-    "skills": "Skills"
+    "skills": "Skills",
+    "openMenu": "Open menu",
+    "mobileMenuTitle": "Navigation"
   },
   "Pages": {
     "ecosystem": {
@@ -465,6 +467,16 @@ declare const messages: {
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor"
       }
+    }
+  },
+  "Footer": {
+    "label": "Footer links",
+    "description": "A calm project surface for agent-first scaffolding, quality gates, and reusable engineering guidance.",
+    "credit": "Built by Francisco Jos? Valle.",
+    "links": {
+      "github": "GitHub",
+      "website": "Website",
+      "linkedin": "LinkedIn"
     }
   }
 };

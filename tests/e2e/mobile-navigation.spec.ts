@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+import { externalLinks } from '@/i18n/routing';
+
 test.use({ viewport: { width: 390, height: 844 } });
 
 test('opens and closes the mobile sheet without leaving the page', async ({ page }) => {
@@ -30,7 +32,7 @@ test('keeps GitHub in the navbar and moves framework links to the home foundatio
 
   await expect(dialog.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
     'href',
-    'https://github.com'
+    externalLinks.github
   );
   await expect(dialog.getByRole('link', { name: 'shadcn' })).toHaveCount(0);
   await expect(dialog.getByRole('link', { name: 'Next.js' })).toHaveCount(0);

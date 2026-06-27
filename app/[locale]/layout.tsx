@@ -1,3 +1,4 @@
+import { SiteFooter } from '@/components/common/site-footer';
 import { locales } from '@/i18n/routing';
 import { resolveLocale } from '@/lib/locale';
 import { buildPageMetadata } from '@/lib/metadata';
@@ -14,7 +15,12 @@ export async function generateMetadata(props: LayoutProps<'/[locale]'>): Promise
 }
 
 export default async function LocaleLayout({ children, params }: LayoutProps<'/[locale]'>) {
-  await resolveLocale(params);
+  const locale = await resolveLocale(params);
 
-  return children;
+  return (
+    <>
+      {children}
+      <SiteFooter locale={locale} />
+    </>
+  );
 }
