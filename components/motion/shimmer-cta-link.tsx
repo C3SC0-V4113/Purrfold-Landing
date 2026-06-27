@@ -16,7 +16,7 @@ export function ShimmerCtaLink({ href, children, className, style }: ShimmerCtaL
   return (
     <ShimmerButton
       asChild
-      shimmerColor="oklch(0.985 0.012 75.4 / 0.45)"
+      shimmerColor="var(--color-shimmer-cta)"
       shimmerDuration="7s"
       shimmerSize="2px"
       background="var(--primary)"

@@ -20,9 +20,9 @@ export function PremiumCard({ children, className, size = 'default', ...props }:
       data-size={size}
       gradientSize={180}
       gradientOpacity={0.08}
-      gradientColor="oklch(0.748 0.078 229.6 / 0.2)"
-      gradientFrom="oklch(0.748 0.078 229.6 / 0.35)"
-      gradientTo="oklch(0.702 0.077 39.8 / 0.25)"
+      gradientColor="var(--color-premium-card-gradient)"
+      gradientFrom="var(--color-premium-card-gradient-from)"
+      gradientTo="var(--color-premium-card-gradient-to)"
       className={cn(
         'group/card flex h-full flex-col gap-(--card-spacing) overflow-hidden rounded-[min(var(--radius-4xl),24px)] bg-card py-(--card-spacing) text-sm text-card-foreground shadow-sm ring-1 ring-foreground/5 [--card-spacing:--spacing(5)] data-[size=sm]:[--card-spacing:--spacing(4)] dark:ring-foreground/10',
         className

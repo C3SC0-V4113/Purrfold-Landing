@@ -16,7 +16,7 @@ export function GeneratedOutput({ label, output }: GeneratedOutputProps) {
         <ShineBorder
           borderWidth={1}
           duration={24}
-          shineColor={['oklch(0.748 0.078 229.6 / 0.24)', 'oklch(0.702 0.077 39.8 / 0.16)']}
+          shineColor={['var(--color-shine-border-from)', 'var(--color-shine-border-to)']}
         />
         <CodeBlock text={output} />
       </div>

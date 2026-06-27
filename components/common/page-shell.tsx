@@ -1,5 +1,6 @@
 import { Children, isValidElement } from 'react';
 
+import { DottedBackground } from '@/components/common/dotted-background';
 import { SectionReveal } from '@/components/motion/section-reveal';
 import { Badge } from '@/components/ui/badge';
 
@@ -23,8 +24,9 @@ export function PageShell({ actions, children, description, routeLabel, title }:
   const sections = Children.toArray(children);
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-12 sm:px-10 sm:py-16">
-      <div className="flex flex-col gap-12">
+    <main className="relative isolate overflow-hidden">
+      <DottedBackground />
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-12 sm:px-10 sm:py-16">
         <SectionReveal>
           <header className="flex flex-col gap-4">
             {routeLabel ? (

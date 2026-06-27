@@ -171,33 +171,88 @@ describe('phase 2 design shell navigation artifacts', () => {
     const homePage = readProjectFile('app/[locale]/page.tsx');
     const codeBlock = readProjectFile('components/common/code-block.tsx');
     const commandTerminal = readProjectFile('components/motion/command-terminal.tsx');
+    const dottedBackground = readProjectFile('components/common/dotted-background.tsx');
+    const generatedOutput = readProjectFile('components/install/generated-output.tsx');
     const premiumCard = readProjectFile('components/motion/premium-card.tsx');
+    const qualityToolCard = readProjectFile('components/quality/quality-tool-card.tsx');
     const pageShell = readProjectFile('components/common/page-shell.tsx');
     const shimmerCtaLink = readProjectFile('components/motion/shimmer-cta-link.tsx');
 
     expect(packageJson).toContain('"motion"');
-    expect(homePage).toContain("import { DotPattern } from '@/components/ui/dot-pattern';");
+    expect(homePage).toContain(
+      "import { DottedBackground } from '@/components/common/dotted-background';"
+    );
     expect(homePage).toContain("import { ShineBorder } from '@/components/ui/shine-border';");
-    expect(homePage).toContain('text-primary/20');
-    expect(homePage).toContain('bg-gradient-to-b');
-    expect(homePage).toContain('[mask-image:radial-gradient');
+    expect(homePage).toContain('var(--color-shine-border-from)');
+    expect(dottedBackground).toContain("import { DotPattern } from '@/components/ui/dot-pattern';");
+    expect(dottedBackground).toContain('bg-gradient-to-b');
+    expect(dottedBackground).toContain('[mask-image:radial-gradient');
     expect(codeBlock).toContain(
       "import { CommandTerminal } from '@/components/motion/command-terminal';"
     );
     expect(commandTerminal).toContain('<CopyButton text={text} />');
     expect(commandTerminal).toContain('sequence={false}');
     expect(commandTerminal).toContain('top-2');
+    expect(generatedOutput).toContain('var(--color-shine-border-from)');
+    expect(generatedOutput).not.toContain('oklch(');
+    expect(qualityToolCard).not.toContain('oklch(');
+    expect(qualityToolCard).not.toMatch(/#[0-9a-fA-F]{3,8}/);
     expect(pageShell).not.toContain("from '@/components/ui/card'");
+    expect(pageShell).toContain(
+      "import { DottedBackground } from '@/components/common/dotted-background';"
+    );
     expect(pageShell).toContain(
       "import { SectionReveal } from '@/components/motion/section-reveal';"
     );
     expect(premiumCard).toContain('gradientOpacity={0.08}');
+    expect(premiumCard).toContain('var(--color-premium-card-gradient)');
+    expect(premiumCard).not.toContain('oklch(');
     expect(premiumCard).toContain('rounded-[min(var(--radius-4xl),24px)]');
     expect(premiumCard).toContain('[--card-spacing:--spacing(5)]');
     expect(shimmerCtaLink).toContain(
       "import { ShimmerButton } from '@/components/ui/shimmer-button';"
     );
+    expect(shimmerCtaLink).toContain('var(--color-shimmer-cta)');
+    expect(shimmerCtaLink).not.toContain('oklch(');
     expect(shimmerCtaLink).toContain('shimmerDuration="7s"');
+  });
+
+  it('keeps the dotted background static and token-driven for render performance', () => {
+    const nextConfig = readProjectFile('next.config.ts');
+    const dotPattern = readProjectFile('components/ui/dot-pattern.tsx');
+    const globalsCss = readProjectFile('app/globals.css');
+
+    expect(nextConfig).not.toContain('reactCompiler');
+    expect(dotPattern).not.toContain("'use client'");
+    expect(dotPattern).not.toContain('motion/react');
+    expect(dotPattern).not.toContain('motion.circle');
+    expect(dotPattern).not.toContain('useEffect');
+    expect(dotPattern).not.toContain('useState');
+    expect(dotPattern).not.toContain('getBoundingClientRect');
+    expect(dotPattern).toContain('<pattern');
+    expect(dotPattern).toContain('<rect width="100%" height="100%"');
+    expect(dotPattern).toContain('text-dotted-background');
+    expect(globalsCss).toContain('--color-dotted-background: var(--dotted-background);');
+    expect(globalsCss).toContain('--color-premium-card-gradient: var(--premium-card-gradient);');
+    expect(globalsCss).toContain(
+      '--color-premium-card-gradient-from: var(--premium-card-gradient-from);'
+    );
+    expect(globalsCss).toContain(
+      '--color-premium-card-gradient-to: var(--premium-card-gradient-to);'
+    );
+    expect(globalsCss).toContain('--color-shine-border-from: var(--shine-border-from);');
+    expect(globalsCss).toContain('--color-shine-border-to: var(--shine-border-to);');
+    expect(globalsCss).toContain('--color-shimmer-cta: var(--shimmer-cta);');
+    expect(globalsCss).toContain('--dotted-background:');
+    expect(globalsCss).toContain('--premium-card-gradient:');
+    expect(globalsCss).toContain('--premium-card-gradient-from:');
+    expect(globalsCss).toContain('--premium-card-gradient-to:');
+    expect(globalsCss).toContain('--shine-border-from:');
+    expect(globalsCss).toContain('--shine-border-to:');
+    expect(globalsCss).toContain('--shimmer-cta:');
+    expect(globalsCss).not.toContain('--dotted-background-color:');
+    expect(globalsCss).not.toContain('--premium-card-gradient-color:');
+    expect(globalsCss).not.toContain('--shimmer-cta-color:');
   });
 
   it('keeps PremiumCard as the only card surface for MagicCard-backed cards', () => {
@@ -257,6 +312,13 @@ describe('phase 2 design shell navigation artifacts', () => {
       'sidebar-accent-foreground',
       'sidebar-border',
       'sidebar-ring',
+      'dotted-background',
+      'premium-card-gradient',
+      'premium-card-gradient-from',
+      'premium-card-gradient-to',
+      'shine-border-from',
+      'shine-border-to',
+      'shimmer-cta',
     ];
     const contrastPairs = [
       ['background', 'foreground'],

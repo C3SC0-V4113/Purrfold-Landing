@@ -43,6 +43,13 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-dotted-background: var(--dotted-background);
+  --color-premium-card-gradient: var(--premium-card-gradient);
+  --color-premium-card-gradient-from: var(--premium-card-gradient-from);
+  --color-premium-card-gradient-to: var(--premium-card-gradient-to);
+  --color-shimmer-cta: var(--shimmer-cta);
+  --color-shine-border-from: var(--shine-border-from);
+  --color-shine-border-to: var(--shine-border-to);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -180,6 +187,13 @@
   --sidebar-accent-foreground: var(--secondary-foreground);
   --sidebar-border: var(--input);
   --sidebar-ring: var(--ring);
+  --dotted-background: color-mix(in oklch, var(--primary), transparent 78%);
+  --premium-card-gradient: color-mix(in oklch, var(--primary), transparent 68%);
+  --premium-card-gradient-from: color-mix(in oklch, var(--primary), transparent 54%);
+  --premium-card-gradient-to: color-mix(in oklch, var(--chart-2), transparent 62%);
+  --shine-border-from: color-mix(in oklch, var(--primary), transparent 70%);
+  --shine-border-to: color-mix(in oklch, var(--chart-2), transparent 80%);
+  --shimmer-cta: color-mix(in oklch, var(--primary-foreground), transparent 55%);
 }
 
 .dark {
@@ -214,6 +228,13 @@
   --sidebar-accent-foreground: var(--secondary-foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
+  --dotted-background: color-mix(in oklch, var(--primary), transparent 80%);
+  --premium-card-gradient: color-mix(in oklch, var(--primary), transparent 70%);
+  --premium-card-gradient-from: color-mix(in oklch, var(--primary), transparent 58%);
+  --premium-card-gradient-to: color-mix(in oklch, var(--chart-2), transparent 64%);
+  --shine-border-from: color-mix(in oklch, var(--primary), transparent 72%);
+  --shine-border-to: color-mix(in oklch, var(--chart-2), transparent 82%);
+  --shimmer-cta: color-mix(in oklch, var(--primary-foreground), transparent 55%);
 }
 
 @media (prefers-reduced-motion: reduce) {
