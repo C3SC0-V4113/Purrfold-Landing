@@ -115,8 +115,13 @@ describe('phase 2 design shell navigation artifacts', () => {
     expect(globalsCss).toContain('--animate-shell-enter-up: none;');
     expect(globalsCss).toContain('--animate-hero-enter: none;');
     expect(globalsCss).toContain('--animate-tab-enter: none;');
+    expect(globalsCss).toContain('--animate-shimmer-slide: none;');
+    expect(globalsCss).toContain('--animate-spin-around: none;');
+    expect(globalsCss).toContain('--animate-shine: none;');
     expect(globalsCss).toContain('.animate-button-press,');
     expect(globalsCss).toContain('.animate-card-lift,');
+    expect(globalsCss).toContain('.animate-shimmer-slide,');
+    expect(globalsCss).toContain('.motion-reveal,');
     expect(globalsCss).toContain('.animate-shell-fade-in,');
     expect(globalsCss).toContain('.animate-shell-enter-up {');
 
@@ -137,21 +142,83 @@ describe('phase 2 design shell navigation artifacts', () => {
       reducedMotionRules.filter(
         ({ declarations, selectors }) =>
           motionProperties.test(declarations) &&
-          selectors.some((selector) => !selector.startsWith('.animate-'))
+          selectors.some(
+            (selector) => !selector.startsWith('.animate-') && !selector.startsWith('.motion-')
+          )
       )
     ).toEqual([]);
   });
 
-  it('records the accepted CSS-only animation policy', () => {
+  it('records the accepted controlled motion policy', () => {
     const adr0004 = readProjectFile('docs/adr/0004-css-only-animation-policy.md');
     const design = readProjectFile('DESIGN.md');
 
-    expect(adr0004).toContain('# ADR 0004: CSS-only animation policy');
+    expect(adr0004).toContain('# ADR 0004: CSS-first controlled motion policy');
+    expect(adr0004).toContain('Allow `motion` and Magic UI only in small client islands');
+    expect(adr0004).toContain('always-visible copy affordance');
     expect(adr0004).toContain('prefers-reduced-motion');
     expect(adr0004).toContain('scale(0.97)');
     expect(adr0004).toContain('(hover: hover) and (pointer: fine)');
-    expect(design).toContain('Use CSS-only motion');
+    expect(design).toContain('Use CSS-first motion');
+    expect(design).toContain(
+      'Terminal-style command surfaces must preserve an always-visible copy'
+    );
     expect(design).toContain('Keyboard focus must remain visible');
+  });
+
+  it('keeps the visual rework scoped to subtle Magic UI surfaces', () => {
+    const packageJson = readProjectFile('package.json');
+    const homePage = readProjectFile('app/[locale]/page.tsx');
+    const codeBlock = readProjectFile('components/common/code-block.tsx');
+    const commandTerminal = readProjectFile('components/motion/command-terminal.tsx');
+    const premiumCard = readProjectFile('components/motion/premium-card.tsx');
+    const pageShell = readProjectFile('components/common/page-shell.tsx');
+    const shimmerCtaLink = readProjectFile('components/motion/shimmer-cta-link.tsx');
+
+    expect(packageJson).toContain('"motion"');
+    expect(homePage).toContain("import { DotPattern } from '@/components/ui/dot-pattern';");
+    expect(homePage).toContain("import { ShineBorder } from '@/components/ui/shine-border';");
+    expect(homePage).toContain('text-primary/20');
+    expect(homePage).toContain('bg-gradient-to-b');
+    expect(homePage).toContain('[mask-image:radial-gradient');
+    expect(codeBlock).toContain(
+      "import { CommandTerminal } from '@/components/motion/command-terminal';"
+    );
+    expect(commandTerminal).toContain('<CopyButton text={text} />');
+    expect(commandTerminal).toContain('sequence={false}');
+    expect(commandTerminal).toContain('top-2');
+    expect(pageShell).not.toContain("from '@/components/ui/card'");
+    expect(pageShell).toContain(
+      "import { SectionReveal } from '@/components/motion/section-reveal';"
+    );
+    expect(premiumCard).toContain('gradientOpacity={0.08}');
+    expect(premiumCard).toContain('rounded-[min(var(--radius-4xl),24px)]');
+    expect(premiumCard).toContain('[--card-spacing:--spacing(5)]');
+    expect(shimmerCtaLink).toContain(
+      "import { ShimmerButton } from '@/components/ui/shimmer-button';"
+    );
+    expect(shimmerCtaLink).toContain('shimmerDuration="7s"');
+  });
+
+  it('keeps PremiumCard as the only card surface for MagicCard-backed cards', () => {
+    const magicCard = readProjectFile('components/ui/magic-card.tsx');
+    const cardSurfaceFiles = [
+      'components/home/summary-cards.tsx',
+      'components/install/preset-example.tsx',
+      'components/skills/skill-card.tsx',
+      'components/quality/quality-tool-card.tsx',
+      'components/ecosystem/ecosystem-resource-card.tsx',
+    ];
+
+    expect(magicCard).toContain('linear-gradient(var(--color-card) 0 0) padding-box');
+    expect(magicCard).toContain('bg-card');
+
+    for (const relativePath of cardSurfaceFiles) {
+      const file = readProjectFile(relativePath);
+
+      expect(file).not.toMatch(/import\s+\{\s*Card[\s,}]/);
+      expect(file).not.toMatch(/<PremiumCard[^>]*>[\s\S]*<Card[\s>]/);
+    }
   });
 
   it('defines the cat-inspired semantic palette with AA text contrast', () => {

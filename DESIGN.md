@@ -37,9 +37,11 @@ This file is the UI/UX source of truth for this app.
 
 ## Motion
 
-- Use CSS-only motion; do not add Motion, Framer Motion, or another animation runtime.
+- Use CSS-first motion and allow `motion`/Magic UI only in small client islands where movement clarifies hierarchy, product surfaces, or real interaction.
+- Prefer subtle premium effects: `Dot Pattern`, `Magic Card`, `Shimmer Button`, `Shine Border`, and `Terminal` must support the content rather than become the protagonist.
+- Terminal-style command surfaces must preserve an always-visible copy affordance.
 - Animate only `transform` and `opacity` for movement. Color transitions may be used for state feedback.
-- Use short, purposeful timings: 100–150ms for button feedback and up to 220ms for standard entrance motion.
+- Use short, purposeful timings: 100-150ms for button feedback, up to 220ms for standard reveals, and up to 300ms for larger hero/product-surface entrances.
 - Use section reveal only for initial page hierarchy, card lift only on precise hover devices, and `scale(0.97)` for button press feedback.
 - Do not animate layout properties such as width, height, margin, padding, or position offsets.
 - Every project-owned animation must have an explicit `prefers-reduced-motion` fallback that removes animation, transition, and transform.

@@ -9,6 +9,7 @@ import {
 } from '@/components/install/flag-configurator';
 import { GeneratedOutput } from '@/components/install/generated-output';
 import { PresetExample, type PresetMessages } from '@/components/install/preset-example';
+import { SectionReveal } from '@/components/motion/section-reveal';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   buildAgentPrompt,
@@ -71,22 +72,28 @@ export function InstallView({ messages, children }: InstallViewProps) {
         </TabsList>
       </Tabs>
 
-      <FlagConfigurator
-        flags={resolvedFlags}
-        onChange={setFlags}
-        messages={messages.configurator}
-        disabledKeys={disabledKeys}
-      />
+      <SectionReveal>
+        <FlagConfigurator
+          flags={resolvedFlags}
+          onChange={setFlags}
+          messages={messages.configurator}
+          disabledKeys={disabledKeys}
+        />
+      </SectionReveal>
 
-      <GeneratedOutput label={outputLabel} output={output} />
+      <SectionReveal delay={0.04}>
+        <GeneratedOutput label={outputLabel} output={output} />
+      </SectionReveal>
 
-      <PresetExample
-        messages={messages.preset}
-        presetId={flags.presetId}
-        onPresetChange={(id) => setFlags((prev) => ({ ...prev, presetId: id }))}
-      />
+      <SectionReveal delay={0.08}>
+        <PresetExample
+          messages={messages.preset}
+          presetId={flags.presetId}
+          onPresetChange={(id) => setFlags((prev) => ({ ...prev, presetId: id }))}
+        />
+      </SectionReveal>
 
-      {children}
+      {children ? <SectionReveal delay={0.12}>{children}</SectionReveal> : null}
     </div>
   );
 }

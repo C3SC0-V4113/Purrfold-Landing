@@ -1,9 +1,9 @@
 import { ArrowUpRightIcon } from 'lucide-react';
 
+import { PremiumCard } from '@/components/motion/premium-card';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import {
-  Card,
   CardContent,
   CardDescription,
   CardFooter,
@@ -40,7 +40,7 @@ export function EcosystemResourceCard({
   linkAriaLabel,
 }: EcosystemResourceCardProps) {
   return (
-    <Card className="animate-card-lift h-full hover:bg-muted/50">
+    <PremiumCard className="animate-card-lift hover:bg-muted/50">
       <CardHeader className="gap-3">
         <div className="flex items-start justify-between gap-3">
           <CardTitle role="heading" aria-level={3}>
@@ -65,6 +65,6 @@ export function EcosystemResourceCard({
           <ArrowUpRightIcon data-icon="inline-end" />
         </a>
       </CardFooter>
-    </Card>
+    </PremiumCard>
   );
 }

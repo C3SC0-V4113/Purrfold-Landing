@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
 import { ecosystemResources } from '@/components/ecosystem/ecosystem-catalog';
+import { PremiumCard } from '@/components/motion/premium-card';
 import { qualityTools } from '@/components/quality/quality-catalog';
 import { skillCatalog } from '@/components/skills/skills-catalog';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import {
-  Card,
   CardContent,
   CardDescription,
   CardFooter,
@@ -96,7 +96,7 @@ export function SummaryCards({ locale }: SummarySectionProps) {
           const copy = t[route];
 
           return (
-            <Card key={route} role="article" className="animate-card-lift h-full hover:bg-muted/50">
+            <PremiumCard key={route} role="article" className="animate-card-lift hover:bg-muted/50">
               <CardHeader className="gap-3">
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-wrap gap-2">
@@ -132,7 +132,7 @@ export function SummaryCards({ locale }: SummarySectionProps) {
                   {t.cta[route]}
                 </Link>
               </CardFooter>
-            </Card>
+            </PremiumCard>
           );
         })}
       </div>

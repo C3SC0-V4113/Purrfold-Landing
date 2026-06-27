@@ -3,8 +3,9 @@
 import { ExternalLinkIcon } from 'lucide-react';
 
 import { CodeBlock } from '@/components/common/code-block';
+import { PremiumCard } from '@/components/motion/premium-card';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { buildCliCommand, type FlagState } from '@/lib/build-command';
@@ -36,7 +37,7 @@ export function PresetExample({ messages, presetId, onPresetChange }: PresetExam
   const command = buildCliCommand(flags, 'npx purrfold@latest my-app');
 
   return (
-    <Card size="sm">
+    <PremiumCard size="sm">
       <CardHeader>
         <CardTitle>{messages.title}</CardTitle>
         <CardDescription>{messages.description}</CardDescription>
@@ -68,6 +69,6 @@ export function PresetExample({ messages, presetId, onPresetChange }: PresetExam
         </div>
         <CodeBlock text={command} />
       </CardContent>
-    </Card>
+    </PremiumCard>
   );
 }

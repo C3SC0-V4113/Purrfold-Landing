@@ -1,6 +1,7 @@
+import { Children, isValidElement } from 'react';
+
+import { SectionReveal } from '@/components/motion/section-reveal';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 
 import type { ReactNode } from 'react';
 
@@ -12,34 +13,44 @@ type PageShellProps = {
   title: string;
 };
 
+function getSectionKey(section: ReactNode, fallbackIndex: number) {
+  if (isValidElement(section) && section.key !== null) return section.key;
+
+  return `page-section-${fallbackIndex}`;
+}
+
 export function PageShell({ actions, children, description, routeLabel, title }: PageShellProps) {
+  const sections = Children.toArray(children);
+
   return (
     <main className="mx-auto w-full max-w-5xl px-6 py-12 sm:px-10 sm:py-16">
-      <div className="flex flex-col gap-10">
-        <Card size="sm">
-          <CardHeader className="gap-4">
-            {routeLabel ? <Badge variant="outline">{routeLabel}</Badge> : null}
-            <div className="flex flex-col gap-2">
-              <CardTitle>
-                <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
-              </CardTitle>
-              <CardDescription className="max-w-2xl text-base leading-7 sm:text-lg">
-                {description}
-              </CardDescription>
+      <div className="flex flex-col gap-12">
+        <SectionReveal>
+          <header className="flex flex-col gap-4">
+            {routeLabel ? (
+              <Badge variant="outline" className="w-fit">
+                {routeLabel}
+              </Badge>
+            ) : null}
+            <div className="flex max-w-3xl flex-col gap-3">
+              <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                {title}
+              </h1>
+              <p className="text-base leading-7 text-muted-foreground sm:text-lg">{description}</p>
             </div>
-          </CardHeader>
-          {actions || children ? (
-            <>
-              <Separator />
-              <CardContent className="flex flex-col gap-4 pt-5">
-                {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
-                {children ? (
-                  <div className="text-sm leading-6 text-muted-foreground">{children}</div>
-                ) : null}
-              </CardContent>
-            </>
-          ) : null}
-        </Card>
+            {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
+          </header>
+        </SectionReveal>
+
+        {sections.length > 0 ? (
+          <div className="flex flex-col gap-8 text-sm leading-6 text-muted-foreground">
+            {sections.map((section, index) => (
+              <SectionReveal key={getSectionKey(section, index)} delay={0.04 + index * 0.03}>
+                {section}
+              </SectionReveal>
+            ))}
+          </div>
+        ) : null}
       </div>
     </main>
   );

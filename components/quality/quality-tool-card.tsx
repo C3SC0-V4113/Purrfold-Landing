@@ -1,7 +1,8 @@
 import { ArrowUpRightIcon } from 'lucide-react';
 
+import { PremiumCard } from '@/components/motion/premium-card';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 import type { QualityStatus } from '@/components/quality/quality-catalog';
 
@@ -27,7 +28,7 @@ export function QualityToolCard({
   statusLabels,
 }: QualityToolCardProps) {
   return (
-    <Card className="animate-card-lift h-full hover:bg-muted/50">
+    <PremiumCard className="animate-card-lift hover:bg-muted/50">
       <CardHeader className="gap-2">
         <div className="flex items-start justify-between gap-2">
           <CardTitle>{name}</CardTitle>
@@ -52,6 +53,6 @@ export function QualityToolCard({
           <ArrowUpRightIcon className="size-3.5" />
         </a>
       </CardContent>
-    </Card>
+    </PremiumCard>
   );
 }
