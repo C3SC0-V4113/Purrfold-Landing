@@ -11,6 +11,9 @@ function assertExternalLink(name: string, href: string) {
   expect(link.getAttribute('href')).toBe(href);
   expect(link.getAttribute('target')).toBe('_blank');
   expect(link.getAttribute('rel')).toBe('noreferrer noopener');
+  expect(screen.getByText(name).getAttribute('class')).toContain('hidden sm:inline');
+
+  return link;
 }
 
 describe('SiteFooter', () => {
@@ -31,6 +34,9 @@ describe('SiteFooter', () => {
     assertExternalLink(messages.links.github, externalLinks.github);
     assertExternalLink(messages.links.website, externalLinks.personalWebsite);
     assertExternalLink(messages.links.linkedin, externalLinks.linkedin);
+    expect(screen.getByTestId('footer-github-icon')).toBeDefined();
+    expect(screen.getByTestId('footer-website-icon')).toBeDefined();
+    expect(screen.getByTestId('footer-linkedin-icon')).toBeDefined();
   });
 
   it('renders the Spanish global footer links', () => {

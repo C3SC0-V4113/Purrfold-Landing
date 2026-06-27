@@ -1,10 +1,7 @@
-import Link from 'next/link';
-
 import { BaseNavigation } from '@/components/common/base-navigation';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { buildLocalizedPath } from '@/i18n/routing';
 
 import type { Locale } from '@/i18n/routing';
 import type { ReactNode } from 'react';
@@ -55,15 +52,6 @@ export function PageShell({
               </>
             ) : null}
           </Card>
-
-          <div>
-            <Link
-              className="text-sm font-medium text-foreground underline underline-offset-4"
-              href={buildLocalizedPath(locale, '/')}
-            >
-              {locale === 'es' ? 'Volver al inicio' : 'Back to home'}
-            </Link>
-          </div>
         </div>
       </main>
     </div>

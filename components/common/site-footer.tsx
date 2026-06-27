@@ -1,4 +1,4 @@
-import { GitBranchIcon } from 'lucide-react';
+import { BriefcaseBusinessIcon, GitBranchIcon, GlobeIcon } from 'lucide-react';
 
 import { Separator } from '@/components/ui/separator';
 import { getMessages } from '@/i18n/messages';
@@ -17,8 +17,8 @@ const externalLinkAttributes = {
 
 const footerLinks = [
   { key: 'github', href: externalLinks.github, icon: GitBranchIcon },
-  { key: 'website', href: externalLinks.personalWebsite },
-  { key: 'linkedin', href: externalLinks.linkedin },
+  { key: 'website', href: externalLinks.personalWebsite, icon: GlobeIcon },
+  { key: 'linkedin', href: externalLinks.linkedin, icon: BriefcaseBusinessIcon },
 ] as const;
 
 export function SiteFooter({ locale }: SiteFooterProps) {
@@ -34,7 +34,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           </div>
           <nav aria-label={t.label} className="flex flex-wrap items-center gap-2">
             {footerLinks.map((link) => {
-              const Icon = 'icon' in link ? link.icon : undefined;
+              const Icon = link.icon;
               const label = t.links[link.key];
 
               return (
@@ -42,10 +42,15 @@ export function SiteFooter({ locale }: SiteFooterProps) {
                   key={link.href}
                   href={link.href}
                   {...externalLinkAttributes}
-                  className="inline-flex h-8 items-center gap-1.5 rounded-2xl px-3 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none"
+                  aria-label={label}
+                  className="inline-flex size-10 items-center justify-center rounded-2xl text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none sm:h-8 sm:w-auto sm:gap-1.5 sm:px-3"
                 >
-                  {Icon ? <Icon data-icon="inline-start" /> : null}
-                  {label}
+                  <Icon
+                    aria-hidden="true"
+                    data-icon="inline-start"
+                    data-testid={`footer-${link.key}-icon`}
+                  />
+                  <span className="hidden sm:inline">{label}</span>
                 </a>
               );
             })}

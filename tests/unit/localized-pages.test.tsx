@@ -195,5 +195,14 @@ describe('localized page rendering', () => {
 
     expect(screen.getByRole('link', { name: 'Install' }).getAttribute('aria-current')).toBe('page');
     expect(screen.queryByRole('link', { name: 'Home', current: 'page' })).toBeNull();
+    expect(screen.queryByRole('link', { name: 'Back to home' })).toBeNull();
+  });
+
+  it('does not render the old Spanish back-to-home link on deep pages', async () => {
+    render(
+      <ThemeProvider>{await InstallPage(createLocalizedInstallPageProps('es'))}</ThemeProvider>
+    );
+
+    expect(screen.queryByRole('link', { name: 'Volver al inicio' })).toBeNull();
   });
 });
