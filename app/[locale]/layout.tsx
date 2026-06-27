@@ -1,3 +1,4 @@
+import { BaseNavigation } from '@/components/common/base-navigation';
 import { SiteFooter } from '@/components/common/site-footer';
 import { locales } from '@/i18n/routing';
 import { resolveLocale } from '@/lib/locale';
@@ -18,9 +19,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
   const locale = await resolveLocale(params);
 
   return (
-    <>
-      {children}
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <BaseNavigation locale={locale} />
+      <div className="flex-1">{children}</div>
       <SiteFooter locale={locale} />
-    </>
+    </div>
   );
 }

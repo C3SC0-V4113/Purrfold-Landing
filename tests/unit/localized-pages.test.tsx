@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import EcosystemPage from '@/app/[locale]/ecosystem/page';
 import InstallPage from '@/app/[locale]/install/page';
+import LocaleLayout from '@/app/[locale]/layout';
 import LocalizedHomePage from '@/app/[locale]/page';
 import QualityPage from '@/app/[locale]/quality/page';
 import SkillsPage from '@/app/[locale]/skills/page';
@@ -10,6 +11,7 @@ import { ThemeProvider } from '@/components/common/theme-provider';
 import { externalLinks } from '@/i18n/routing';
 
 import type { LocalizedPageProps } from '@/lib/localized-page-props';
+import type { ReactNode } from 'react';
 
 let mockPathname = '/en';
 
@@ -69,11 +71,20 @@ function createLocalizedEcosystemPageProps(locale: 'en' | 'es') {
   } satisfies LocalizedPageProps;
 }
 
+async function renderWithLocaleLayout(locale: 'en' | 'es', children: ReactNode) {
+  render(
+    <ThemeProvider>
+      {await LocaleLayout({
+        children,
+        params: Promise.resolve({ locale }),
+      } as LayoutProps<'/[locale]'>)}
+    </ThemeProvider>
+  );
+}
+
 describe('localized page rendering', () => {
   it('renders the English home navigation and hub content', async () => {
-    render(
-      <ThemeProvider>{await LocalizedHomePage(createLocalizedHomePageProps('en'))}</ThemeProvider>
-    );
+    await renderWithLocaleLayout('en', await LocalizedHomePage(createLocalizedHomePageProps('en')));
 
     expect(
       screen.getByRole('heading', {
@@ -109,9 +120,7 @@ describe('localized page rendering', () => {
   });
 
   it('renders the Spanish home navigation and hub content', async () => {
-    render(
-      <ThemeProvider>{await LocalizedHomePage(createLocalizedHomePageProps('es'))}</ThemeProvider>
-    );
+    await renderWithLocaleLayout('es', await LocalizedHomePage(createLocalizedHomePageProps('es')));
 
     expect(
       screen.getByRole('heading', { level: 1, name: 'La base sólida para proyectos con agentes' })
@@ -189,9 +198,7 @@ describe('localized page rendering', () => {
   it('keeps the active desktop route visible on localized deep pages', async () => {
     mockPathname = '/en/install';
 
-    render(
-      <ThemeProvider>{await InstallPage(createLocalizedInstallPageProps('en'))}</ThemeProvider>
-    );
+    await renderWithLocaleLayout('en', await InstallPage(createLocalizedInstallPageProps('en')));
 
     expect(screen.getByRole('link', { name: 'Install' }).getAttribute('aria-current')).toBe('page');
     expect(screen.queryByRole('link', { name: 'Home', current: 'page' })).toBeNull();

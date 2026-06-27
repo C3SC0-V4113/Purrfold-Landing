@@ -24,13 +24,12 @@ describe('Hub page composition', () => {
     document.body.innerHTML = '';
   });
 
-  it('renders BaseNavigation and all five hub sections without PageShell', async () => {
+  it('renders all five hub sections without route chrome', async () => {
     render(
       <ThemeProvider>{await LocalizedHomePage(createLocalizedHomePageProps('en'))}</ThemeProvider>
     );
 
-    expect(screen.getByRole('banner')).toBeDefined();
-    expect(screen.getByRole('navigation', { name: 'Primary navigation' })).toBeDefined();
+    expect(screen.queryByRole('banner')).toBeNull();
 
     const main = screen.getByRole('main');
     expect(

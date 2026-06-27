@@ -1,4 +1,4 @@
-import { PageShell } from '@/components/common/page-shell';
+﻿import { PageShell } from '@/components/common/page-shell';
 import { SkillsList } from '@/components/skills/skills-list';
 import { SkillsOverview } from '@/components/skills/skills-overview';
 import { getMessages } from '@/i18n/messages';
@@ -18,12 +18,7 @@ export default async function SkillsPage(props: LocalizedPageProps) {
   const t = getMessages(locale).Pages.skills;
 
   return (
-    <PageShell
-      description={t.description}
-      locale={locale}
-      routeLabel={t.routeLabel}
-      title={t.title}
-    >
+    <PageShell description={t.description} routeLabel={t.routeLabel} title={t.title}>
       <SkillsOverview locale={locale} />
       <SkillsList locale={locale} />
     </PageShell>

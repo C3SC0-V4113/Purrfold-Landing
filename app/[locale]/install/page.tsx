@@ -1,4 +1,4 @@
-import { PageShell } from '@/components/common/page-shell';
+﻿import { PageShell } from '@/components/common/page-shell';
 import { FlagsReference } from '@/components/install/flags-reference';
 import { InstallView } from '@/components/install/install-view';
 import { getMessages } from '@/i18n/messages';
@@ -18,12 +18,7 @@ export default async function InstallPage(props: LocalizedPageProps) {
   const t = getMessages(locale).Pages.install;
 
   return (
-    <PageShell
-      description={t.description}
-      locale={locale}
-      routeLabel={t.routeLabel}
-      title={t.title}
-    >
+    <PageShell description={t.description} routeLabel={t.routeLabel} title={t.title}>
       <InstallView locale={locale} messages={t}>
         <FlagsReference messages={t.flagsReference} />
       </InstallView>

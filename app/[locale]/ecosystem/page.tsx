@@ -1,4 +1,4 @@
-import { PageShell } from '@/components/common/page-shell';
+﻿import { PageShell } from '@/components/common/page-shell';
 import { EcosystemView } from '@/components/ecosystem/ecosystem-view';
 import { getMessages } from '@/i18n/messages';
 import { resolveLocale } from '@/lib/locale';
@@ -17,12 +17,7 @@ export default async function EcosystemPage(props: LocalizedPageProps) {
   const t = getMessages(locale).Pages.ecosystem;
 
   return (
-    <PageShell
-      description={t.description}
-      locale={locale}
-      routeLabel={t.routeLabel}
-      title={t.title}
-    >
+    <PageShell description={t.description} routeLabel={t.routeLabel} title={t.title}>
       <EcosystemView locale={locale} />
     </PageShell>
   );
