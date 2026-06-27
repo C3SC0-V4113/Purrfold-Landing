@@ -17,22 +17,38 @@
         "copied": "¡Copiado!"
       },
       "cards": {
-        "title": "Explorar",
+        "title": "Explora la superficie del proyecto",
+        "description": "Resúmenes compactos del flujo de instalación, la capa de skills, el stack de calidad y el directorio de ecosistema que viven en las rutas adyacentes.",
+        "highlights": "Puntos clave",
+        "metrics": {
+          "flags": "flags documentados",
+          "skills": "skills mapeadas",
+          "defaultTools": "herramientas por defecto",
+          "optionalTools": "herramientas opcionales",
+          "foundationResources": "recurso base",
+          "communityResources": "recursos comunitarios"
+        },
+        "cta": {
+          "install": "Abrir guía de instalación",
+          "skills": "Revisar skills",
+          "quality": "Revisar stack de calidad",
+          "ecosystem": "Explorar ecosistema"
+        },
         "install": {
-          "title": "Instalar",
-          "description": "Flujos de instalación para CLI y agente con flags y presets."
+          "title": "Flujo de instalación",
+          "description": "Comienza desde el CLI o el prompt para agentes, y ajusta el proyecto generado con flags explícitos."
         },
         "skills": {
-          "title": "Skills",
-          "description": "Skills para agentes seleccionadas para código consistente y de alta calidad."
+          "title": "Capa de skills",
+          "description": "Revisa la guía reutilizable que mantiene a los agentes alineados con arquitectura, framework, calidad y TypeScript."
         },
         "quality": {
-          "title": "Calidad",
-          "description": "ESLint, Prettier, Husky, commitlint, React Doctor, Vitest y Playwright."
+          "title": "Stack de calidad",
+          "description": "Comprende qué controles vienen por defecto y qué señales opcionales aparecen cuando la instalación activa testing más profundo."
         },
         "ecosystem": {
-          "title": "Ecosistema",
-          "description": "Librerías cercanas a shadcn e inspiraciones de diseño."
+          "title": "Ecosistema de componentes",
+          "description": "Comienza con shadcn/ui como base y evalúa recursos comunitarios compatibles sin asumir su adopción."
         }
       },
       "roadmap": {
@@ -40,10 +56,22 @@
         "shipped": "Disponible",
         "future": "Próximo",
         "items": [
-          { "name": "Next.js", "status": "shipped" },
-          { "name": "Astro", "status": "future" },
-          { "name": "Vite", "status": "future" },
-          { "name": "TanStack Start", "status": "future" }
+          {
+            "name": "Next.js",
+            "status": "shipped"
+          },
+          {
+            "name": "Astro",
+            "status": "future"
+          },
+          {
+            "name": "Vite",
+            "status": "future"
+          },
+          {
+            "name": "TanStack Start",
+            "status": "future"
+          }
         ]
       },
       "foundations": {
@@ -187,7 +215,10 @@
             "flag": "--unit / --no-unit",
             "description": "Incluir u omitir Vitest + React Testing Library"
           },
-          { "flag": "--e2e / --no-e2e", "description": "Incluir u omitir Playwright" },
+          {
+            "flag": "--e2e / --no-e2e",
+            "description": "Incluir u omitir Playwright"
+          },
           {
             "flag": "--commitlint / --no-commitlint",
             "description": "Incluir u omitir commitlint + el hook commit-msg de Husky"
@@ -196,7 +227,10 @@
             "flag": "--shadcn-args <args...>",
             "description": "Reenviar argumentos extra a shadcn init, incluyendo --preset <id>"
           },
-          { "flag": "--pm npm|pnpm|bun", "description": "Elegir el administrador de paquetes" },
+          {
+            "flag": "--pm npm|pnpm|bun",
+            "description": "Elegir el administrador de paquetes"
+          },
           {
             "flag": "--mcp / --no-mcp",
             "description": "Instalar shadcn MCP para Claude, Codex y OpenCode"
@@ -205,8 +239,14 @@
             "flag": "--icons <lucide|phosphor|tabler>",
             "description": "Librería de iconos fallback para el gato de la home"
           },
-          { "flag": "--yes", "description": "Usar valores por defecto no interactivos" },
-          { "flag": "--dry-run", "description": "Previsualizar operaciones sin escribir archivos" }
+          {
+            "flag": "--yes",
+            "description": "Usar valores por defecto no interactivos"
+          },
+          {
+            "flag": "--dry-run",
+            "description": "Previsualizar operaciones sin escribir archivos"
+          }
         ]
       },
       "preset": {

@@ -17,22 +17,38 @@
         "copied": "Copied!"
       },
       "cards": {
-        "title": "Explore",
+        "title": "Explore the project surface",
+        "description": "Compact previews of the install flow, skill layer, quality stack, and ecosystem directory that power the adjacent routes.",
+        "highlights": "Highlights",
+        "metrics": {
+          "flags": "documented flags",
+          "skills": "skills mapped",
+          "defaultTools": "default tools",
+          "optionalTools": "optional tools",
+          "foundationResources": "foundation resource",
+          "communityResources": "community resources"
+        },
+        "cta": {
+          "install": "Open install guide",
+          "skills": "Review skills",
+          "quality": "Review quality stack",
+          "ecosystem": "Explore ecosystem"
+        },
         "install": {
-          "title": "Install",
-          "description": "CLI and agent setup flows with flags and presets."
+          "title": "Install flow",
+          "description": "Start from the CLI or agent prompt, then tune the generated project with explicit flags."
         },
         "skills": {
-          "title": "Skills",
-          "description": "Curated agent skills for consistent, high-quality code."
+          "title": "Skill layer",
+          "description": "See the reusable guidance that keeps agents aligned with architecture, framework, quality, and TypeScript expectations."
         },
         "quality": {
-          "title": "Quality",
-          "description": "ESLint, Prettier, Husky, commitlint, React Doctor, Vitest, Playwright."
+          "title": "Quality stack",
+          "description": "Understand which checks ship by default and which optional signals appear when the install enables deeper testing."
         },
         "ecosystem": {
-          "title": "Ecosystem",
-          "description": "shadcn-adjacent libraries and design inspirations."
+          "title": "Component ecosystem",
+          "description": "Begin with shadcn/ui as the foundation, then assess compatible community resources without assuming adoption."
         }
       },
       "roadmap": {
@@ -40,10 +56,22 @@
         "shipped": "Shipped",
         "future": "Future",
         "items": [
-          { "name": "Next.js", "status": "shipped" },
-          { "name": "Astro", "status": "future" },
-          { "name": "Vite", "status": "future" },
-          { "name": "TanStack Start", "status": "future" }
+          {
+            "name": "Next.js",
+            "status": "shipped"
+          },
+          {
+            "name": "Astro",
+            "status": "future"
+          },
+          {
+            "name": "Vite",
+            "status": "future"
+          },
+          {
+            "name": "TanStack Start",
+            "status": "future"
+          }
         ]
       },
       "foundations": {
@@ -187,7 +215,10 @@
             "flag": "--unit / --no-unit",
             "description": "Include or skip Vitest + React Testing Library"
           },
-          { "flag": "--e2e / --no-e2e", "description": "Include or skip Playwright" },
+          {
+            "flag": "--e2e / --no-e2e",
+            "description": "Include or skip Playwright"
+          },
           {
             "flag": "--commitlint / --no-commitlint",
             "description": "Include or skip commitlint + Husky commit-msg hook"
@@ -196,7 +227,10 @@
             "flag": "--shadcn-args <args...>",
             "description": "Forward extra arguments to shadcn init, including --preset <id>"
           },
-          { "flag": "--pm npm|pnpm|bun", "description": "Choose the package manager" },
+          {
+            "flag": "--pm npm|pnpm|bun",
+            "description": "Choose the package manager"
+          },
           {
             "flag": "--mcp / --no-mcp",
             "description": "Install shadcn MCP for Claude, Codex, and OpenCode"
@@ -205,8 +239,14 @@
             "flag": "--icons <lucide|phosphor|tabler>",
             "description": "Fallback icon library for the home-page cat"
           },
-          { "flag": "--yes", "description": "Use non-interactive defaults" },
-          { "flag": "--dry-run", "description": "Preview operations without writing files" }
+          {
+            "flag": "--yes",
+            "description": "Use non-interactive defaults"
+          },
+          {
+            "flag": "--dry-run",
+            "description": "Preview operations without writing files"
+          }
         ]
       },
       "preset": {
