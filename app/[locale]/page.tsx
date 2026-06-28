@@ -3,6 +3,7 @@ import { FoundationsSection } from '@/components/home/foundations-section';
 import { QuickInstall } from '@/components/home/quick-install';
 import { RoadmapSection } from '@/components/home/roadmap-section';
 import { SummaryCards } from '@/components/home/summary-cards';
+import { HeroCatBurst } from '@/components/motion/hero-cat-burst';
 import { SectionReveal } from '@/components/motion/section-reveal';
 import { ShimmerCtaLink } from '@/components/motion/shimmer-cta-link';
 import { Badge } from '@/components/ui/badge';
@@ -26,7 +27,7 @@ export default async function LocalizedHomePage(props: LocalizedPageProps) {
 
   return (
     <main>
-      <section className="relative isolate flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center gap-8 overflow-hidden px-6 text-center sm:px-10">
+      <section className="relative isolate flex min-h-dvh flex-col items-center justify-center gap-8 overflow-hidden px-6 text-center sm:px-10 md:min-h-[calc(100vh-3.5rem)]">
         <DottedBackground className="h-[34rem]" />
         <div
           aria-hidden="true"
@@ -37,9 +38,12 @@ export default async function LocalizedHomePage(props: LocalizedPageProps) {
           style={{ animationDelay: '0ms' }}
         >
           <Badge variant="outline">{hero.eyebrow}</Badge>
-          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            {hero.title}
-          </h1>
+          <div className="relative inline-flex justify-center">
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              {hero.title}
+            </h1>
+            <HeroCatBurst />
+          </div>
         </div>
 
         <div

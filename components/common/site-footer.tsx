@@ -1,5 +1,6 @@
-import { BriefcaseBusinessIcon, GitBranchIcon, GlobeIcon } from 'lucide-react';
+import { GlobeIcon } from 'lucide-react';
 
+import { GitHubIcon, LinkedInIcon } from '@/components/common/brand-icons';
 import { Separator } from '@/components/ui/separator';
 import { getMessages } from '@/i18n/messages';
 import { externalLinks } from '@/i18n/routing';
@@ -16,9 +17,9 @@ const externalLinkAttributes = {
 } as const;
 
 const footerLinks = [
-  { key: 'github', href: externalLinks.github, icon: GitBranchIcon },
+  { key: 'github', href: externalLinks.github, icon: GitHubIcon },
   { key: 'website', href: externalLinks.personalWebsite, icon: GlobeIcon },
-  { key: 'linkedin', href: externalLinks.linkedin, icon: BriefcaseBusinessIcon },
+  { key: 'linkedin', href: externalLinks.linkedin, icon: LinkedInIcon },
 ] as const;
 
 export function SiteFooter({ locale }: SiteFooterProps) {

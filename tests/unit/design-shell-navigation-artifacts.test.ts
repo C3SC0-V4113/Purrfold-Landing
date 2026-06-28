@@ -169,6 +169,10 @@ describe('phase 2 design shell navigation artifacts', () => {
   it('keeps the visual rework scoped to subtle Magic UI surfaces', () => {
     const packageJson = readProjectFile('package.json');
     const homePage = readProjectFile('app/[locale]/page.tsx');
+    const brandIcons = readProjectFile('components/common/brand-icons.tsx');
+    const baseNavigation = readProjectFile('components/common/base-navigation.tsx');
+    const siteFooter = readProjectFile('components/common/site-footer.tsx');
+    const heroCatBurst = readProjectFile('components/motion/hero-cat-burst.tsx');
     const codeBlock = readProjectFile('components/common/code-block.tsx');
     const commandTerminal = readProjectFile('components/motion/command-terminal.tsx');
     const dottedBackground = readProjectFile('components/common/dotted-background.tsx');
@@ -179,9 +183,32 @@ describe('phase 2 design shell navigation artifacts', () => {
     const shimmerCtaLink = readProjectFile('components/motion/shimmer-cta-link.tsx');
 
     expect(packageJson).toContain('"motion"');
+    expect(packageJson).toContain('"@tabler/icons-react"');
+    expect(brandIcons).toContain('IconBrandGithub');
+    expect(brandIcons).toContain('IconBrandLinkedin');
+    expect(brandIcons).toContain('IconCat');
+    expect(baseNavigation).toContain(
+      "import { GitHubIcon, PurrfoldCatIcon } from '@/components/common/brand-icons';"
+    );
+    expect(baseNavigation).not.toContain('GitBranchIcon');
+    expect(siteFooter).toContain(
+      "import { GitHubIcon, LinkedInIcon } from '@/components/common/brand-icons';"
+    );
+    expect(siteFooter).not.toContain('BriefcaseBusinessIcon');
+    expect(siteFooter).not.toContain('GitBranchIcon');
     expect(homePage).toContain(
       "import { DottedBackground } from '@/components/common/dotted-background';"
     );
+    expect(homePage).toContain(
+      "import { HeroCatBurst } from '@/components/motion/hero-cat-burst';"
+    );
+    expect(homePage).toContain('<HeroCatBurst />');
+    expect(heroCatBurst).toContain("'use client'");
+    expect(heroCatBurst).toContain('useReducedMotion');
+    expect(heroCatBurst).toContain('aria-hidden="true"');
+    expect(heroCatBurst).toContain('PurrfoldCatIcon');
+    expect(heroCatBurst).not.toContain('getBoundingClientRect');
+    expect(heroCatBurst).not.toContain('filter:');
     expect(homePage).toContain("import { ShineBorder } from '@/components/ui/shine-border';");
     expect(homePage).toContain('var(--color-shine-border-from)');
     expect(dottedBackground).toContain("import { DotPattern } from '@/components/ui/dot-pattern';");
