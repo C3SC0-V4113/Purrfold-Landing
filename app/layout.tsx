@@ -4,7 +4,7 @@ import { getLocale } from 'next-intl/server';
 
 import { ThemeProvider } from '@/components/common/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { siteUrl } from '@/lib/site';
+import { siteName, siteUrl } from '@/lib/site';
 
 import type { Metadata } from 'next';
 
@@ -21,11 +21,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  description: 'Localized landing for installation, skills, quality, and ecosystem navigation.',
+  applicationName: siteName,
+  authors: [{ name: 'Francisco José Valle', url: 'https://www.cescovalle.com/' }],
+  creator: 'Francisco José Valle',
+  description:
+    'Agent-first project scaffolding with quality gates, reusable skills, and a shadcn UI foundation.',
+  generator: 'Next.js',
   metadataBase: siteUrl,
+  publisher: 'Francisco José Valle',
   title: {
-    default: 'Purrfold',
-    template: '%s | Purrfold',
+    default: siteName,
+    template: `%s | ${siteName}`,
   },
 };
 

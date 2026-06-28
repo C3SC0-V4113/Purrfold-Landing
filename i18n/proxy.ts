@@ -5,6 +5,10 @@ const bypassPatterns = [
   /^\/api\//,
   /^\/trpc\//,
   /^\/_vercel\//,
+  /^\/apple-icon$/,
+  /^\/icon$/,
+  /^\/manifest\.webmanifest$/,
+  /^\/opengraph-image$/,
   /^\/robots\.txt$/,
   /^\/sitemap\.xml$/,
 ];

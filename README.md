@@ -28,6 +28,7 @@ English (`en`) is the default locale. Spanish (`es`) copy must remain neutral an
 - **Routing:** locale-prefixed App Router pages under `app/[locale]`.
 - **Redirect authority:** `proxy.ts` owns root negotiation and unsupported-locale fallback.
 - **Route contract:** `i18n/routing.ts` defines locales, public routes, localized paths, alternates, and external links.
+- **SEO origin:** set `NEXT_PUBLIC_SITE_URL` to the real production origin before indexing; metadata, sitemap, robots, and social cards use it as their canonical base.
 - **Messages:** `messages/en.json` and `messages/es.json`, accessed through `i18n/messages.ts`.
 - **UI:** shadcn/base-rhea and Base UI primitives, with semantic tokens in `app/globals.css`.
 - **Rendering:** server-first; client components are reserved for actual interaction.

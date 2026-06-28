@@ -83,24 +83,56 @@
     }
   },
   "Metadata": {
+    "site": {
+      "description": "Scaffolding de proyectos orientado a agentes, con controles de calidad, skills reutilizables y una base de shadcn UI.",
+      "keywords": [
+        "Purrfold",
+        "scaffolding para agentes",
+        "starter de Next.js",
+        "shadcn UI",
+        "controles de calidad",
+        "agentes de código con IA"
+      ],
+      "ogAlt": "Tarjeta de marca de Purrfold con gato para scaffolding de proyectos orientado a agentes"
+    },
     "ecosystem": {
-      "description": "Descubre cómo la landing conecta el CLI, shadcn y Next.js sin agregar ruido innecesario.",
+      "description": "Explora la base de shadcn UI y recursos comunitarios compatibles alrededor del flujo de proyectos con agentes de Purrfold.",
+      "keywords": ["ecosistema shadcn", "recursos de componentes", "Magic UI", "Base UI"],
       "title": "Ecosistema conectado"
     },
     "home": {
-      "description": "Punto de entrada localizado para instalación, skills, controles de calidad y contexto del ecosistema.",
-      "title": "Landing de Purrfold"
+      "description": "Purrfold ayuda a generar proyectos listos para producción para agentes de código con controles de calidad, skills reutilizables y una base limpia de shadcn UI.",
+      "keywords": [
+        "scaffolding de proyectos",
+        "desarrollo con agentes",
+        "agentes de IA",
+        "herramientas para desarrollo"
+      ],
+      "title": "Scaffolding de proyectos para agentes"
     },
     "install": {
-      "description": "Inicia el flujo de instalación de la Fase 1 con una transición localizada y sobria hacia el CLI.",
+      "description": "Instala Purrfold desde el CLI o un prompt para agentes y configura testing, higiene de commits, shadcn MCP, package manager y presets.",
+      "keywords": [
+        "CLI de Purrfold",
+        "instalar Purrfold",
+        "scaffold de Next.js",
+        "preset de shadcn"
+      ],
       "title": "Instalar Purrfold"
     },
     "quality": {
-      "description": "Revisa los controles, la evidencia y las expectativas de calidad que mantienen confiables las instalaciones de Purrfold.",
+      "description": "Revisa linting, formato, type checking, diagnósticos de React, tests y señales de navegador que hacen confiables las instalaciones de Purrfold.",
+      "keywords": ["controles de calidad", "React Doctor", "React Scan", "Vitest", "Playwright"],
       "title": "Señales de calidad"
     },
     "skills": {
-      "description": "Comprende las skills y las capas de flujo de trabajo que estructuran la experiencia de Purrfold.",
+      "description": "Comprende las skills reutilizables para agentes y la guía de flujo de trabajo que alinea proyectos Purrfold con arquitectura, framework, testing y TypeScript.",
+      "keywords": [
+        "skills para agentes",
+        "skills de Codex",
+        "guía de arquitectura",
+        "buenas prácticas de Next.js"
+      ],
       "title": "Superficie de skills"
     }
   },

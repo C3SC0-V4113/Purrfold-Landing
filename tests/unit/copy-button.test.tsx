@@ -10,6 +10,7 @@ describe('CopyButton', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.useRealTimers();
   });
 
   it('renders a copy button with the Copy icon initially', () => {
@@ -40,17 +41,16 @@ describe('CopyButton', () => {
     const button = screen.getByRole('button', { name: 'Copy' });
 
     fireEvent.click(button);
-    await vi.advanceTimersByTimeAsync(0);
 
-    expect(screen.getByRole('button', { name: 'Copied!' })).toBeDefined();
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Copied!' })).toBeDefined();
+    });
 
     act(() => {
       vi.runOnlyPendingTimers();
     });
 
     expect(screen.getByRole('button', { name: 'Copy' })).toBeDefined();
-
-    vi.useRealTimers();
   });
 
   it('does not throw when the clipboard API is unavailable', async () => {

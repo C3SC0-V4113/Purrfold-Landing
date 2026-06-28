@@ -16,6 +16,10 @@ describe('proxy locale negotiation', () => {
 
   it('bypasses Next.js internals and metadata assets but not localized pages', () => {
     expect(shouldBypassProxy('/_next/static/chunks/main.js')).toBe(true);
+    expect(shouldBypassProxy('/apple-icon')).toBe(true);
+    expect(shouldBypassProxy('/icon')).toBe(true);
+    expect(shouldBypassProxy('/manifest.webmanifest')).toBe(true);
+    expect(shouldBypassProxy('/opengraph-image')).toBe(true);
     expect(shouldBypassProxy('/sitemap.xml')).toBe(true);
     expect(shouldBypassProxy('/robots.txt')).toBe(true);
     expect(shouldBypassProxy('/es/install')).toBe(false);

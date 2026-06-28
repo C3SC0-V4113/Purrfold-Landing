@@ -86,24 +86,51 @@ declare const messages: {
     }
   },
   "Metadata": {
+    "site": {
+      "description": "Agent-first project scaffolding with quality gates, reusable skills, and a shadcn UI foundation.",
+      "keywords": [
+        "Purrfold",
+        "agent-first scaffolding",
+        "Next.js starter",
+        "shadcn UI",
+        "quality gates",
+        "AI coding agents"
+      ],
+      "ogAlt": "Purrfold cat brand card for agent-first project scaffolding"
+    },
     "ecosystem": {
-      "description": "See how the landing connects the CLI, shadcn, and Next.js without adding unnecessary noise.",
+      "description": "Explore the shadcn UI foundation and compatible community resources around Purrfold's agent-first project workflow.",
+      "keywords": ["shadcn ecosystem", "component resources", "Magic UI", "Base UI"],
       "title": "Connected ecosystem"
     },
     "home": {
-      "description": "Localized entrypoint for installation, skills, quality checks, and ecosystem context.",
-      "title": "Purrfold landing"
+      "description": "Purrfold helps teams scaffold production-ready projects for AI coding agents with quality gates, reusable skills, and a clean shadcn UI foundation.",
+      "keywords": [
+        "project scaffolding",
+        "agent-driven development",
+        "AI agents",
+        "developer tooling"
+      ],
+      "title": "Agent-first project scaffolding"
     },
     "install": {
-      "description": "Start the Phase 1 installation flow with a calm, localized handoff into the CLI path.",
+      "description": "Install Purrfold from the CLI or an agent prompt and configure testing, commit hygiene, shadcn MCP, package manager, and preset options.",
+      "keywords": ["Purrfold CLI", "install Purrfold", "Next.js scaffold", "shadcn preset"],
       "title": "Install Purrfold"
     },
     "quality": {
-      "description": "Review the checks, evidence, and quality expectations that keep Purrfold installs trustworthy.",
+      "description": "Review the linting, formatting, type checking, React diagnostics, tests, and browser signals that make Purrfold installs trustworthy.",
+      "keywords": ["quality gates", "React Doctor", "React Scan", "Vitest", "Playwright"],
       "title": "Quality signals"
     },
     "skills": {
-      "description": "Understand the skills and workflow layers that shape the Purrfold experience.",
+      "description": "Understand the reusable agent skills and workflow guidance that keep Purrfold projects aligned with architecture, framework, testing, and TypeScript expectations.",
+      "keywords": [
+        "agent skills",
+        "Codex skills",
+        "architecture guidance",
+        "Next.js best practices"
+      ],
       "title": "Skill surface"
     }
   },
