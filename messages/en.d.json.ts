@@ -472,7 +472,7 @@ declare const messages: {
   "Footer": {
     "label": "Footer links",
     "description": "A calm project surface for agent-first scaffolding, quality gates, and reusable engineering guidance.",
-    "credit": "Built by Francisco Jos? Valle.",
+    "credit": "Built by Francisco José Valle Cornejo.",
     "links": {
       "github": "GitHub",
       "website": "Website",
