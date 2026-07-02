@@ -7,7 +7,7 @@ declare const messages: {
       "hero": {
         "eyebrow": "Agent-first",
         "title": "The solid foundation for agent-driven projects",
-        "description": "Purrfold scaffolds production-ready projects with quality gates, agent skills, and shadcn UI — so your agents build on solid ground from day one.",
+        "description": "Purrfold scaffolds agent-ready Next.js projects with quality gates, agent rules, versioned docs, and shadcn UI — so agents work from verifiable context on day one.",
         "cta": "Scaffold a project"
       },
       "tabs": {
@@ -15,13 +15,13 @@ declare const messages: {
         "cli": "CLI",
         "agent": "Agent",
         "cliCommand": "npx purrfold@latest <project-directory>",
-        "agentPrompt": "I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, and agent skills. After scaffolding, run `npm run check` to verify everything works.",
+        "agentPrompt": "I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned Next.js guidance. After scaffolding, run `npm run check` to verify everything works.",
         "copyButton": "Copy",
         "copied": "Copied!"
       },
       "cards": {
         "title": "Explore the project surface",
-        "description": "Compact previews of the install flow, skill layer, quality stack, and ecosystem directory that power the adjacent routes.",
+        "description": "Compact previews of the install flow, agent guidance, quality stack, and ecosystem directory that power the adjacent routes.",
         "highlights": "Highlights",
         "metrics": {
           "flags": "documented flags",
@@ -29,7 +29,8 @@ declare const messages: {
           "defaultTools": "default tools",
           "optionalTools": "optional tools",
           "foundationResources": "foundation resource",
-          "communityResources": "community resources"
+          "communityResources": "community resources",
+          "nextjsSkills": "Next.js workflow skills"
         },
         "cta": {
           "install": "Open install guide",
@@ -42,8 +43,8 @@ declare const messages: {
           "description": "Start from the CLI or agent prompt, then tune the generated project with explicit flags."
         },
         "skills": {
-          "title": "Skill layer",
-          "description": "See the reusable guidance that keeps agents aligned with architecture, framework, quality, and TypeScript expectations."
+          "title": "Agent guidance",
+          "description": "See how Purrfold separates scaffold skills, AGENTS/CLAUDE rules, and the current workflow skills it installs from Next.js."
         },
         "quality": {
           "title": "Quality stack",
@@ -87,7 +88,7 @@ declare const messages: {
   },
   "Metadata": {
     "site": {
-      "description": "Agent-first project scaffolding with quality gates, reusable skills, and a shadcn UI foundation.",
+      "description": "Agent-ready Next.js project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.",
       "keywords": [
         "Purrfold",
         "agent-first scaffolding",
@@ -104,7 +105,7 @@ declare const messages: {
       "title": "Connected ecosystem"
     },
     "home": {
-      "description": "Purrfold helps teams scaffold production-ready projects for AI coding agents with quality gates, reusable skills, and a clean shadcn UI foundation.",
+      "description": "Purrfold helps teams scaffold agent-ready Next.js projects with quality gates, AGENTS/CLAUDE rules, versioned docs, and a clean shadcn UI foundation.",
       "keywords": [
         "project scaffolding",
         "agent-driven development",
@@ -124,12 +125,12 @@ declare const messages: {
       "title": "Quality signals"
     },
     "skills": {
-      "description": "Understand the reusable agent skills and workflow guidance that keep Purrfold projects aligned with architecture, framework, testing, and TypeScript expectations.",
+      "description": "Understand the scaffold skills, agent rules, and current Next.js workflow skills that guide Purrfold projects.",
       "keywords": [
-        "agent skills",
+        "agent guidance",
         "Codex skills",
-        "architecture guidance",
-        "Next.js best practices"
+        "Next.js workflow skills",
+        "versioned Next.js docs"
       ],
       "title": "Skill surface"
     }
@@ -374,13 +375,13 @@ declare const messages: {
     "skills": {
       "cardBadge": "Workflow",
       "cardTitle": "Skill Layers",
-      "cta": "Use this route to frame how the current landing connects operator guidance with reusable skills.",
-      "description": "Review the skills layer that supports installation, verification, and future localized expansion.",
+      "cta": "Use this route to frame how Purrfold separates scaffold skills, operator guidance, and the current Next.js workflow skills.",
+      "description": "Review the skills layer that supports installation, verification, and agent guidance in Purrfold projects.",
       "routeLabel": "Skills",
       "title": "Skill surface",
       "overview": {
-        "title": "Skills with equal weight",
-        "description": "Each skill solves a different problem. This page shows where it fits, what it helps with, and a short example of its utility."
+        "title": "Scaffold skills and Next.js workflow skills",
+        "description": "Next.js provides versioned documentation and AGENTS/CLAUDE rules; Purrfold installs the current workflow skills from the official Next.js repository."
       },
       "linkLabel": "Open skill",
       "categories": {
@@ -421,12 +422,6 @@ declare const messages: {
           "purpose": "Keep documentation synchronized when architecture, UI, or conventions change.",
           "whenHelp": "After structural changes that affect docs, ADRs, or quality gates.",
           "example": "Example: update the ADR when a component boundary changes."
-        },
-        "next-best-practices": {
-          "name": "Next.js Best Practices",
-          "purpose": "Next.js file conventions, RSC boundaries, data patterns, async APIs, and optimization.",
-          "whenHelp": "When building pages, layouts, routes, or data fetching in the App Router.",
-          "example": "Example: keep route components server-first and await async params."
         },
         "vercel-react-best-practices": {
           "name": "Vercel React Best Practices",
@@ -492,13 +487,38 @@ declare const messages: {
       "badges": {
         "local": "Local",
         "skillsSh": "skills.sh",
-        "reactDoctor": "React Doctor"
+        "reactDoctor": "React Doctor",
+        "nextjs": "Next.js"
+      },
+      "workflow": {
+        "title": "Next.js workflow skills",
+        "description": "Purrfold installs these current workflow skills from `vercel/next.js`; Next.js reference guidance comes from versioned docs and AGENTS/CLAUDE rules.",
+        "skills": {
+          "next-cache-components-adoption": {
+            "name": "Cache Components adoption",
+            "purpose": "Guides enabling `cacheComponents` and resolving blocking routes during Cache Components adoption.",
+            "whenHelp": "When a project migrates to Cache Components and needs to choose between temporary opt-outs or in-place refactors.",
+            "example": "Example: enable `cacheComponents`, run the adoption codemod, and clean routes top-down."
+          },
+          "next-cache-components-optimizer": {
+            "name": "Cache Components optimizer",
+            "purpose": "Optimizes an app with `cacheComponents: true`, covering both initial static shells and route-to-route navigation.",
+            "whenHelp": "When a route has adopted Cache Components and you want to improve what appears in the shell or during navigation.",
+            "example": "Example: compare before/after screenshots to confirm a Suspense boundary promoted more static content."
+          },
+          "next-dev-loop": {
+            "name": "Next.js dev loop",
+            "purpose": "Verifies runtime behavior with `next dev`, the Next.js MCP surface, and a real browser, not only compilation or types.",
+            "whenHelp": "When a Next.js change needs framework errors, console, network, routes, and visible browser behavior checked together.",
+            "example": "Example: cross-check `/_next/mcp` with a browser session to validate a page compiles and behaves as intended."
+          }
+        }
       }
     }
   },
   "Footer": {
     "label": "Footer links",
-    "description": "A calm project surface for agent-first scaffolding, quality gates, and reusable engineering guidance.",
+    "description": "A calm project surface for agent-ready scaffolding, quality gates, and versioned engineering guidance.",
     "credit": "Built by Francisco José Valle Cornejo.",
     "links": {
       "github": "GitHub",

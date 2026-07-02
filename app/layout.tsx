@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Francisco José Valle', url: 'https://www.cescovalle.com/' }],
   creator: 'Francisco José Valle',
   description:
-    'Agent-first project scaffolding with quality gates, reusable skills, and a shadcn UI foundation.',
+    'Agent-ready Next.js project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.',
   generator: 'Next.js',
   metadataBase: siteUrl,
   publisher: 'Francisco José Valle',

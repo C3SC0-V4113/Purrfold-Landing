@@ -51,7 +51,9 @@ describe('SummaryCards', () => {
       )
     ).toBeDefined();
 
-    expect(screen.getAllByText(messages.Pages.skills.skills.shadcn.name).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(messages.Pages.skills.workflow.skills['next-dev-loop'].name).length
+    ).toBeGreaterThan(0);
     expect(
       screen.getAllByText(messages.Pages.quality.tools['react-doctor'].name).length
     ).toBeGreaterThan(0);

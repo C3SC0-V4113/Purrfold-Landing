@@ -1,6 +1,6 @@
 import { SectionReveal } from '@/components/motion/section-reveal';
 import { SkillCard } from '@/components/skills/skill-card';
-import { skillCatalog } from '@/components/skills/skills-catalog';
+import { nextjsWorkflowSkillCatalog, skillCatalog } from '@/components/skills/skills-catalog';
 import { getMessages } from '@/i18n/messages';
 
 import type { Locale } from '@/i18n/routing';
@@ -47,6 +47,7 @@ export function SkillsList({ locale }: SkillsListProps) {
                         local: t.badges.local,
                         skillsSh: t.badges.skillsSh,
                         reactDoctor: t.badges.reactDoctor,
+                        nextjs: t.badges.nextjs,
                       }}
                     />
                   );
@@ -56,6 +57,38 @@ export function SkillsList({ locale }: SkillsListProps) {
           </SectionReveal>
         );
       })}
+      <SectionReveal delay={categories.length * 0.03}>
+        <section className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-sm font-semibold text-foreground">{t.workflow.title}</h2>
+            <p className="text-sm leading-6 text-muted-foreground">{t.workflow.description}</p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {nextjsWorkflowSkillCatalog.map((skill) => {
+              const msg = t.workflow.skills[skill.id as keyof typeof t.workflow.skills];
+
+              return (
+                <SkillCard
+                  key={skill.id}
+                  name={msg.name}
+                  purpose={msg.purpose}
+                  whenHelp={msg.whenHelp}
+                  example={msg.example}
+                  source={skill.source}
+                  href={skill.href}
+                  linkLabel={t.linkLabel}
+                  badges={{
+                    local: t.badges.local,
+                    skillsSh: t.badges.skillsSh,
+                    reactDoctor: t.badges.reactDoctor,
+                    nextjs: t.badges.nextjs,
+                  }}
+                />
+              );
+            })}
+          </div>
+        </section>
+      </SectionReveal>
     </div>
   );
 }

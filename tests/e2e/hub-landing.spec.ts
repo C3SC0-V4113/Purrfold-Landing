@@ -1,20 +1,21 @@
-import { expect, test } from '@playwright/test';
+﻿import { expect, test } from '@playwright/test';
+
+const agentPrompt =
+  'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned Next.js guidance. After scaffolding, run `npm run check` to verify everything works.';
 
 test('switches between CLI and Agent tabs on the English home', async ({ page }) => {
   await page.goto('/en');
 
   const agentTab = page.getByRole('tab', { name: 'Agent' });
   const cliCommand = page.getByText('npx purrfold@latest <project-directory>');
-  const agentPrompt = page.getByText(
-    'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, and agent skills. After scaffolding, run `npm run check` to verify everything works.'
-  );
+  const agentPromptBlock = page.getByText(agentPrompt);
 
   await expect(cliCommand).toBeVisible();
-  await expect(agentPrompt).toBeHidden();
+  await expect(agentPromptBlock).toBeHidden();
 
   await agentTab.click();
 
-  await expect(agentPrompt).toBeVisible();
+  await expect(agentPromptBlock).toBeVisible();
   await expect(cliCommand).toBeHidden();
 });
 

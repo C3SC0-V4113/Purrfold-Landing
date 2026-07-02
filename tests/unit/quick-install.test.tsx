@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { QuickInstall } from '@/components/home/quick-install';
+import { getMessages } from '@/i18n/messages';
 
 describe('QuickInstall', () => {
   beforeEach(() => {
@@ -13,31 +14,27 @@ describe('QuickInstall', () => {
   });
 
   it('renders the CLI tab by default with the install command', () => {
+    const tabs = getMessages('en').HomePage.hub.tabs;
+
     render(<QuickInstall locale="en" />);
 
-    expect(screen.getByRole('tab', { name: 'CLI' })).toBeDefined();
-    expect(screen.getByRole('tab', { name: 'Agent' })).toBeDefined();
-    expect(screen.getByText('npx purrfold@latest <project-directory>')).toBeDefined();
-    expect(
-      screen.queryByText(
-        'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, and agent skills. After scaffolding, run `npm run check` to verify everything works.'
-      )
-    ).toBeNull();
+    expect(screen.getByRole('tab', { name: tabs.cli })).toBeDefined();
+    expect(screen.getByRole('tab', { name: tabs.agent })).toBeDefined();
+    expect(screen.getByText(tabs.cliCommand)).toBeDefined();
+    expect(screen.queryByText(tabs.agentPrompt)).toBeNull();
   });
 
   it('switches to the Agent tab and shows the prompt', () => {
+    const tabs = getMessages('en').HomePage.hub.tabs;
+
     render(<QuickInstall locale="en" />);
 
-    const agentTab = screen.getByRole('tab', { name: 'Agent' });
+    const agentTab = screen.getByRole('tab', { name: tabs.agent });
 
     fireEvent.click(agentTab);
 
-    expect(
-      screen.getByText(
-        'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, and agent skills. After scaffolding, run `npm run check` to verify everything works.'
-      )
-    ).toBeDefined();
-    expect(screen.queryByText('npx purrfold@latest <project-directory>')).toBeNull();
+    expect(screen.getByText(tabs.agentPrompt)).toBeDefined();
+    expect(screen.queryByText(tabs.cliCommand)).toBeNull();
   });
 
   it('renders Spanish tab labels and copy', () => {

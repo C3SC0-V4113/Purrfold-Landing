@@ -176,7 +176,13 @@ describe('localized page rendering', () => {
     document.body.innerHTML = '';
     render(<ThemeProvider>{await SkillsPage(createLocalizedSkillsPageProps('es'))}</ThemeProvider>);
     expect(
-      screen.getByRole('heading', { level: 2, name: 'Skills con el mismo peso' })
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Skills del scaffold y workflow skills de Next.js',
+      })
+    ).toBeDefined();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Workflow skills de Next.js' })
     ).toBeDefined();
     expect(screen.getByRole('heading', { level: 2, name: 'Arquitectura y diseño' })).toBeDefined();
 

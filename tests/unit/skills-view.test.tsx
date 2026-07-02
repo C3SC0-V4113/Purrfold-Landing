@@ -37,10 +37,19 @@ function assertSkillsPage(locale: 'en' | 'es') {
     expect(screen.getByText(skill.example)).toBeDefined();
   }
 
-  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(11);
+  expect(screen.getByText(messages.workflow.title)).toBeDefined();
+  expect(screen.getByText(messages.workflow.description)).toBeDefined();
+
+  for (const skill of Object.values(messages.workflow.skills)) {
+    expect(screen.getAllByText(skill.name).length).toBeGreaterThan(0);
+    expect(screen.getByText(skill.example)).toBeDefined();
+  }
+
+  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(13);
   expect(screen.getAllByText(messages.badges.local)).toHaveLength(3);
-  expect(screen.getAllByText(messages.badges.skillsSh)).toHaveLength(11);
+  expect(screen.getAllByText(messages.badges.skillsSh)).toHaveLength(10);
   expect(screen.getAllByText(messages.badges.reactDoctor)).toHaveLength(2);
+  expect(screen.getAllByText(messages.badges.nextjs)).toHaveLength(3);
 }
 
 beforeEach(() => {

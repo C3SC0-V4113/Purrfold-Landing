@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+﻿import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { HeroSection } from '@/components/home/hero-section';
+import { getMessages } from '@/i18n/messages';
 
 describe('HeroSection', () => {
   beforeEach(() => {
@@ -9,37 +10,26 @@ describe('HeroSection', () => {
   });
 
   it('renders English hero copy and a CTA to /en/install', () => {
+    const hero = getMessages('en').HomePage.hub.hero;
+
     render(<HeroSection locale="en" />);
 
-    expect(screen.getByText('Agent-first')).toBeDefined();
-    expect(
-      screen.getByRole('heading', {
-        level: 1,
-        name: 'The solid foundation for agent-driven projects',
-      })
-    ).toBeDefined();
-    expect(
-      screen.getByText(
-        'Purrfold scaffolds production-ready projects with quality gates, agent skills, and shadcn UI — so your agents build on solid ground from day one.'
-      )
-    ).toBeDefined();
-    const cta = screen.getByRole('link', { name: 'Scaffold a project' });
+    expect(screen.getByText(hero.eyebrow)).toBeDefined();
+    expect(screen.getByRole('heading', { level: 1, name: hero.title })).toBeDefined();
+    expect(screen.getByText(hero.description)).toBeDefined();
+    const cta = screen.getByRole('link', { name: hero.cta });
     expect(cta.getAttribute('href')).toBe('/en/install');
   });
 
   it('renders Spanish hero copy and a CTA to /es/install', () => {
+    const hero = getMessages('es').HomePage.hub.hero;
+
     render(<HeroSection locale="es" />);
 
-    expect(screen.getByText('Agent-first')).toBeDefined();
-    expect(
-      screen.getByRole('heading', { level: 1, name: 'La base sólida para proyectos con agentes' })
-    ).toBeDefined();
-    expect(
-      screen.getByText(
-        'Purrfold genera proyectos listos para producción con controles de calidad, skills para agentes y shadcn UI — para que tus agentes construyan sobre terreno firme desde el día uno.'
-      )
-    ).toBeDefined();
-    const cta = screen.getByRole('link', { name: 'Crear proyecto' });
+    expect(screen.getByText(hero.eyebrow)).toBeDefined();
+    expect(screen.getByRole('heading', { level: 1, name: hero.title })).toBeDefined();
+    expect(screen.getByText(hero.description)).toBeDefined();
+    const cta = screen.getByRole('link', { name: hero.cta });
     expect(cta.getAttribute('href')).toBe('/es/install');
   });
 });

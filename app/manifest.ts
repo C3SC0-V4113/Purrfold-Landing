@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     background_color: brandColors.background,
     description:
-      'Agent-first project scaffolding with quality gates, reusable skills, and a shadcn UI foundation.',
+      'Agent-ready Next.js project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.',
     display: 'standalone',
     icons: [
       {

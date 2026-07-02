@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ecosystemResources } from '@/components/ecosystem/ecosystem-catalog';
 import { PremiumCard } from '@/components/motion/premium-card';
 import { qualityTools } from '@/components/quality/quality-catalog';
-import { skillCatalog } from '@/components/skills/skills-catalog';
+import { nextjsWorkflowSkillCatalog, skillCatalog } from '@/components/skills/skills-catalog';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import {
@@ -37,7 +37,11 @@ const routePaths: Record<SummaryRoute, PhaseOneRoute> = {
   ecosystem: '/ecosystem',
 };
 
-const featuredSkillIds = ['next-best-practices', 'shadcn', 'project-min-evaluation'] as const;
+const featuredNextSkillIds = [
+  'next-cache-components-adoption',
+  'next-cache-components-optimizer',
+  'next-dev-loop',
+] as const;
 const featuredQualityToolIds = ['react-doctor', 'eslint', 'vitest'] as const;
 const featuredEcosystemResourceIds = ['shadcn-ui', 'magic-ui', 'remocn'] as const;
 
@@ -61,8 +65,11 @@ export function SummaryCards({ locale }: SummarySectionProps) {
       highlights: pages.install.flagsReference.items.slice(0, 3).map((item) => item.flag),
     },
     skills: {
-      badges: [`${skillCatalog.length} ${t.metrics.skills}`],
-      highlights: featuredSkillIds.map((id) => pages.skills.skills[id].name),
+      badges: [
+        `${skillCatalog.length} ${t.metrics.skills}`,
+        `${nextjsWorkflowSkillCatalog.length} ${t.metrics.nextjsSkills}`,
+      ],
+      highlights: featuredNextSkillIds.map((id) => pages.skills.workflow.skills[id].name),
     },
     quality: {
       badges: [

@@ -76,7 +76,7 @@ function assertLocalizedHomePage(locale: 'en' | 'es') {
   }
 
   expect(
-    screen.getAllByText(messages.Pages.skills.skills['next-best-practices'].name).length
+    screen.getAllByText(messages.Pages.skills.workflow.skills['next-dev-loop'].name).length
   ).toBeGreaterThan(0);
   expect(
     screen.getAllByText(messages.Pages.quality.tools['react-doctor'].name).length

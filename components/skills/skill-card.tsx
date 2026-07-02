@@ -4,7 +4,7 @@ import { PremiumCard } from '@/components/motion/premium-card';
 import { Badge } from '@/components/ui/badge';
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-type SkillSource = 'local' | 'skills-sh' | 'react-doctor';
+type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs';
 type SkillCardProps = {
   name: string;
   purpose: string;
@@ -13,7 +13,7 @@ type SkillCardProps = {
   source: SkillSource;
   href?: string;
   linkLabel: string;
-  badges: { local: string; skillsSh: string; reactDoctor: string };
+  badges: { local: string; skillsSh: string; reactDoctor: string; nextjs: string };
 };
 
 export function SkillCard({
@@ -35,14 +35,20 @@ export function SkillCard({
           <CardTitle>{name}</CardTitle>
           <Badge
             variant={
-              source === 'local' ? 'default' : source === 'skills-sh' ? 'secondary' : 'outline'
+              source === 'local'
+                ? 'default'
+                : source === 'skills-sh' || source === 'nextjs'
+                  ? 'secondary'
+                  : 'outline'
             }
           >
             {source === 'local'
               ? badges.local
               : source === 'skills-sh'
                 ? badges.skillsSh
-                : badges.reactDoctor}
+                : source === 'nextjs'
+                  ? badges.nextjs
+                  : badges.reactDoctor}
           </Badge>
         </div>
         <CardDescription>{purpose}</CardDescription>

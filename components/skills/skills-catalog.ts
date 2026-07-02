@@ -1,6 +1,6 @@
 import skillsLock from '../../skills-lock.json';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor';
+export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs';
 export type SkillCategory = 'architecture' | 'framework' | 'quality' | 'typescript';
 
 export type SkillEntry = {
@@ -32,7 +32,6 @@ const baseCatalog = [
   { id: 'decision-doc-sync', category: 'architecture' },
   { id: 'project-architecture', category: 'architecture' },
   { id: 'vercel-composition-patterns', category: 'architecture' },
-  { id: 'next-best-practices', category: 'framework' },
   { id: 'shadcn', category: 'framework' },
   { id: 'vercel-react-best-practices', category: 'framework' },
   { id: 'playwright-best-practices', category: 'quality' },
@@ -44,6 +43,21 @@ const baseCatalog = [
   { id: 'vitest', category: 'quality' },
   { id: 'typescript-advanced-types', category: 'typescript' },
 ] as const;
+
+const nextjsSkillsHref = 'https://github.com/vercel/next.js/tree/canary/skills';
+
+const nextjsWorkflowSkills = [
+  { id: 'next-cache-components-adoption', category: 'framework' },
+  { id: 'next-cache-components-optimizer', category: 'framework' },
+  { id: 'next-dev-loop', category: 'framework' },
+] as const;
+
+export const nextjsWorkflowSkillCatalog: SkillEntry[] = nextjsWorkflowSkills.map((skill) => ({
+  id: skill.id,
+  category: skill.category,
+  source: 'nextjs',
+  href: `${nextjsSkillsHref}/${skill.id}`,
+}));
 
 export const skillCatalog: SkillEntry[] = baseCatalog.map((skill) => {
   const source: SkillSource =
