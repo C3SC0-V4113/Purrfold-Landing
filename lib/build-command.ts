@@ -46,7 +46,7 @@ export const defaultFlags: FlagState = {
 };
 
 // Brand names, not translatable copy — kept alongside the command builder.
-const frameworkLabels: Record<Framework, string> = {
+export const frameworkLabels: Record<Framework, string> = {
   next: 'Next.js',
   astro: 'Astro',
 };

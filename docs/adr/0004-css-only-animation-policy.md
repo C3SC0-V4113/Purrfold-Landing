@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Accepted — amended 2026-07-09 (see Amendment: scoped layout animation).
 
 ## Context
 
@@ -24,7 +24,7 @@ Purrfold will use CSS-first controlled motion with these constraints:
 8. Use `scale(0.97)` or less for button press feedback.
 9. Remove project-owned animation, transition, and transform effects under `prefers-reduced-motion: reduce`; Motion islands must also check reduced motion.
 10. Preserve visible keyboard focus independently from hover and animation.
-11. Do not use particles, canvas effects, autoplay video, or layout animation for the current landing.
+11. Do not use particles, canvas effects, or autoplay video for the current landing. Layout animation is allowed only in small client islands for local reflow (see Amendment).
 
 ## Rationale
 
@@ -44,6 +44,25 @@ CSS remains cheaper and more predictable for repeated UI motion. Motion and sele
 - The project now carries a runtime animation dependency.
 - Motion wrappers and Magic UI registry components require review for reduced-motion, bundle, and composition quality.
 - Visual QA becomes more important because subtle effects can regress contrast or distract when overused.
+
+## Amendment: scoped layout animation (2026-07-09)
+
+The original policy (point 11) banned all layout animation. The install-view framework
+configurator surfaces Astro-only fields (SSR, adapter) that appear and disappear based on
+the selected framework, and an instant reflow of the surrounding controls read as abrupt.
+
+Point 11 is relaxed to allow layout animation under these constraints:
+
+1. Only in small client islands, for **local** reflow of a control group — never for
+   page-level, hero, or navigation layout.
+2. Implemented with Motion's `AnimatePresence` (`mode="popLayout"`) and the `layout` prop on
+   the affected siblings; movement animates transform and opacity only.
+3. Keep the reveal within the standard reveal budget (220ms or less) and use `ease-out`.
+4. Must be disabled under `prefers-reduced-motion: reduce` (the `layout` prop and enter/exit
+   transitions collapse to an instant swap).
+5. Use `LazyMotion` with `m` components (not the full `motion` import) to bound bundle cost.
+
+Particles, canvas effects, and autoplay video remain disallowed.
 
 ## Related Decisions
 
