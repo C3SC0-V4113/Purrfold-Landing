@@ -215,11 +215,14 @@ declare const messages: {
         "title": "Configure your install",
         "hide": "Hide flags",
         "show": "Configure flags",
+        "framework": "Framework",
         "unit": "Unit tests (Vitest)",
         "e2e": "E2E tests (Playwright)",
         "commitlint": "Commit convention (commitlint)",
         "mcp": "shadcn MCP for Claude/Codex/OpenCode",
         "yes": "Non-interactive mode (--yes)",
+        "ssr": "Astro SSR (server rendering)",
+        "adapter": "Astro SSR adapter",
         "pm": "Package manager",
         "presetId": "shadcn preset ID",
         "presetPlaceholder": "e.g. b3REw8vwo"
@@ -228,7 +231,7 @@ declare const messages: {
         "cliLabel": "CLI command",
         "agentLabel": "Agent prompt",
         "command": "npx purrfold@latest <project-directory>",
-        "agentIntro": "Scaffold a new Next.js app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.",
+        "agentIntro": "Scaffold a new {framework} app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.",
         "agentInclude": "Include {options}.",
         "agentExclude": "Do NOT include {options}.",
         "agentOptionUnit": "unit tests (Vitest)",
@@ -236,6 +239,8 @@ declare const messages: {
         "agentOptionCommitlint": "commitlint + Husky",
         "agentOptionMcp": "shadcn MCP",
         "agentOptionYes": "non-interactive mode",
+        "agentSsr": "Enable Astro SSR instead of a static build.",
+        "agentAdapter": "Use the {adapter} adapter for Astro SSR.",
         "agentPm": "Use {pm} as the package manager.",
         "agentIcons": "Use {icons} icons.",
         "agentPreset": "Use shadcn preset {presetId}.",
@@ -244,6 +249,10 @@ declare const messages: {
       "flagsReference": {
         "title": "All available flags",
         "items": [
+          {
+            "flag": "--framework <next|astro>",
+            "description": "Choose the framework to scaffold (default next)"
+          },
           {
             "flag": "--unit / --no-unit",
             "description": "Include or skip Vitest + React Testing Library"
@@ -257,12 +266,20 @@ declare const messages: {
             "description": "Include or skip commitlint + Husky commit-msg hook"
           },
           {
+            "flag": "--ssr",
+            "description": "Astro only: enable SSR instead of a static build"
+          },
+          {
+            "flag": "--adapter <node|vercel|netlify|cloudflare>",
+            "description": "Astro only: SSR adapter when SSR is enabled (default cloudflare)"
+          },
+          {
             "flag": "--shadcn-args <args...>",
             "description": "Forward extra arguments to shadcn init, including --preset <id>"
           },
           {
             "flag": "--pm npm|pnpm|bun",
-            "description": "Choose the package manager"
+            "description": "Choose the package manager (Astro does not support bun)"
           },
           {
             "flag": "--mcp / --no-mcp",
@@ -275,6 +292,10 @@ declare const messages: {
           {
             "flag": "--yes",
             "description": "Use non-interactive defaults"
+          },
+          {
+            "flag": "--skip-install",
+            "description": "Generate files without installing extra dependencies"
           },
           {
             "flag": "--dry-run",

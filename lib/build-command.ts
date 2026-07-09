@@ -1,9 +1,15 @@
+export type Framework = 'next' | 'astro';
+export type AstroAdapter = 'node' | 'vercel' | 'netlify' | 'cloudflare';
+
 export type FlagState = {
+  framework: Framework;
   unit: boolean;
   e2e: boolean;
   commitlint: boolean;
   mcp: boolean;
   yes: boolean;
+  ssr: boolean;
+  adapter: AstroAdapter;
   pm: 'npm' | 'pnpm' | 'bun';
   icons: 'lucide' | 'phosphor' | 'tabler';
   presetId: string;
@@ -18,24 +24,55 @@ export type AgentPromptMessages = {
   agentOptionCommitlint: string;
   agentOptionMcp: string;
   agentOptionYes: string;
+  agentSsr: string;
+  agentAdapter: string;
   agentPm: string;
   agentPreset: string;
   agentOutro: string;
 };
 
 export const defaultFlags: FlagState = {
+  framework: 'next',
   unit: true,
   e2e: false,
   commitlint: false,
   mcp: false,
   yes: true,
+  ssr: false,
+  adapter: 'cloudflare',
   pm: 'npm',
   icons: 'lucide',
   presetId: 'b0',
 };
 
+// Brand names, not translatable copy — kept alongside the command builder.
+const frameworkLabels: Record<Framework, string> = {
+  next: 'Next.js',
+  astro: 'Astro',
+};
+
+// Astro's default SSR adapter; only surface --adapter when it diverges.
+const defaultAdapter: AstroAdapter = 'cloudflare';
+
+// Astro scaffolding rejects bun, so fall back to npm for the astro path.
+function resolvePackageManager(flags: FlagState): FlagState['pm'] {
+  if (flags.framework === 'astro' && flags.pm === 'bun') return 'npm';
+  return flags.pm;
+}
+
 export function buildCliCommand(flags: FlagState, baseCommand: string): string {
   const parts = baseCommand.split(' ');
+
+  // Framework selector first (Next.js is the default, so it stays implicit).
+  if (flags.framework === 'astro') {
+    parts.push('--framework', 'astro');
+
+    // --ssr and --adapter are Astro-only; they error on Next.
+    if (flags.ssr) {
+      parts.push('--ssr');
+      if (flags.adapter !== defaultAdapter) parts.push('--adapter', flags.adapter);
+    }
+  }
 
   // Boolean flags: always explicit with --flag or --no-flag
   parts.push(flags.unit ? '--unit' : '--no-unit');
@@ -44,7 +81,8 @@ export function buildCliCommand(flags: FlagState, baseCommand: string): string {
   parts.push(flags.mcp ? '--mcp' : '--no-mcp');
   parts.push(flags.yes ? '--yes' : '');
 
-  if (flags.pm !== 'npm') parts.push('--pm', flags.pm);
+  const pm = resolvePackageManager(flags);
+  if (pm !== 'npm') parts.push('--pm', pm);
   if (flags.presetId) parts.push('--shadcn-args', '--preset', flags.presetId);
 
   return parts.filter(Boolean).join(' ');
@@ -53,7 +91,7 @@ export function buildCliCommand(flags: FlagState, baseCommand: string): string {
 export function buildAgentPrompt(flags: FlagState, messages: AgentPromptMessages): string {
   const parts: string[] = [];
 
-  parts.push(messages.agentIntro);
+  parts.push(messages.agentIntro.replace('{framework}', frameworkLabels[flags.framework]));
 
   const included: string[] = [];
   const excluded: string[] = [];
@@ -80,8 +118,17 @@ export function buildAgentPrompt(flags: FlagState, messages: AgentPromptMessages
     parts.push(messages.agentExclude.replace('{options}', excluded.join(', ')));
   }
 
-  if (flags.pm !== 'npm') {
-    parts.push(messages.agentPm.replace('{pm}', flags.pm));
+  // Astro-only SSR guidance.
+  if (flags.framework === 'astro' && flags.ssr) {
+    parts.push(messages.agentSsr);
+    if (flags.adapter !== defaultAdapter) {
+      parts.push(messages.agentAdapter.replace('{adapter}', flags.adapter));
+    }
+  }
+
+  const pm = resolvePackageManager(flags);
+  if (pm !== 'npm') {
+    parts.push(messages.agentPm.replace('{pm}', pm));
   }
 
   if (flags.presetId) {

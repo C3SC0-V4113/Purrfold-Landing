@@ -157,6 +157,92 @@ describe('FlagConfigurator', () => {
     expect(onChange).toHaveBeenCalledExactlyOnceWith({ ...defaultFlags, presetId: 'b3REw8vwo' });
   });
 
+  it('renders the framework selector and hides Astro-only controls for next', () => {
+    render(
+      <FlagConfigurator
+        flags={defaultFlags}
+        messages={enInstallMessages.configurator}
+        onChange={vi.fn()}
+      />
+    );
+
+    openCollapsible();
+
+    expect(
+      screen.getByRole('combobox', { name: enInstallMessages.configurator.framework })
+    ).toBeDefined();
+    expect(screen.queryByRole('checkbox', { name: enInstallMessages.configurator.ssr })).toBeNull();
+  });
+
+  it('shows the Astro SSR control and excludes bun when astro is selected', () => {
+    const flags: FlagState = { ...defaultFlags, framework: 'astro' };
+
+    render(
+      <FlagConfigurator
+        flags={flags}
+        messages={enInstallMessages.configurator}
+        onChange={vi.fn()}
+      />
+    );
+
+    openCollapsible();
+
+    expect(
+      screen.getByRole('checkbox', { name: enInstallMessages.configurator.ssr })
+    ).toBeDefined();
+
+    const pmTrigger = screen.getByRole('combobox', { name: enInstallMessages.configurator.pm });
+    fireEvent.click(pmTrigger);
+    expect(screen.getByRole('option', { name: 'pnpm' })).toBeDefined();
+    expect(screen.queryByRole('option', { name: 'bun' })).toBeNull();
+
+    // Close the dropdown so its portal doesn't leak into the next test.
+    fireEvent.keyDown(pmTrigger, { key: 'Escape' });
+  });
+
+  it('resets bun to npm when switching to astro', () => {
+    const onChange = vi.fn();
+    const flags: FlagState = { ...defaultFlags, pm: 'bun' };
+
+    render(
+      <FlagConfigurator
+        flags={flags}
+        messages={enInstallMessages.configurator}
+        onChange={onChange}
+      />
+    );
+
+    openCollapsible();
+
+    const frameworkTrigger = screen.getByRole('combobox', {
+      name: enInstallMessages.configurator.framework,
+    });
+    fireEvent.click(frameworkTrigger);
+    const astroOption = screen.getByRole('option', { name: 'Astro' });
+    fireEvent.pointerDown(astroOption);
+    fireEvent.click(astroOption);
+
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({ ...flags, framework: 'astro', pm: 'npm' });
+  });
+
+  it('reveals the adapter selector only when Astro SSR is enabled', () => {
+    const flags: FlagState = { ...defaultFlags, framework: 'astro', ssr: true };
+
+    render(
+      <FlagConfigurator
+        flags={flags}
+        messages={enInstallMessages.configurator}
+        onChange={vi.fn()}
+      />
+    );
+
+    openCollapsible();
+
+    expect(
+      screen.getByRole('combobox', { name: enInstallMessages.configurator.adapter })
+    ).toBeDefined();
+  });
+
   it('collapses and expands without changing flags', () => {
     const onChange = vi.fn();
 

@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
-import type { FlagState } from '@/lib/build-command';
+import type { AstroAdapter, FlagState, Framework } from '@/lib/build-command';
 
 export type BooleanFlagKey = 'unit' | 'e2e' | 'commitlint' | 'mcp' | 'yes';
 
@@ -25,11 +25,14 @@ export type ConfiguratorMessages = {
   title: string;
   hide: string;
   show: string;
+  framework: string;
   unit: string;
   e2e: string;
   commitlint: string;
   mcp: string;
   yes: string;
+  ssr: string;
+  adapter: string;
   pm: string;
   presetId: string;
   presetPlaceholder: string;
@@ -43,7 +46,15 @@ type FlagConfiguratorProps = {
 };
 
 const booleanFlags: BooleanFlagKey[] = ['unit', 'e2e', 'commitlint', 'mcp', 'yes'];
-const packageManagers: FlagState['pm'][] = ['npm', 'pnpm', 'bun'];
+const adapters: AstroAdapter[] = ['node', 'vercel', 'netlify', 'cloudflare'];
+
+// Brand names, not translatable copy.
+const frameworkLabels: Record<Framework, string> = { next: 'Next.js', astro: 'Astro' };
+
+// Astro scaffolding rejects bun, so the option is gated per framework.
+function packageManagersFor(framework: Framework): FlagState['pm'][] {
+  return framework === 'astro' ? ['npm', 'pnpm'] : ['npm', 'pnpm', 'bun'];
+}
 
 export function FlagConfigurator({
   flags,
@@ -56,6 +67,15 @@ export function FlagConfigurator({
 
   const update = (partial: Partial<FlagState>) => {
     onChange({ ...flags, ...partial });
+  };
+
+  const isAstro = flags.framework === 'astro';
+  const packageManagers = packageManagersFor(flags.framework);
+
+  const handleFrameworkChange = (framework: Framework) => {
+    // Astro cannot use bun; fall back to npm when switching away from it.
+    const pm = framework === 'astro' && flags.pm === 'bun' ? 'npm' : flags.pm;
+    update({ framework, pm });
   };
 
   return (
@@ -72,6 +92,25 @@ export function FlagConfigurator({
       </div>
 
       <CollapsibleContent className="flex flex-col gap-6 data-[state=closed]:hidden">
+        <div className="flex flex-col gap-2">
+          <Label htmlFor={`${baseId}-framework`}>{messages.framework}</Label>
+          <Select
+            value={flags.framework}
+            onValueChange={(value) => handleFrameworkChange(value as Framework)}
+          >
+            <SelectTrigger id={`${baseId}-framework`} aria-label={messages.framework}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {(['next', 'astro'] as Framework[]).map((framework) => (
+                <SelectItem key={framework} value={framework}>
+                  {frameworkLabels[framework]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2">
           {booleanFlags.map((key) => {
             const id = `${baseId}-${key}`;
@@ -92,6 +131,42 @@ export function FlagConfigurator({
             );
           })}
         </div>
+
+        {isAstro ? (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id={`${baseId}-ssr`}
+                checked={flags.ssr}
+                onCheckedChange={(value) => update({ ssr: value === true })}
+              />
+              <Label htmlFor={`${baseId}-ssr`} className="font-normal text-muted-foreground">
+                {messages.ssr}
+              </Label>
+            </div>
+
+            {flags.ssr ? (
+              <div className="flex flex-col gap-2">
+                <Label htmlFor={`${baseId}-adapter`}>{messages.adapter}</Label>
+                <Select
+                  value={flags.adapter}
+                  onValueChange={(value) => update({ adapter: value as AstroAdapter })}
+                >
+                  <SelectTrigger id={`${baseId}-adapter`} aria-label={messages.adapter}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {adapters.map((adapter) => (
+                      <SelectItem key={adapter} value={adapter}>
+                        {adapter}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-2">

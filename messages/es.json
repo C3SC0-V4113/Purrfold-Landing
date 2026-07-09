@@ -217,11 +217,14 @@
         "title": "Configura tu instalación",
         "hide": "Ocultar flags",
         "show": "Configurar flags",
+        "framework": "Framework",
         "unit": "Tests unitarios (Vitest)",
         "e2e": "Tests E2E (Playwright)",
         "commitlint": "Convención de commits (commitlint)",
         "mcp": "shadcn MCP para Claude/Codex/OpenCode",
         "yes": "Modo no interactivo (--yes)",
+        "ssr": "SSR de Astro (renderizado en servidor)",
+        "adapter": "Adaptador SSR de Astro",
         "pm": "Administrador de paquetes",
         "presetId": "ID de preset de shadcn",
         "presetPlaceholder": "p. ej. b3REw8vwo"
@@ -230,7 +233,7 @@
         "cliLabel": "Comando CLI",
         "agentLabel": "Prompt para agente",
         "command": "npx purrfold@latest <directorio-del-proyecto>",
-        "agentIntro": "Genera un proyecto nuevo de Next.js con purrfold (https://www.npmjs.com/package/purrfold). Lee el README o ejecuta `npx purrfold@latest info --json` para descubrir las opciones disponibles.",
+        "agentIntro": "Genera un proyecto nuevo de {framework} con purrfold (https://www.npmjs.com/package/purrfold). Lee el README o ejecuta `npx purrfold@latest info --json` para descubrir las opciones disponibles.",
         "agentInclude": "Incluye {options}.",
         "agentExclude": "NO incluyas {options}.",
         "agentOptionUnit": "tests unitarios (Vitest)",
@@ -238,6 +241,8 @@
         "agentOptionCommitlint": "commitlint + Husky",
         "agentOptionMcp": "shadcn MCP",
         "agentOptionYes": "modo no interactivo",
+        "agentSsr": "Activa el SSR de Astro en lugar de una compilación estática.",
+        "agentAdapter": "Usa el adaptador {adapter} para el SSR de Astro.",
         "agentPm": "Usa {pm} como administrador de paquetes.",
         "agentIcons": "Usa iconos de {icons}.",
         "agentPreset": "Usa el preset {presetId} de shadcn.",
@@ -246,6 +251,10 @@
       "flagsReference": {
         "title": "Todos los flags disponibles",
         "items": [
+          {
+            "flag": "--framework <next|astro>",
+            "description": "Elegir el framework a generar (por defecto next)"
+          },
           {
             "flag": "--unit / --no-unit",
             "description": "Incluir u omitir Vitest + React Testing Library"
@@ -259,12 +268,20 @@
             "description": "Incluir u omitir commitlint + el hook commit-msg de Husky"
           },
           {
+            "flag": "--ssr",
+            "description": "Solo Astro: activar SSR en lugar de una compilación estática"
+          },
+          {
+            "flag": "--adapter <node|vercel|netlify|cloudflare>",
+            "description": "Solo Astro: adaptador SSR cuando el SSR está activo (por defecto cloudflare)"
+          },
+          {
             "flag": "--shadcn-args <args...>",
             "description": "Reenviar argumentos extra a shadcn init, incluyendo --preset <id>"
           },
           {
             "flag": "--pm npm|pnpm|bun",
-            "description": "Elegir el administrador de paquetes"
+            "description": "Elegir el administrador de paquetes (Astro no admite bun)"
           },
           {
             "flag": "--mcp / --no-mcp",
@@ -277,6 +294,10 @@
           {
             "flag": "--yes",
             "description": "Usar valores por defecto no interactivos"
+          },
+          {
+            "flag": "--skip-install",
+            "description": "Generar archivos sin instalar dependencias extra"
           },
           {
             "flag": "--dry-run",
