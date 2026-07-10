@@ -509,13 +509,26 @@
           "purpose": "Funciones avanzadas del sistema de tipos para aplicaciones type-safe.",
           "whenHelp": "Cuando se implementa lógica de tipos compleja o utilidades de tipos reutilizables.",
           "example": "Ejemplo: modela una unión discriminada para una skill entry."
+        },
+        "shadcn-component-boundaries": {
+          "name": "Límites de componentes shadcn",
+          "purpose": "Mantiene las primitivas del registro en components/ui separadas de los componentes de producto.",
+          "whenHelp": "Cuando se decide dónde va un componente o se evita que la lógica de negocio se filtre en las primitivas de shadcn.",
+          "example": "Ejemplo: mantén un Button generado por shadcn en components/ui y construye la UI de la feature alrededor."
+        },
+        "astro": {
+          "name": "Framework Astro",
+          "purpose": "Guía de framework para construir proyectos Astro compatibles con shadcn usando islas de React.",
+          "whenHelp": "Cuando se genera o extiende un proyecto Astro con el flujo de Astro de Purrfold.",
+          "example": "Ejemplo: agrega una isla de React a una ruta de Astro manteniendo la salida estática por defecto."
         }
       },
       "badges": {
         "local": "Local",
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       },
       "workflow": {
         "title": "Workflow skills de Next.js",

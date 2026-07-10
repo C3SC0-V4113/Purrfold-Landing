@@ -509,13 +509,26 @@
           "purpose": "Advanced type system features for type-safe applications.",
           "whenHelp": "When implementing complex type logic or reusable type utilities.",
           "example": "Example: model a discriminated union for a skill entry."
+        },
+        "shadcn-component-boundaries": {
+          "name": "shadcn Component Boundaries",
+          "purpose": "Keeps registry primitives in components/ui separate from product feature components.",
+          "whenHelp": "When deciding where a component belongs or preventing feature logic from leaking into shadcn primitives.",
+          "example": "Example: keep a generated shadcn Button in components/ui and build the feature UI around it."
+        },
+        "astro": {
+          "name": "Astro Framework",
+          "purpose": "Framework guidance for building shadcn-compatible Astro projects with React islands.",
+          "whenHelp": "When scaffolding or extending an Astro project through Purrfold's Astro path.",
+          "example": "Example: add a React island to an Astro route while keeping static output by default."
         }
       },
       "badges": {
         "local": "Local",
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       },
       "workflow": {
         "title": "Next.js workflow skills",

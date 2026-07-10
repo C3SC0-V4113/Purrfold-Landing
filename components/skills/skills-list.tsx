@@ -1,5 +1,6 @@
 import { SectionReveal } from '@/components/motion/section-reveal';
 import { SkillCard } from '@/components/skills/skill-card';
+import { type SkillSourceLabels } from '@/components/skills/skill-source-badge';
 import { nextjsWorkflowSkillCatalog, skillCatalog } from '@/components/skills/skills-catalog';
 import { getMessages } from '@/i18n/messages';
 
@@ -9,6 +10,13 @@ type SkillsListProps = { locale: Locale };
 
 export function SkillsList({ locale }: SkillsListProps) {
   const t = getMessages(locale).Pages.skills;
+  const badgeLabels: SkillSourceLabels = {
+    local: t.badges.local,
+    skillsSh: t.badges.skillsSh,
+    reactDoctor: t.badges.reactDoctor,
+    nextjs: t.badges.nextjs,
+    astro: t.badges.astro,
+  };
   const categories = [
     { key: 'architecture' as const, title: t.categories.architecture.title },
     { key: 'framework' as const, title: t.categories.framework.title },
@@ -43,12 +51,7 @@ export function SkillsList({ locale }: SkillsListProps) {
                       source={skill.source}
                       href={skill.href}
                       linkLabel={t.linkLabel}
-                      badges={{
-                        local: t.badges.local,
-                        skillsSh: t.badges.skillsSh,
-                        reactDoctor: t.badges.reactDoctor,
-                        nextjs: t.badges.nextjs,
-                      }}
+                      badges={badgeLabels}
                     />
                   );
                 })}
@@ -77,12 +80,7 @@ export function SkillsList({ locale }: SkillsListProps) {
                   source={skill.source}
                   href={skill.href}
                   linkLabel={t.linkLabel}
-                  badges={{
-                    local: t.badges.local,
-                    skillsSh: t.badges.skillsSh,
-                    reactDoctor: t.badges.reactDoctor,
-                    nextjs: t.badges.nextjs,
-                  }}
+                  badges={badgeLabels}
                 />
               );
             })}

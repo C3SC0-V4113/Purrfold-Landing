@@ -1,6 +1,6 @@
 import skillsLock from '../../skills-lock.json';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs';
+export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro';
 export type SkillCategory = 'architecture' | 'framework' | 'quality' | 'typescript';
 
 export type SkillEntry = {
@@ -31,6 +31,7 @@ const baseCatalog = [
   { id: 'architecture-decision-records', category: 'architecture' },
   { id: 'decision-doc-sync', category: 'architecture' },
   { id: 'project-architecture', category: 'architecture' },
+  { id: 'shadcn-component-boundaries', category: 'architecture' },
   { id: 'vercel-composition-patterns', category: 'architecture' },
   { id: 'shadcn', category: 'framework' },
   { id: 'vercel-react-best-practices', category: 'framework' },
@@ -59,18 +60,30 @@ export const nextjsWorkflowSkillCatalog: SkillEntry[] = nextjsWorkflowSkills.map
   href: `${nextjsSkillsHref}/${skill.id}`,
 }));
 
-export const skillCatalog: SkillEntry[] = baseCatalog.map((skill) => {
-  const source: SkillSource =
-    skill.id === 'react-doctor'
-      ? 'react-doctor'
-      : skillsLockIds.has(skill.id)
-        ? 'skills-sh'
-        : 'local';
+// Astro is a framework-exclusive skill installed only for the Astro scaffold;
+// its 'astro' source drives the "Astro" badge in the skills list.
+const astroFrameworkSkill: SkillEntry = {
+  id: 'astro',
+  category: 'framework',
+  source: 'astro',
+  href: 'https://github.com/astrolicious/agent-skills',
+};
 
-  return {
-    id: skill.id,
-    category: skill.category,
-    source,
-    href: source === 'skills-sh' ? buildSkillsShHref(skill.id) : undefined,
-  };
-});
+export const skillCatalog: SkillEntry[] = [
+  ...baseCatalog.map((skill): SkillEntry => {
+    const source: SkillSource =
+      skill.id === 'react-doctor'
+        ? 'react-doctor'
+        : skillsLockIds.has(skill.id)
+          ? 'skills-sh'
+          : 'local';
+
+    return {
+      id: skill.id,
+      category: skill.category,
+      source,
+      href: source === 'skills-sh' ? buildSkillsShHref(skill.id) : undefined,
+    };
+  }),
+  astroFrameworkSkill,
+];
