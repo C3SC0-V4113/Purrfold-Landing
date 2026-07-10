@@ -53,12 +53,13 @@ function assertSkillsPage(locale: 'en' | 'es') {
     expect(screen.getByText(skill.example)).toBeDefined();
   }
 
-  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(14);
+  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(15);
   expect(screen.getAllByText(messages.badges.local)).toHaveLength(4);
   expect(screen.getAllByText(messages.badges.skillsSh)).toHaveLength(10);
   expect(screen.getAllByText(messages.badges.reactDoctor)).toHaveLength(2);
   expect(screen.getAllByText(messages.badges.nextjs)).toHaveLength(3);
   expect(screen.getAllByText(messages.badges.astro)).toHaveLength(1);
+  expect(screen.getAllByText(messages.badges.motion)).toHaveLength(1);
 }
 
 beforeEach(() => {

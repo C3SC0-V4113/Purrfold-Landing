@@ -522,6 +522,12 @@
           "purpose": "Keeps registry primitives in components/ui separate from product feature components.",
           "whenHelp": "When deciding where a component belongs or preventing feature logic from leaking into shadcn primitives.",
           "example": "Example: keep a generated shadcn Button in components/ui and build the feature UI around it."
+        },
+        "motion-framer": {
+          "name": "Motion for React",
+          "purpose": "Animation patterns and guidance for building interfaces with Motion for React.",
+          "whenHelp": "When adding motion to a project scaffolded with --motion.",
+          "example": "Example: animate a component's entrance with transform and opacity, honoring prefers-reduced-motion."
         }
       },
       "badges": {
@@ -529,7 +535,8 @@
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
         "nextjs": "Next.js",
-        "astro": "Astro"
+        "astro": "Astro",
+        "motion": "Requires --motion"
       },
       "workflow": {
         "title": "Next.js workflow skills",
