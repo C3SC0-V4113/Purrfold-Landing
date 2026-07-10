@@ -7,15 +7,16 @@ declare const messages: {
       "hero": {
         "eyebrow": "Agent-first",
         "title": "The solid foundation for agent-driven projects",
-        "description": "Purrfold scaffolds agent-ready Next.js projects with quality gates, agent rules, versioned docs, and shadcn UI — so agents work from verifiable context on day one.",
+        "description": "Purrfold scaffolds agent-ready Next.js and Astro projects with quality gates, agent rules, versioned docs, and shadcn UI — so agents work from verifiable context on day one.",
         "cta": "Scaffold a project"
       },
       "tabs": {
         "title": "Quick start",
         "cli": "CLI",
         "agent": "Agent",
+        "framework": "Framework",
         "cliCommand": "npx purrfold@latest <project-directory>",
-        "agentPrompt": "I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned Next.js guidance. After scaffolding, run `npm run check` to verify everything works.",
+        "agentPrompt": "I want to scaffold a new {framework} app with purrfold. Run `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned {framework} guidance. After scaffolding, run `npm run check` to verify everything works.",
         "copyButton": "Copy",
         "copied": "Copied!"
       },
@@ -30,7 +31,8 @@ declare const messages: {
           "optionalTools": "optional tools",
           "foundationResources": "foundation resource",
           "communityResources": "community resources",
-          "nextjsSkills": "Next.js workflow skills"
+          "nextjsSkills": "Next.js workflow skills",
+          "astroSkills": "Astro framework skills"
         },
         "cta": {
           "install": "Open install guide",
@@ -66,7 +68,7 @@ declare const messages: {
           },
           {
             "name": "Astro",
-            "status": "future"
+            "status": "shipped"
           },
           {
             "name": "Vite",
@@ -82,17 +84,19 @@ declare const messages: {
         "title": "Foundations",
         "description": "Built on the primitives we trust.",
         "shadcn": "shadcn/ui",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       }
     }
   },
   "Metadata": {
     "site": {
-      "description": "Agent-ready Next.js project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.",
+      "description": "Agent-ready Next.js and Astro project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.",
       "keywords": [
         "Purrfold",
         "agent-first scaffolding",
         "Next.js starter",
+        "Astro starter",
         "shadcn UI",
         "quality gates",
         "AI coding agents"
@@ -105,7 +109,7 @@ declare const messages: {
       "title": "Connected ecosystem"
     },
     "home": {
-      "description": "Purrfold helps teams scaffold agent-ready Next.js projects with quality gates, AGENTS/CLAUDE rules, versioned docs, and a clean shadcn UI foundation.",
+      "description": "Purrfold helps teams scaffold agent-ready Next.js and Astro projects with quality gates, AGENTS/CLAUDE rules, versioned docs, and a clean shadcn UI foundation.",
       "keywords": [
         "project scaffolding",
         "agent-driven development",
@@ -116,7 +120,13 @@ declare const messages: {
     },
     "install": {
       "description": "Install Purrfold from the CLI or an agent prompt and configure testing, commit hygiene, shadcn MCP, package manager, and preset options.",
-      "keywords": ["Purrfold CLI", "install Purrfold", "Next.js scaffold", "shadcn preset"],
+      "keywords": [
+        "Purrfold CLI",
+        "install Purrfold",
+        "Next.js scaffold",
+        "Astro scaffold",
+        "shadcn preset"
+      ],
       "title": "Install Purrfold"
     },
     "quality": {
@@ -215,11 +225,14 @@ declare const messages: {
         "title": "Configure your install",
         "hide": "Hide flags",
         "show": "Configure flags",
+        "framework": "Framework",
         "unit": "Unit tests (Vitest)",
         "e2e": "E2E tests (Playwright)",
         "commitlint": "Commit convention (commitlint)",
         "mcp": "shadcn MCP for Claude/Codex/OpenCode",
         "yes": "Non-interactive mode (--yes)",
+        "ssr": "Astro SSR (server rendering)",
+        "adapter": "Astro SSR adapter",
         "pm": "Package manager",
         "presetId": "shadcn preset ID",
         "presetPlaceholder": "e.g. b3REw8vwo"
@@ -228,7 +241,7 @@ declare const messages: {
         "cliLabel": "CLI command",
         "agentLabel": "Agent prompt",
         "command": "npx purrfold@latest <project-directory>",
-        "agentIntro": "Scaffold a new Next.js app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.",
+        "agentIntro": "Scaffold a new {framework} app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.",
         "agentInclude": "Include {options}.",
         "agentExclude": "Do NOT include {options}.",
         "agentOptionUnit": "unit tests (Vitest)",
@@ -236,6 +249,8 @@ declare const messages: {
         "agentOptionCommitlint": "commitlint + Husky",
         "agentOptionMcp": "shadcn MCP",
         "agentOptionYes": "non-interactive mode",
+        "agentSsr": "Enable Astro SSR instead of a static build.",
+        "agentAdapter": "Use the {adapter} adapter for Astro SSR.",
         "agentPm": "Use {pm} as the package manager.",
         "agentIcons": "Use {icons} icons.",
         "agentPreset": "Use shadcn preset {presetId}.",
@@ -244,6 +259,10 @@ declare const messages: {
       "flagsReference": {
         "title": "All available flags",
         "items": [
+          {
+            "flag": "--framework <next|astro>",
+            "description": "Choose the framework to scaffold (default next)"
+          },
           {
             "flag": "--unit / --no-unit",
             "description": "Include or skip Vitest + React Testing Library"
@@ -257,12 +276,20 @@ declare const messages: {
             "description": "Include or skip commitlint + Husky commit-msg hook"
           },
           {
+            "flag": "--ssr",
+            "description": "Astro only: enable SSR instead of a static build"
+          },
+          {
+            "flag": "--adapter <node|vercel|netlify|cloudflare>",
+            "description": "Astro only: SSR adapter when SSR is enabled (default cloudflare)"
+          },
+          {
             "flag": "--shadcn-args <args...>",
             "description": "Forward extra arguments to shadcn init, including --preset <id>"
           },
           {
             "flag": "--pm npm|pnpm|bun",
-            "description": "Choose the package manager"
+            "description": "Choose the package manager (Astro does not support bun)"
           },
           {
             "flag": "--mcp / --no-mcp",
@@ -275,6 +302,10 @@ declare const messages: {
           {
             "flag": "--yes",
             "description": "Use non-interactive defaults"
+          },
+          {
+            "flag": "--skip-install",
+            "description": "Generate files without installing extra dependencies"
           },
           {
             "flag": "--dry-run",
@@ -380,8 +411,8 @@ declare const messages: {
       "routeLabel": "Skills",
       "title": "Skill surface",
       "overview": {
-        "title": "Scaffold skills and Next.js workflow skills",
-        "description": "Next.js provides versioned documentation and AGENTS/CLAUDE rules; Purrfold installs the current workflow skills from the official Next.js repository."
+        "title": "Scaffold skills and framework workflow skills",
+        "description": "Purrfold installs shared scaffold skills for every project, plus framework-specific workflow skills for the framework you choose — Next.js or Astro — alongside versioned docs and AGENTS/CLAUDE rules."
       },
       "linkLabel": "Open skill",
       "categories": {
@@ -482,13 +513,20 @@ declare const messages: {
           "purpose": "Advanced type system features for type-safe applications.",
           "whenHelp": "When implementing complex type logic or reusable type utilities.",
           "example": "Example: model a discriminated union for a skill entry."
+        },
+        "shadcn-component-boundaries": {
+          "name": "shadcn Component Boundaries",
+          "purpose": "Keeps registry primitives in components/ui separate from product feature components.",
+          "whenHelp": "When deciding where a component belongs or preventing feature logic from leaking into shadcn primitives.",
+          "example": "Example: keep a generated shadcn Button in components/ui and build the feature UI around it."
         }
       },
       "badges": {
         "local": "Local",
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       },
       "workflow": {
         "title": "Next.js workflow skills",
@@ -511,6 +549,18 @@ declare const messages: {
             "purpose": "Verifies runtime behavior with `next dev`, the Next.js MCP surface, and a real browser, not only compilation or types.",
             "whenHelp": "When a Next.js change needs framework errors, console, network, routes, and visible browser behavior checked together.",
             "example": "Example: cross-check `/_next/mcp` with a browser session to validate a page compiles and behaves as intended."
+          }
+        }
+      },
+      "astro": {
+        "title": "Astro framework skills",
+        "description": "Purrfold installs this skill only for the Astro scaffold, sourced from astrolicious/agent-skills.",
+        "skills": {
+          "astro": {
+            "name": "Astro Framework",
+            "purpose": "Framework guidance for building shadcn-compatible Astro projects with React islands.",
+            "whenHelp": "When scaffolding or extending an Astro project through Purrfold's Astro path.",
+            "example": "Example: add a React island to an Astro route while keeping static output by default."
           }
         }
       }

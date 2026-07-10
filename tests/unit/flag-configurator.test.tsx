@@ -157,6 +157,67 @@ describe('FlagConfigurator', () => {
     expect(onChange).toHaveBeenCalledExactlyOnceWith({ ...defaultFlags, presetId: 'b3REw8vwo' });
   });
 
+  it('hides Astro-only controls for the default Next.js framework', () => {
+    render(
+      <FlagConfigurator
+        flags={defaultFlags}
+        messages={enInstallMessages.configurator}
+        onChange={vi.fn()}
+      />
+    );
+
+    openCollapsible();
+
+    expect(screen.queryByRole('checkbox', { name: enInstallMessages.configurator.ssr })).toBeNull();
+    expect(
+      screen.queryByRole('combobox', { name: enInstallMessages.configurator.adapter })
+    ).toBeNull();
+  });
+
+  it('shows the Astro SSR control and excludes bun when astro is selected', () => {
+    const flags: FlagState = { ...defaultFlags, framework: 'astro' };
+
+    render(
+      <FlagConfigurator
+        flags={flags}
+        messages={enInstallMessages.configurator}
+        onChange={vi.fn()}
+      />
+    );
+
+    openCollapsible();
+
+    expect(
+      screen.getByRole('checkbox', { name: enInstallMessages.configurator.ssr })
+    ).toBeDefined();
+
+    const pmTrigger = screen.getByRole('combobox', { name: enInstallMessages.configurator.pm });
+    fireEvent.click(pmTrigger);
+    expect(screen.getByRole('option', { name: 'pnpm' })).toBeDefined();
+    expect(screen.queryByRole('option', { name: 'bun' })).toBeNull();
+
+    // Close the dropdown so its portal doesn't leak into the next test.
+    fireEvent.keyDown(pmTrigger, { key: 'Escape' });
+  });
+
+  it('reveals the adapter selector only when Astro SSR is enabled', () => {
+    const flags: FlagState = { ...defaultFlags, framework: 'astro', ssr: true };
+
+    render(
+      <FlagConfigurator
+        flags={flags}
+        messages={enInstallMessages.configurator}
+        onChange={vi.fn()}
+      />
+    );
+
+    openCollapsible();
+
+    expect(
+      screen.getByRole('combobox', { name: enInstallMessages.configurator.adapter })
+    ).toBeDefined();
+  });
+
   it('collapses and expands without changing flags', () => {
     const onChange = vi.fn();
 

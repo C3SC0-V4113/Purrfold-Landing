@@ -4,15 +4,16 @@
       "hero": {
         "eyebrow": "Agent-first",
         "title": "La base sólida para proyectos con agentes",
-        "description": "Purrfold genera proyectos Next.js agent-ready con controles de calidad, reglas para agentes, docs versionadas y shadcn UI — para que los agentes trabajen con contexto verificable desde el día uno.",
+        "description": "Purrfold genera proyectos Next.js y Astro agent-ready con controles de calidad, reglas para agentes, docs versionadas y shadcn UI — para que los agentes trabajen con contexto verificable desde el día uno.",
         "cta": "Crear proyecto"
       },
       "tabs": {
         "title": "Inicio rápido",
         "cli": "CLI",
         "agent": "Agente",
+        "framework": "Framework",
         "cliCommand": "npx purrfold@latest <directorio-del-proyecto>",
-        "agentPrompt": "Quiero generar un proyecto nuevo de Next.js con purrfold. Ejecuta `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` para crear el proyecto con controles de calidad, tests, reglas para agentes y guía versionada de Next.js. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
+        "agentPrompt": "Quiero generar un proyecto nuevo de {framework} con purrfold. Ejecuta `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --mcp` para crear el proyecto con controles de calidad, tests, reglas para agentes y guía versionada de {framework}. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
         "copyButton": "Copiar",
         "copied": "¡Copiado!"
       },
@@ -27,7 +28,8 @@
           "optionalTools": "herramientas opcionales",
           "foundationResources": "recurso base",
           "communityResources": "recursos comunitarios",
-          "nextjsSkills": "workflow skills de Next.js"
+          "nextjsSkills": "workflow skills de Next.js",
+          "astroSkills": "skills del framework Astro"
         },
         "cta": {
           "install": "Abrir guía de instalación",
@@ -63,7 +65,7 @@
           },
           {
             "name": "Astro",
-            "status": "future"
+            "status": "shipped"
           },
           {
             "name": "Vite",
@@ -79,17 +81,19 @@
         "title": "Bases",
         "description": "Construido sobre las primitivas en las que confiamos.",
         "shadcn": "shadcn/ui",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       }
     }
   },
   "Metadata": {
     "site": {
-      "description": "Scaffolding de proyectos Next.js orientado a agentes, con controles de calidad, reglas para agentes, docs versionadas y una base de shadcn UI.",
+      "description": "Scaffolding de proyectos Next.js y Astro orientado a agentes, con controles de calidad, reglas para agentes, docs versionadas y una base de shadcn UI.",
       "keywords": [
         "Purrfold",
         "scaffolding para agentes",
         "starter de Next.js",
+        "starter de Astro",
         "shadcn UI",
         "controles de calidad",
         "agentes de código con IA"
@@ -102,7 +106,7 @@
       "title": "Ecosistema conectado"
     },
     "home": {
-      "description": "Purrfold ayuda a generar proyectos Next.js listos para agentes con controles de calidad, reglas AGENTS/CLAUDE, docs versionadas y una base limpia de shadcn UI.",
+      "description": "Purrfold ayuda a generar proyectos Next.js y Astro listos para agentes con controles de calidad, reglas AGENTS/CLAUDE, docs versionadas y una base limpia de shadcn UI.",
       "keywords": [
         "scaffolding de proyectos",
         "desarrollo con agentes",
@@ -117,6 +121,7 @@
         "CLI de Purrfold",
         "instalar Purrfold",
         "scaffold de Next.js",
+        "scaffold de Astro",
         "preset de shadcn"
       ],
       "title": "Instalar Purrfold"
@@ -217,11 +222,14 @@
         "title": "Configura tu instalación",
         "hide": "Ocultar flags",
         "show": "Configurar flags",
+        "framework": "Framework",
         "unit": "Tests unitarios (Vitest)",
         "e2e": "Tests E2E (Playwright)",
         "commitlint": "Convención de commits (commitlint)",
         "mcp": "shadcn MCP para Claude/Codex/OpenCode",
         "yes": "Modo no interactivo (--yes)",
+        "ssr": "SSR de Astro (renderizado en servidor)",
+        "adapter": "Adaptador SSR de Astro",
         "pm": "Administrador de paquetes",
         "presetId": "ID de preset de shadcn",
         "presetPlaceholder": "p. ej. b3REw8vwo"
@@ -230,7 +238,7 @@
         "cliLabel": "Comando CLI",
         "agentLabel": "Prompt para agente",
         "command": "npx purrfold@latest <directorio-del-proyecto>",
-        "agentIntro": "Genera un proyecto nuevo de Next.js con purrfold (https://www.npmjs.com/package/purrfold). Lee el README o ejecuta `npx purrfold@latest info --json` para descubrir las opciones disponibles.",
+        "agentIntro": "Genera un proyecto nuevo de {framework} con purrfold (https://www.npmjs.com/package/purrfold). Lee el README o ejecuta `npx purrfold@latest info --json` para descubrir las opciones disponibles.",
         "agentInclude": "Incluye {options}.",
         "agentExclude": "NO incluyas {options}.",
         "agentOptionUnit": "tests unitarios (Vitest)",
@@ -238,6 +246,8 @@
         "agentOptionCommitlint": "commitlint + Husky",
         "agentOptionMcp": "shadcn MCP",
         "agentOptionYes": "modo no interactivo",
+        "agentSsr": "Activa el SSR de Astro en lugar de una compilación estática.",
+        "agentAdapter": "Usa el adaptador {adapter} para el SSR de Astro.",
         "agentPm": "Usa {pm} como administrador de paquetes.",
         "agentIcons": "Usa iconos de {icons}.",
         "agentPreset": "Usa el preset {presetId} de shadcn.",
@@ -246,6 +256,10 @@
       "flagsReference": {
         "title": "Todos los flags disponibles",
         "items": [
+          {
+            "flag": "--framework <next|astro>",
+            "description": "Elegir el framework a generar (por defecto next)"
+          },
           {
             "flag": "--unit / --no-unit",
             "description": "Incluir u omitir Vitest + React Testing Library"
@@ -259,12 +273,20 @@
             "description": "Incluir u omitir commitlint + el hook commit-msg de Husky"
           },
           {
+            "flag": "--ssr",
+            "description": "Solo Astro: activar SSR en lugar de una compilación estática"
+          },
+          {
+            "flag": "--adapter <node|vercel|netlify|cloudflare>",
+            "description": "Solo Astro: adaptador SSR cuando el SSR está activo (por defecto cloudflare)"
+          },
+          {
             "flag": "--shadcn-args <args...>",
             "description": "Reenviar argumentos extra a shadcn init, incluyendo --preset <id>"
           },
           {
             "flag": "--pm npm|pnpm|bun",
-            "description": "Elegir el administrador de paquetes"
+            "description": "Elegir el administrador de paquetes (Astro no admite bun)"
           },
           {
             "flag": "--mcp / --no-mcp",
@@ -277,6 +299,10 @@
           {
             "flag": "--yes",
             "description": "Usar valores por defecto no interactivos"
+          },
+          {
+            "flag": "--skip-install",
+            "description": "Generar archivos sin instalar dependencias extra"
           },
           {
             "flag": "--dry-run",
@@ -382,8 +408,8 @@
       "routeLabel": "Skills",
       "title": "Superficie de skills",
       "overview": {
-        "title": "Skills del scaffold y workflow skills de Next.js",
-        "description": "Next.js aporta documentación versionada y reglas AGENTS/CLAUDE; Purrfold instala las workflow skills actuales desde el repo oficial de Next.js."
+        "title": "Skills del scaffold y skills de framework",
+        "description": "Purrfold instala skills de scaffold compartidas para cada proyecto, más skills de workflow específicas del framework que elijas —Next.js o Astro— junto con docs versionadas y reglas AGENTS/CLAUDE."
       },
       "linkLabel": "Abrir skill",
       "categories": {
@@ -484,13 +510,20 @@
           "purpose": "Funciones avanzadas del sistema de tipos para aplicaciones type-safe.",
           "whenHelp": "Cuando se implementa lógica de tipos compleja o utilidades de tipos reutilizables.",
           "example": "Ejemplo: modela una unión discriminada para una skill entry."
+        },
+        "shadcn-component-boundaries": {
+          "name": "Límites de componentes shadcn",
+          "purpose": "Mantiene las primitivas del registro en components/ui separadas de los componentes de producto.",
+          "whenHelp": "Cuando se decide dónde va un componente o se evita que la lógica de negocio se filtre en las primitivas de shadcn.",
+          "example": "Ejemplo: mantén un Button generado por shadcn en components/ui y construye la UI de la feature alrededor."
         }
       },
       "badges": {
         "local": "Local",
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       },
       "workflow": {
         "title": "Workflow skills de Next.js",
@@ -513,6 +546,18 @@
             "purpose": "Verifica comportamiento runtime con `next dev`, el MCP de Next.js y un navegador real, no solo compilación o tipos.",
             "whenHelp": "Cuando un cambio de Next.js necesita confirmar errores de framework, consola, red, rutas y comportamiento visible en navegador.",
             "example": "Ejemplo: cruzar `/_next/mcp` con una sesión de navegador para validar que una página compila y se comporta como se espera."
+          }
+        }
+      },
+      "astro": {
+        "title": "Skills del framework Astro",
+        "description": "Purrfold instala esta skill solo para el scaffold de Astro, desde astrolicious/agent-skills.",
+        "skills": {
+          "astro": {
+            "name": "Framework Astro",
+            "purpose": "Guía de framework para construir proyectos Astro compatibles con shadcn usando islas de React.",
+            "whenHelp": "Cuando se genera o extiende un proyecto Astro con el flujo de Astro de Purrfold.",
+            "example": "Ejemplo: agrega una isla de React a una ruta de Astro manteniendo la salida estática por defecto."
           }
         }
       }

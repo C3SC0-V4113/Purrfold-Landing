@@ -1,8 +1,5 @@
 export type QualitySectionId =
-  | 'quality-gates'
-  | 'commit-hygiene'
-  | 'ci-confidence'
-  | 'runtime-insight';
+  'quality-gates' | 'commit-hygiene' | 'ci-confidence' | 'runtime-insight';
 
 export type QualityStatus = 'default' | 'optional';
 export type QualityRole = 'quality-gate' | 'commit-signal' | 'ci-signal' | 'runtime-signal';

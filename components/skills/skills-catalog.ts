@@ -1,6 +1,6 @@
 import skillsLock from '../../skills-lock.json';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs';
+export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro';
 export type SkillCategory = 'architecture' | 'framework' | 'quality' | 'typescript';
 
 export type SkillEntry = {
@@ -31,6 +31,7 @@ const baseCatalog = [
   { id: 'architecture-decision-records', category: 'architecture' },
   { id: 'decision-doc-sync', category: 'architecture' },
   { id: 'project-architecture', category: 'architecture' },
+  { id: 'shadcn-component-boundaries', category: 'architecture' },
   { id: 'vercel-composition-patterns', category: 'architecture' },
   { id: 'shadcn', category: 'framework' },
   { id: 'vercel-react-best-practices', category: 'framework' },
@@ -59,7 +60,19 @@ export const nextjsWorkflowSkillCatalog: SkillEntry[] = nextjsWorkflowSkills.map
   href: `${nextjsSkillsHref}/${skill.id}`,
 }));
 
-export const skillCatalog: SkillEntry[] = baseCatalog.map((skill) => {
+// Astro ships a single framework-exclusive skill (from astrolicious/agent-skills).
+// It gets its own section like the Next.js workflow skills, so it lives outside
+// the general category catalog.
+export const astroSkillCatalog: SkillEntry[] = [
+  {
+    id: 'astro',
+    category: 'framework',
+    source: 'astro',
+    href: 'https://github.com/astrolicious/agent-skills',
+  },
+];
+
+export const skillCatalog: SkillEntry[] = baseCatalog.map((skill): SkillEntry => {
   const source: SkillSource =
     skill.id === 'react-doctor'
       ? 'react-doctor'

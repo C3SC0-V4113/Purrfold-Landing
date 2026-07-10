@@ -14,7 +14,7 @@ function buildFlags(overrides: Partial<FlagState> = {}): FlagState {
 const enOutput = {
   command: 'npx purrfold@latest <project-directory>',
   agentIntro:
-    'Scaffold a new Next.js app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.',
+    'Scaffold a new {framework} app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.',
   agentInclude: 'Include {options}.',
   agentExclude: 'Do NOT include {options}.',
   agentOptionUnit: 'unit tests (Vitest)',
@@ -22,6 +22,8 @@ const enOutput = {
   agentOptionCommitlint: 'commitlint + Husky',
   agentOptionMcp: 'shadcn MCP',
   agentOptionYes: 'non-interactive mode',
+  agentSsr: 'Enable Astro SSR instead of a static build.',
+  agentAdapter: 'Use the {adapter} adapter for Astro SSR.',
   agentPm: 'Use {pm} as the package manager.',
   agentPreset: 'Use shadcn preset {presetId}.',
   agentOutro: 'Run `npm run check` after scaffolding to verify everything works.',
@@ -31,6 +33,12 @@ describe('buildCliCommand', () => {
   it('renders the base command with default flags (explicit --no-* for off flags)', () => {
     expect(buildCliCommand(defaultFlags, enOutput.command)).toBe(
       'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+    );
+  });
+
+  it('omits --framework for the default Next.js framework', () => {
+    expect(buildCliCommand(buildFlags({ framework: 'next' }), enOutput.command)).not.toContain(
+      '--framework'
     );
   });
 
@@ -81,19 +89,80 @@ describe('buildCliCommand', () => {
       'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes'
     );
   });
+
+  it('emits --framework astro when astro is selected', () => {
+    const flags = buildFlags({ framework: 'astro' });
+
+    expect(buildCliCommand(flags, enOutput.command)).toBe(
+      'npx purrfold@latest <project-directory> --framework astro --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+    );
+  });
+
+  it('drops bun for astro (astro does not support bun)', () => {
+    const flags = buildFlags({ framework: 'astro', pm: 'bun' });
+
+    const command = buildCliCommand(flags, enOutput.command);
+    expect(command).not.toContain('--pm bun');
+    expect(command).not.toContain('bun');
+  });
+
+  it('keeps pnpm for astro', () => {
+    const flags = buildFlags({ framework: 'astro', pm: 'pnpm' });
+
+    expect(buildCliCommand(flags, enOutput.command)).toContain('--pm pnpm');
+  });
+
+  it('emits --ssr only for astro and omits --adapter at the cloudflare default', () => {
+    const flags = buildFlags({ framework: 'astro', ssr: true, adapter: 'cloudflare' });
+
+    const command = buildCliCommand(flags, enOutput.command);
+    expect(command).toContain('--framework astro --ssr');
+    expect(command).not.toContain('--adapter');
+  });
+
+  it('emits --adapter when it differs from the cloudflare default', () => {
+    const flags = buildFlags({ framework: 'astro', ssr: true, adapter: 'node' });
+
+    expect(buildCliCommand(flags, enOutput.command)).toContain('--ssr --adapter node');
+  });
+
+  it('never emits --ssr or --adapter for next (astro-only flags)', () => {
+    const flags = buildFlags({ framework: 'next', ssr: true, adapter: 'node' });
+
+    const command = buildCliCommand(flags, enOutput.command);
+    expect(command).not.toContain('--ssr');
+    expect(command).not.toContain('--adapter');
+  });
 });
 
 describe('buildAgentPrompt', () => {
   it('describes default selections with include/exclude', () => {
     const prompt = buildAgentPrompt(defaultFlags, enOutput);
 
-    expect(prompt).toContain(enOutput.agentIntro);
+    expect(prompt).toContain('Scaffold a new Next.js app with purrfold');
     expect(prompt).toContain('Include unit tests (Vitest), non-interactive mode.');
     expect(prompt).toContain(
       'Do NOT include E2E tests (Playwright), commitlint + Husky, shadcn MCP.'
     );
     expect(prompt).not.toContain('Use npm');
     expect(prompt).toContain(enOutput.agentOutro);
+  });
+
+  it('names Astro in the intro and describes SSR when selected', () => {
+    const flags = buildFlags({ framework: 'astro', ssr: true, adapter: 'node' });
+
+    const prompt = buildAgentPrompt(flags, enOutput);
+
+    expect(prompt).toContain('Scaffold a new Astro app with purrfold');
+    expect(prompt).toContain('Enable Astro SSR instead of a static build.');
+    expect(prompt).toContain('Use the node adapter for Astro SSR.');
+  });
+
+  it('does not describe SSR or adapter for next', () => {
+    const prompt = buildAgentPrompt(buildFlags({ framework: 'next', ssr: true }), enOutput);
+
+    expect(prompt).not.toContain('Astro SSR');
+    expect(prompt).not.toContain('adapter');
   });
 
   it('lists every selected and excluded option with non-default choices', () => {
@@ -130,7 +199,7 @@ describe('buildAgentPrompt', () => {
 
     const prompt = buildAgentPrompt(flags, enOutput);
 
-    expect(prompt).toContain(enOutput.agentIntro);
+    expect(prompt).toContain('Scaffold a new Next.js app with purrfold');
     expect(prompt).not.toContain('Include');
     expect(prompt).toContain(
       'Do NOT include unit tests (Vitest), E2E tests (Playwright), commitlint + Husky, shadcn MCP.'

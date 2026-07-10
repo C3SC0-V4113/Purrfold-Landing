@@ -37,7 +37,6 @@ test('selects package manager from the configurator', async ({ page }) => {
 });
 
 test('appends a preset ID to the generated command', async ({ page, browserName }) => {
-  // eslint-disable-next-line playwright/no-skipped-test -- WebKit does not propagate fill events to the base-ui Input primitive in this environment.
   test.skip(
     browserName === 'webkit',
     'WebKit does not propagate fill events to the base-ui Input primitive in this environment'
@@ -80,7 +79,6 @@ test('switches to the Agent tab and preserves flag selections', async ({ page })
 });
 
 test('copies the generated output to the clipboard', async ({ page, context, browserName }) => {
-  // eslint-disable-next-line playwright/no-skipped-test -- Clipboard permissions are only reliably available in Chromium.
   test.skip(browserName !== 'chromium', 'Clipboard permissions are only supported in Chromium');
 
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);

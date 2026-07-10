@@ -39,7 +39,7 @@ describe('Hub page composition', () => {
       })
     ).toBeDefined();
     expect(within(main).getByText('npx purrfold@latest <project-directory>')).toBeDefined();
-    expect(within(main).getAllByRole('link')).toHaveLength(7);
+    expect(within(main).getAllByRole('link')).toHaveLength(8);
     expect(within(main).getByRole('heading', { name: 'Roadmap' })).toBeDefined();
     expect(within(main).getByRole('heading', { name: 'Foundations' })).toBeDefined();
 

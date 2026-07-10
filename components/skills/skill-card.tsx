@@ -1,10 +1,13 @@
 import { ArrowUpRightIcon } from 'lucide-react';
 
 import { PremiumCard } from '@/components/motion/premium-card';
-import { Badge } from '@/components/ui/badge';
+import {
+  SkillSourceBadge,
+  type SkillSource,
+  type SkillSourceLabels,
+} from '@/components/skills/skill-source-badge';
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs';
 type SkillCardProps = {
   name: string;
   purpose: string;
@@ -13,7 +16,7 @@ type SkillCardProps = {
   source: SkillSource;
   href?: string;
   linkLabel: string;
-  badges: { local: string; skillsSh: string; reactDoctor: string; nextjs: string };
+  badges: SkillSourceLabels;
 };
 
 export function SkillCard({
@@ -33,23 +36,7 @@ export function SkillCard({
       <CardHeader className="gap-2">
         <div className="flex items-start justify-between gap-2">
           <CardTitle>{name}</CardTitle>
-          <Badge
-            variant={
-              source === 'local'
-                ? 'default'
-                : source === 'skills-sh' || source === 'nextjs'
-                  ? 'secondary'
-                  : 'outline'
-            }
-          >
-            {source === 'local'
-              ? badges.local
-              : source === 'skills-sh'
-                ? badges.skillsSh
-                : source === 'nextjs'
-                  ? badges.nextjs
-                  : badges.reactDoctor}
-          </Badge>
+          <SkillSourceBadge source={source} labels={badges} />
         </div>
         <CardDescription>{purpose}</CardDescription>
       </CardHeader>

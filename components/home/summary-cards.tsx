@@ -3,7 +3,11 @@ import Link from 'next/link';
 import { ecosystemResources } from '@/components/ecosystem/ecosystem-catalog';
 import { PremiumCard } from '@/components/motion/premium-card';
 import { qualityTools } from '@/components/quality/quality-catalog';
-import { nextjsWorkflowSkillCatalog, skillCatalog } from '@/components/skills/skills-catalog';
+import {
+  astroSkillCatalog,
+  nextjsWorkflowSkillCatalog,
+  skillCatalog,
+} from '@/components/skills/skills-catalog';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import {
@@ -68,6 +72,7 @@ export function SummaryCards({ locale }: SummarySectionProps) {
       badges: [
         `${skillCatalog.length} ${t.metrics.skills}`,
         `${nextjsWorkflowSkillCatalog.length} ${t.metrics.nextjsSkills}`,
+        `${astroSkillCatalog.length} ${t.metrics.astroSkills}`,
       ],
       highlights: featuredNextSkillIds.map((id) => pages.skills.workflow.skills[id].name),
     },

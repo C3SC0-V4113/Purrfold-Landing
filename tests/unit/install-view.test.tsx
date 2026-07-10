@@ -99,6 +99,59 @@ describe('InstallView', () => {
     ).toBeDefined();
   });
 
+  it('renders the framework selector alongside the tabs', () => {
+    render(<InstallView locale="en" messages={enInstallMessages} />);
+
+    expect(
+      screen.getByRole('combobox', { name: enInstallMessages.configurator.framework })
+    ).toBeDefined();
+  });
+
+  it('adds --framework astro to the output when Astro is selected', () => {
+    render(<InstallView locale="en" messages={enInstallMessages} />);
+
+    const frameworkTrigger = screen.getByRole('combobox', {
+      name: enInstallMessages.configurator.framework,
+    });
+    fireEvent.click(frameworkTrigger);
+    const astroOption = screen.getByRole('option', { name: 'Astro' });
+    fireEvent.pointerDown(astroOption);
+    fireEvent.click(astroOption);
+
+    expect(
+      screen.getByText(
+        buildCliCommand({ ...defaultFlags, framework: 'astro' }, enInstallMessages.output.command)
+      )
+    ).toBeDefined();
+  });
+
+  it('resets bun to npm when switching to Astro', () => {
+    render(<InstallView locale="en" messages={enInstallMessages} />);
+
+    openConfigurator();
+
+    const pmTrigger = screen.getByRole('combobox', { name: enInstallMessages.configurator.pm });
+    fireEvent.click(pmTrigger);
+    const bunOption = screen.getByRole('option', { name: 'bun' });
+    fireEvent.pointerDown(bunOption);
+    fireEvent.click(bunOption);
+
+    const frameworkTrigger = screen.getByRole('combobox', {
+      name: enInstallMessages.configurator.framework,
+    });
+    fireEvent.click(frameworkTrigger);
+    const astroOption = screen.getByRole('option', { name: 'Astro' });
+    fireEvent.pointerDown(astroOption);
+    fireEvent.click(astroOption);
+
+    // bun is dropped, so the command falls back to the npm default (no --pm).
+    expect(
+      screen.getByText(
+        buildCliCommand({ ...defaultFlags, framework: 'astro' }, enInstallMessages.output.command)
+      )
+    ).toBeDefined();
+  });
+
   it('renders children passed from the server', () => {
     render(
       <InstallView locale="en" messages={enInstallMessages}>

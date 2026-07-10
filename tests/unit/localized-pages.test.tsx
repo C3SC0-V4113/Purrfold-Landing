@@ -178,7 +178,7 @@ describe('localized page rendering', () => {
     expect(
       screen.getByRole('heading', {
         level: 2,
-        name: 'Skills del scaffold y workflow skills de Next.js',
+        name: 'Skills del scaffold y skills de framework',
       })
     ).toBeDefined();
     expect(

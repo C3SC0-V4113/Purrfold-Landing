@@ -45,11 +45,20 @@ function assertSkillsPage(locale: 'en' | 'es') {
     expect(screen.getByText(skill.example)).toBeDefined();
   }
 
-  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(13);
-  expect(screen.getAllByText(messages.badges.local)).toHaveLength(3);
+  expect(screen.getByText(messages.astro.title)).toBeDefined();
+  expect(screen.getByText(messages.astro.description)).toBeDefined();
+
+  for (const skill of Object.values(messages.astro.skills)) {
+    expect(screen.getAllByText(skill.name).length).toBeGreaterThan(0);
+    expect(screen.getByText(skill.example)).toBeDefined();
+  }
+
+  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(14);
+  expect(screen.getAllByText(messages.badges.local)).toHaveLength(4);
   expect(screen.getAllByText(messages.badges.skillsSh)).toHaveLength(10);
   expect(screen.getAllByText(messages.badges.reactDoctor)).toHaveLength(2);
   expect(screen.getAllByText(messages.badges.nextjs)).toHaveLength(3);
+  expect(screen.getAllByText(messages.badges.astro)).toHaveLength(1);
 }
 
 beforeEach(() => {

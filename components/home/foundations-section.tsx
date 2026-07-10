@@ -18,6 +18,7 @@ const externalLinkAttributes = {
 const foundations = [
   { key: 'shadcn', href: externalLinks.shadcn },
   { key: 'nextjs', href: externalLinks.nextjs },
+  { key: 'astro', href: externalLinks.astro },
 ] as const;
 
 export function FoundationsSection({ locale }: FoundationsSectionProps) {
@@ -32,7 +33,7 @@ export function FoundationsSection({ locale }: FoundationsSectionProps) {
         <h2 className="text-sm font-semibold text-foreground">{t.title}</h2>
         <p className="text-muted-foreground">{t.description}</p>
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {foundations.map(({ key, href }) => (
           <a
             key={key}

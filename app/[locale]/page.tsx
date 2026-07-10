@@ -56,7 +56,7 @@ export default async function LocalizedHomePage(props: LocalizedPageProps) {
             shineColor={['var(--color-shine-border-from)', 'var(--color-shine-border-to)']}
           />
           <div className="rounded-2xl border border-border/70 bg-card/70 p-4 text-left shadow-sm backdrop-blur">
-            <QuickInstall locale={locale} />
+            <QuickInstall messages={getMessages(locale).HomePage.hub.tabs} />
           </div>
         </div>
 

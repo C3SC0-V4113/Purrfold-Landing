@@ -25,11 +25,14 @@ type PresetExampleProps = {
 
 export function PresetExample({ messages, presetId, onPresetChange }: PresetExampleProps) {
   const flags: FlagState = {
+    framework: 'next',
     unit: true,
     e2e: true,
     commitlint: true,
     mcp: false,
     yes: true,
+    ssr: false,
+    adapter: 'cloudflare',
     pm: 'npm',
     icons: 'lucide',
     presetId,

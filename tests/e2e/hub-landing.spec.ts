@@ -19,7 +19,8 @@ test('switches between CLI and Agent tabs on the English home', async ({ page })
   await expect(cliCommand).toBeHidden();
 });
 
-test('copies the active tab content to the clipboard', async ({ page, context }) => {
+test('copies the active tab content to the clipboard', async ({ page, context, browserName }) => {
+  test.skip(browserName !== 'chromium', 'Clipboard permissions are only supported in Chromium');
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/en');
 
