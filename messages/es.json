@@ -4,7 +4,7 @@
       "hero": {
         "eyebrow": "Agent-first",
         "title": "La base sólida para proyectos con agentes",
-        "description": "Purrfold genera proyectos Next.js agent-ready con controles de calidad, reglas para agentes, docs versionadas y shadcn UI — para que los agentes trabajen con contexto verificable desde el día uno.",
+        "description": "Purrfold genera proyectos Next.js y Astro agent-ready con controles de calidad, reglas para agentes, docs versionadas y shadcn UI — para que los agentes trabajen con contexto verificable desde el día uno.",
         "cta": "Crear proyecto"
       },
       "tabs": {
@@ -64,7 +64,7 @@
           },
           {
             "name": "Astro",
-            "status": "future"
+            "status": "shipped"
           },
           {
             "name": "Vite",
@@ -80,17 +80,19 @@
         "title": "Bases",
         "description": "Construido sobre las primitivas en las que confiamos.",
         "shadcn": "shadcn/ui",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       }
     }
   },
   "Metadata": {
     "site": {
-      "description": "Scaffolding de proyectos Next.js orientado a agentes, con controles de calidad, reglas para agentes, docs versionadas y una base de shadcn UI.",
+      "description": "Scaffolding de proyectos Next.js y Astro orientado a agentes, con controles de calidad, reglas para agentes, docs versionadas y una base de shadcn UI.",
       "keywords": [
         "Purrfold",
         "scaffolding para agentes",
         "starter de Next.js",
+        "starter de Astro",
         "shadcn UI",
         "controles de calidad",
         "agentes de código con IA"
@@ -103,7 +105,7 @@
       "title": "Ecosistema conectado"
     },
     "home": {
-      "description": "Purrfold ayuda a generar proyectos Next.js listos para agentes con controles de calidad, reglas AGENTS/CLAUDE, docs versionadas y una base limpia de shadcn UI.",
+      "description": "Purrfold ayuda a generar proyectos Next.js y Astro listos para agentes con controles de calidad, reglas AGENTS/CLAUDE, docs versionadas y una base limpia de shadcn UI.",
       "keywords": [
         "scaffolding de proyectos",
         "desarrollo con agentes",
@@ -118,6 +120,7 @@
         "CLI de Purrfold",
         "instalar Purrfold",
         "scaffold de Next.js",
+        "scaffold de Astro",
         "preset de shadcn"
       ],
       "title": "Instalar Purrfold"

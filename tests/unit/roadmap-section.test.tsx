@@ -21,15 +21,15 @@ describe('RoadmapSection', () => {
   it('shows shipped and future status badges', () => {
     render(<RoadmapSection locale="en" />);
 
-    expect(screen.getAllByText('Shipped')).toHaveLength(1);
-    expect(screen.getAllByText('Future')).toHaveLength(3);
+    expect(screen.getAllByText('Shipped')).toHaveLength(2);
+    expect(screen.getAllByText('Future')).toHaveLength(2);
   });
 
   it('renders Spanish roadmap copy', () => {
     render(<RoadmapSection locale="es" />);
 
     expect(screen.getByRole('heading', { name: 'Hoja de ruta' })).toBeDefined();
-    expect(screen.getAllByText('Disponible')).toHaveLength(1);
-    expect(screen.getAllByText('Próximo')).toHaveLength(3);
+    expect(screen.getAllByText('Disponible')).toHaveLength(2);
+    expect(screen.getAllByText('Próximo')).toHaveLength(2);
   });
 });

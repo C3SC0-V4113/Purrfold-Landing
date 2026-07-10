@@ -9,6 +9,7 @@ export const phaseOneRoutes = ['/', '/install', '/skills', '/quality', '/ecosyst
 export type PhaseOneRoute = (typeof phaseOneRoutes)[number];
 
 export const externalLinks = {
+  astro: 'https://astro.build',
   github: 'https://github.com/C3SC0-V4113/Scaffold',
   linkedin: 'https://www.linkedin.com/in/francisco-jos%C3%A9-valle-cornejo/',
   nextjs: 'https://nextjs.org',

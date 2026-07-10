@@ -22,6 +22,11 @@ describe('FoundationsSection', () => {
     expect(nextjsLink.getAttribute('href')).toBe('https://nextjs.org');
     expect(nextjsLink.getAttribute('target')).toBe('_blank');
     expect(nextjsLink.getAttribute('rel')).toBe('noreferrer noopener');
+
+    const astroLink = screen.getByRole('link', { name: 'Astro' });
+    expect(astroLink.getAttribute('href')).toBe('https://astro.build');
+    expect(astroLink.getAttribute('target')).toBe('_blank');
+    expect(astroLink.getAttribute('rel')).toBe('noreferrer noopener');
   });
 
   it('renders Spanish foundations copy', () => {

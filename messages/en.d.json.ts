@@ -7,7 +7,7 @@ declare const messages: {
       "hero": {
         "eyebrow": "Agent-first",
         "title": "The solid foundation for agent-driven projects",
-        "description": "Purrfold scaffolds agent-ready Next.js projects with quality gates, agent rules, versioned docs, and shadcn UI — so agents work from verifiable context on day one.",
+        "description": "Purrfold scaffolds agent-ready Next.js and Astro projects with quality gates, agent rules, versioned docs, and shadcn UI — so agents work from verifiable context on day one.",
         "cta": "Scaffold a project"
       },
       "tabs": {
@@ -67,7 +67,7 @@ declare const messages: {
           },
           {
             "name": "Astro",
-            "status": "future"
+            "status": "shipped"
           },
           {
             "name": "Vite",
@@ -83,17 +83,19 @@ declare const messages: {
         "title": "Foundations",
         "description": "Built on the primitives we trust.",
         "shadcn": "shadcn/ui",
-        "nextjs": "Next.js"
+        "nextjs": "Next.js",
+        "astro": "Astro"
       }
     }
   },
   "Metadata": {
     "site": {
-      "description": "Agent-ready Next.js project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.",
+      "description": "Agent-ready Next.js and Astro project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.",
       "keywords": [
         "Purrfold",
         "agent-first scaffolding",
         "Next.js starter",
+        "Astro starter",
         "shadcn UI",
         "quality gates",
         "AI coding agents"
@@ -106,7 +108,7 @@ declare const messages: {
       "title": "Connected ecosystem"
     },
     "home": {
-      "description": "Purrfold helps teams scaffold agent-ready Next.js projects with quality gates, AGENTS/CLAUDE rules, versioned docs, and a clean shadcn UI foundation.",
+      "description": "Purrfold helps teams scaffold agent-ready Next.js and Astro projects with quality gates, AGENTS/CLAUDE rules, versioned docs, and a clean shadcn UI foundation.",
       "keywords": [
         "project scaffolding",
         "agent-driven development",
@@ -117,7 +119,13 @@ declare const messages: {
     },
     "install": {
       "description": "Install Purrfold from the CLI or an agent prompt and configure testing, commit hygiene, shadcn MCP, package manager, and preset options.",
-      "keywords": ["Purrfold CLI", "install Purrfold", "Next.js scaffold", "shadcn preset"],
+      "keywords": [
+        "Purrfold CLI",
+        "install Purrfold",
+        "Next.js scaffold",
+        "Astro scaffold",
+        "shadcn preset"
+      ],
       "title": "Install Purrfold"
     },
     "quality": {
