@@ -13,6 +13,7 @@ const labels: SkillSourceLabels = {
   reactDoctor: 'React Doctor',
   nextjs: 'Next.js',
   astro: 'Astro',
+  motion: 'Requires --motion',
 };
 
 describe('SkillSourceBadge', () => {
@@ -26,6 +27,7 @@ describe('SkillSourceBadge', () => {
     ['react-doctor', 'React Doctor'],
     ['nextjs', 'Next.js'],
     ['astro', 'Astro'],
+    ['motion', 'Requires --motion'],
   ] satisfies [SkillSource, string][])('renders the %s source label', (source, expected) => {
     render(<SkillSourceBadge source={source} labels={labels} />);
 

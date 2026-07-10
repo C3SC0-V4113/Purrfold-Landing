@@ -230,6 +230,7 @@ declare const messages: {
         "e2e": "E2E tests (Playwright)",
         "commitlint": "Commit convention (commitlint)",
         "mcp": "shadcn MCP for Claude/Codex/OpenCode",
+        "motion": "Motion for React (motion-framer skill)",
         "yes": "Non-interactive mode (--yes)",
         "ssr": "Astro SSR (server rendering)",
         "adapter": "Astro SSR adapter",
@@ -248,6 +249,7 @@ declare const messages: {
         "agentOptionE2e": "E2E tests (Playwright)",
         "agentOptionCommitlint": "commitlint + Husky",
         "agentOptionMcp": "shadcn MCP",
+        "agentOptionMotion": "Motion for React (motion-framer skill)",
         "agentOptionYes": "non-interactive mode",
         "agentSsr": "Enable Astro SSR instead of a static build.",
         "agentAdapter": "Use the {adapter} adapter for Astro SSR.",
@@ -294,6 +296,10 @@ declare const messages: {
           {
             "flag": "--mcp / --no-mcp",
             "description": "Install shadcn MCP for Claude, Codex, and OpenCode"
+          },
+          {
+            "flag": "--motion",
+            "description": "Install Motion for React and the motion-framer agent skill (opt-in)"
           },
           {
             "flag": "--icons <lucide|phosphor|tabler>",
@@ -519,6 +525,12 @@ declare const messages: {
           "purpose": "Keeps registry primitives in components/ui separate from product feature components.",
           "whenHelp": "When deciding where a component belongs or preventing feature logic from leaking into shadcn primitives.",
           "example": "Example: keep a generated shadcn Button in components/ui and build the feature UI around it."
+        },
+        "motion-framer": {
+          "name": "Motion for React",
+          "purpose": "Animation patterns and guidance for building interfaces with Motion for React.",
+          "whenHelp": "When adding motion to a project scaffolded with --motion.",
+          "example": "Example: animate a component's entrance with transform and opacity, honoring prefers-reduced-motion."
         }
       },
       "badges": {
@@ -526,7 +538,8 @@ declare const messages: {
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
         "nextjs": "Next.js",
-        "astro": "Astro"
+        "astro": "Astro",
+        "motion": "Requires --motion"
       },
       "workflow": {
         "title": "Next.js workflow skills",

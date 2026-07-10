@@ -21,6 +21,7 @@ const enOutput = {
   agentOptionE2e: 'E2E tests (Playwright)',
   agentOptionCommitlint: 'commitlint + Husky',
   agentOptionMcp: 'shadcn MCP',
+  agentOptionMotion: 'Motion for React (motion-framer skill)',
   agentOptionYes: 'non-interactive mode',
   agentSsr: 'Enable Astro SSR instead of a static build.',
   agentAdapter: 'Use the {adapter} adapter for Astro SSR.',
@@ -133,6 +134,15 @@ describe('buildCliCommand', () => {
     expect(command).not.toContain('--ssr');
     expect(command).not.toContain('--adapter');
   });
+
+  it('emits --motion when enabled (opt-in, no --no-motion form)', () => {
+    expect(buildCliCommand(buildFlags({ motion: true }), enOutput.command)).toContain(
+      '--no-mcp --motion --yes'
+    );
+    expect(buildCliCommand(buildFlags({ motion: false }), enOutput.command)).not.toContain(
+      '--motion'
+    );
+  });
 });
 
 describe('buildAgentPrompt', () => {
@@ -207,5 +217,14 @@ describe('buildAgentPrompt', () => {
     expect(prompt).toContain('Use bun as the package manager.');
     expect(prompt).toContain('Use shadcn preset preset-1.');
     expect(prompt).toContain(enOutput.agentOutro);
+  });
+
+  it('includes Motion in the agent prompt only when enabled', () => {
+    expect(buildAgentPrompt(buildFlags({ motion: true }), enOutput)).toContain(
+      'Motion for React (motion-framer skill)'
+    );
+    expect(buildAgentPrompt(buildFlags({ motion: false }), enOutput)).not.toContain(
+      'Motion for React'
+    );
   });
 });
