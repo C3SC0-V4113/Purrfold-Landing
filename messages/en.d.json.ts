@@ -14,8 +14,9 @@ declare const messages: {
         "title": "Quick start",
         "cli": "CLI",
         "agent": "Agent",
+        "framework": "Framework",
         "cliCommand": "npx purrfold@latest <project-directory>",
-        "agentPrompt": "I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned Next.js guidance. After scaffolding, run `npm run check` to verify everything works.",
+        "agentPrompt": "I want to scaffold a new {framework} app with purrfold. Run `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned {framework} guidance. After scaffolding, run `npm run check` to verify everything works.",
         "copyButton": "Copy",
         "copied": "Copied!"
       },

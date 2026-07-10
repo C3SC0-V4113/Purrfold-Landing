@@ -11,8 +11,9 @@
         "title": "Inicio rápido",
         "cli": "CLI",
         "agent": "Agente",
+        "framework": "Framework",
         "cliCommand": "npx purrfold@latest <directorio-del-proyecto>",
-        "agentPrompt": "Quiero generar un proyecto nuevo de Next.js con purrfold. Ejecuta `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` para crear el proyecto con controles de calidad, tests, reglas para agentes y guía versionada de Next.js. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
+        "agentPrompt": "Quiero generar un proyecto nuevo de {framework} con purrfold. Ejecuta `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --mcp` para crear el proyecto con controles de calidad, tests, reglas para agentes y guía versionada de {framework}. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
         "copyButton": "Copiar",
         "copied": "¡Copiado!"
       },
