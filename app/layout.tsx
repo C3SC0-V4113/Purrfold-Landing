@@ -61,7 +61,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* eslint-disable-next-line react-doctor/nextjs-no-native-script, react-doctor/no-danger */}
+        {/* eslint-disable-next-line react-doctor/nextjs-no-native-script */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-full flex-col">
