@@ -31,7 +31,8 @@ declare const messages: {
           "optionalTools": "optional tools",
           "foundationResources": "foundation resource",
           "communityResources": "community resources",
-          "nextjsSkills": "Next.js workflow skills"
+          "nextjsSkills": "Next.js workflow skills",
+          "astroSkills": "Astro framework skills"
         },
         "cta": {
           "install": "Open install guide",

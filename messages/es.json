@@ -28,7 +28,8 @@
           "optionalTools": "herramientas opcionales",
           "foundationResources": "recurso base",
           "communityResources": "recursos comunitarios",
-          "nextjsSkills": "workflow skills de Next.js"
+          "nextjsSkills": "workflow skills de Next.js",
+          "astroSkills": "skills del framework Astro"
         },
         "cta": {
           "install": "Abrir guía de instalación",
