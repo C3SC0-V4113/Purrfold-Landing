@@ -4,13 +4,13 @@ const skillsPages = {
   en: {
     path: '/en/skills',
     title: 'Skill surface',
-    overview: 'Skills with equal weight',
+    overview: 'Scaffold skills and framework workflow skills',
     category: 'Architecture & Design',
   },
   es: {
     path: '/es/skills',
     title: 'Superficie de skills',
-    overview: 'Skills con el mismo peso',
+    overview: 'Skills del scaffold y skills de framework',
     category: 'Arquitectura y diseño',
   },
 } as const;
@@ -25,7 +25,7 @@ test('renders the English skills page with safe outbound links', async ({ page }
   ).toBeVisible();
 
   const skillLinks = page.locator('a[href^="https://www.skills.sh/"]');
-  await expect(skillLinks).toHaveCount(11);
+  await expect(skillLinks).toHaveCount(10);
 
   const hrefs = await skillLinks.evaluateAll((links) =>
     links.map((link) => (link as HTMLAnchorElement).href)
@@ -49,7 +49,7 @@ test('renders the Spanish skills page with safe outbound links', async ({ page }
   ).toBeVisible();
 
   const skillLinks = page.locator('a[href^="https://www.skills.sh/"]');
-  await expect(skillLinks).toHaveCount(11);
+  await expect(skillLinks).toHaveCount(10);
 
   const hrefs = await skillLinks.evaluateAll((links) =>
     links.map((link) => (link as HTMLAnchorElement).href)

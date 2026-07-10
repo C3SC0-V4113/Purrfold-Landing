@@ -106,6 +106,11 @@ const eslintConfig = defineConfig([
       'playwright/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
     ],
     ...playwrightPlugin.configs['flat/recommended'],
+    rules: {
+      ...playwrightPlugin.configs['flat/recommended'].rules,
+      // Conditional browser/env skips are intentional; still flag bare .skip().
+      'playwright/no-skipped-test': ['warn', { allowConditional: true }],
+    },
   },
   eslintConfigPrettier,
   globalIgnores([
