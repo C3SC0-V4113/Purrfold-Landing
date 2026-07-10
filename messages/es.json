@@ -407,8 +407,8 @@
       "routeLabel": "Skills",
       "title": "Superficie de skills",
       "overview": {
-        "title": "Skills del scaffold y workflow skills de Next.js",
-        "description": "Next.js aporta documentación versionada y reglas AGENTS/CLAUDE; Purrfold instala las workflow skills actuales desde el repo oficial de Next.js."
+        "title": "Skills del scaffold y skills de framework",
+        "description": "Purrfold instala skills de scaffold compartidas para cada proyecto, más skills de workflow específicas del framework que elijas —Next.js o Astro— junto con docs versionadas y reglas AGENTS/CLAUDE."
       },
       "linkLabel": "Abrir skill",
       "categories": {
@@ -515,12 +515,6 @@
           "purpose": "Mantiene las primitivas del registro en components/ui separadas de los componentes de producto.",
           "whenHelp": "Cuando se decide dónde va un componente o se evita que la lógica de negocio se filtre en las primitivas de shadcn.",
           "example": "Ejemplo: mantén un Button generado por shadcn en components/ui y construye la UI de la feature alrededor."
-        },
-        "astro": {
-          "name": "Framework Astro",
-          "purpose": "Guía de framework para construir proyectos Astro compatibles con shadcn usando islas de React.",
-          "whenHelp": "Cuando se genera o extiende un proyecto Astro con el flujo de Astro de Purrfold.",
-          "example": "Ejemplo: agrega una isla de React a una ruta de Astro manteniendo la salida estática por defecto."
         }
       },
       "badges": {
@@ -551,6 +545,18 @@
             "purpose": "Verifica comportamiento runtime con `next dev`, el MCP de Next.js y un navegador real, no solo compilación o tipos.",
             "whenHelp": "Cuando un cambio de Next.js necesita confirmar errores de framework, consola, red, rutas y comportamiento visible en navegador.",
             "example": "Ejemplo: cruzar `/_next/mcp` con una sesión de navegador para validar que una página compila y se comporta como se espera."
+          }
+        }
+      },
+      "astro": {
+        "title": "Skills del framework Astro",
+        "description": "Purrfold instala esta skill solo para el scaffold de Astro, desde astrolicious/agent-skills.",
+        "skills": {
+          "astro": {
+            "name": "Framework Astro",
+            "purpose": "Guía de framework para construir proyectos Astro compatibles con shadcn usando islas de React.",
+            "whenHelp": "Cuando se genera o extiende un proyecto Astro con el flujo de Astro de Purrfold.",
+            "example": "Ejemplo: agrega una isla de React a una ruta de Astro manteniendo la salida estática por defecto."
           }
         }
       }
