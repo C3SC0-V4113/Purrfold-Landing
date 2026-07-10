@@ -227,6 +227,7 @@
         "e2e": "Tests E2E (Playwright)",
         "commitlint": "Convención de commits (commitlint)",
         "mcp": "shadcn MCP para Claude/Codex/OpenCode",
+        "motion": "Motion for React (skill motion-framer)",
         "yes": "Modo no interactivo (--yes)",
         "ssr": "SSR de Astro (renderizado en servidor)",
         "adapter": "Adaptador SSR de Astro",
@@ -245,6 +246,7 @@
         "agentOptionE2e": "tests E2E (Playwright)",
         "agentOptionCommitlint": "commitlint + Husky",
         "agentOptionMcp": "shadcn MCP",
+        "agentOptionMotion": "Motion for React (skill motion-framer)",
         "agentOptionYes": "modo no interactivo",
         "agentSsr": "Activa el SSR de Astro en lugar de una compilación estática.",
         "agentAdapter": "Usa el adaptador {adapter} para el SSR de Astro.",
@@ -291,6 +293,10 @@
           {
             "flag": "--mcp / --no-mcp",
             "description": "Instalar shadcn MCP para Claude, Codex y OpenCode"
+          },
+          {
+            "flag": "--motion",
+            "description": "Instalar Motion for React y el skill motion-framer (opt-in)"
           },
           {
             "flag": "--icons <lucide|phosphor|tabler>",
