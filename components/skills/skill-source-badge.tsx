@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro';
+export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro' | 'motion';
 
 export type SkillSourceLabels = {
   local: string;
@@ -8,6 +8,7 @@ export type SkillSourceLabels = {
   reactDoctor: string;
   nextjs: string;
   astro: string;
+  motion: string;
 };
 
 const variantBySource: Record<SkillSource, 'default' | 'secondary' | 'outline'> = {
@@ -15,6 +16,7 @@ const variantBySource: Record<SkillSource, 'default' | 'secondary' | 'outline'> 
   'skills-sh': 'secondary',
   nextjs: 'secondary',
   astro: 'secondary',
+  motion: 'outline',
   'react-doctor': 'outline',
 };
 
@@ -24,6 +26,7 @@ const labelKeyBySource: Record<SkillSource, keyof SkillSourceLabels> = {
   'react-doctor': 'reactDoctor',
   nextjs: 'nextjs',
   astro: 'astro',
+  motion: 'motion',
 };
 
 type SkillSourceBadgeProps = {

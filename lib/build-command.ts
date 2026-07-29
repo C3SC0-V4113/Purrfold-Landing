@@ -7,6 +7,7 @@ export type FlagState = {
   e2e: boolean;
   commitlint: boolean;
   mcp: boolean;
+  motion: boolean;
   yes: boolean;
   ssr: boolean;
   adapter: AstroAdapter;
@@ -23,6 +24,7 @@ export type AgentPromptMessages = {
   agentOptionE2e: string;
   agentOptionCommitlint: string;
   agentOptionMcp: string;
+  agentOptionMotion: string;
   agentOptionYes: string;
   agentSsr: string;
   agentAdapter: string;
@@ -37,6 +39,7 @@ export const defaultFlags: FlagState = {
   e2e: false,
   commitlint: false,
   mcp: false,
+  motion: false,
   yes: true,
   ssr: false,
   adapter: 'cloudflare',
@@ -79,6 +82,8 @@ export function buildCliCommand(flags: FlagState, baseCommand: string): string {
   parts.push(flags.e2e ? '--e2e' : '--no-e2e');
   parts.push(flags.commitlint ? '--commitlint' : '--no-commitlint');
   parts.push(flags.mcp ? '--mcp' : '--no-mcp');
+  // Motion is opt-in only (no --no-motion form).
+  if (flags.motion) parts.push('--motion');
   parts.push(flags.yes ? '--yes' : '');
 
   const pm = resolvePackageManager(flags);
@@ -108,6 +113,7 @@ export function buildAgentPrompt(flags: FlagState, messages: AgentPromptMessages
   if (flags.mcp) included.push(messages.agentOptionMcp);
   else excluded.push(messages.agentOptionMcp);
 
+  if (flags.motion) included.push(messages.agentOptionMotion);
   if (flags.yes) included.push(messages.agentOptionYes);
 
   if (included.length > 0) {

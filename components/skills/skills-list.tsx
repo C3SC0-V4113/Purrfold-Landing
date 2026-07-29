@@ -75,6 +75,7 @@ export function SkillsList({ locale }: SkillsListProps) {
     reactDoctor: t.badges.reactDoctor,
     nextjs: t.badges.nextjs,
     astro: t.badges.astro,
+    motion: t.badges.motion,
   };
   const categories = [
     { key: 'architecture' as const, title: t.categories.architecture.title },

@@ -1,6 +1,6 @@
 import skillsLock from '../../skills-lock.json';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro';
+export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro' | 'motion';
 export type SkillCategory = 'architecture' | 'framework' | 'quality' | 'typescript';
 
 export type SkillEntry = {
@@ -72,18 +72,30 @@ export const astroSkillCatalog: SkillEntry[] = [
   },
 ];
 
-export const skillCatalog: SkillEntry[] = baseCatalog.map((skill): SkillEntry => {
-  const source: SkillSource =
-    skill.id === 'react-doctor'
-      ? 'react-doctor'
-      : skillsLockIds.has(skill.id)
-        ? 'skills-sh'
-        : 'local';
+// motion-framer is installed only with --motion; it renders in the Framework & UI
+// category with a "Requires --motion" badge (source 'motion').
+const motionFramerSkill: SkillEntry = {
+  id: 'motion-framer',
+  category: 'framework',
+  source: 'motion',
+  href: 'https://github.com/freshtechbro/claudedesignskills',
+};
 
-  return {
-    id: skill.id,
-    category: skill.category,
-    source,
-    href: source === 'skills-sh' ? buildSkillsShHref(skill.id) : undefined,
-  };
-});
+export const skillCatalog: SkillEntry[] = [
+  ...baseCatalog.map((skill): SkillEntry => {
+    const source: SkillSource =
+      skill.id === 'react-doctor'
+        ? 'react-doctor'
+        : skillsLockIds.has(skill.id)
+          ? 'skills-sh'
+          : 'local';
+
+    return {
+      id: skill.id,
+      category: skill.category,
+      source,
+      href: source === 'skills-sh' ? buildSkillsShHref(skill.id) : undefined,
+    };
+  }),
+  motionFramerSkill,
+];

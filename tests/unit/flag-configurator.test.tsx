@@ -117,6 +117,27 @@ describe('FlagConfigurator', () => {
     expect(onChange).toHaveBeenCalledExactlyOnceWith({ ...flags, e2e: true });
   });
 
+  it('calls onChange when the motion flag is toggled on', () => {
+    const onChange = vi.fn();
+
+    render(
+      <FlagConfigurator
+        flags={defaultFlags}
+        messages={enInstallMessages.configurator}
+        onChange={onChange}
+      />
+    );
+
+    openCollapsible();
+
+    const motionCheckbox = screen.getByRole('checkbox', {
+      name: enInstallMessages.configurator.motion,
+    });
+    fireEvent.click(motionCheckbox);
+
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({ ...defaultFlags, motion: true });
+  });
+
   it('calls onChange when the package manager is changed', () => {
     const onChange = vi.fn();
 

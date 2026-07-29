@@ -30,6 +30,7 @@ export function PresetExample({ messages, presetId, onPresetChange }: PresetExam
     e2e: true,
     commitlint: true,
     mcp: false,
+    motion: false,
     yes: true,
     ssr: false,
     adapter: 'cloudflare',
