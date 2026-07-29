@@ -121,9 +121,7 @@ export function buildAgentPrompt(flags: FlagState, messages: AgentPromptMessages
   // Astro-only SSR guidance.
   if (flags.framework === 'astro' && flags.ssr) {
     parts.push(messages.agentSsr);
-    if (flags.adapter !== defaultAdapter) {
-      parts.push(messages.agentAdapter.replace('{adapter}', flags.adapter));
-    }
+    parts.push(messages.agentAdapter.replace('{adapter}', flags.adapter));
   }
 
   const pm = resolvePackageManager(flags);

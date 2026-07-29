@@ -158,6 +158,16 @@ describe('buildAgentPrompt', () => {
     expect(prompt).toContain('Use the node adapter for Astro SSR.');
   });
 
+  it('describes the cloudflare adapter for Astro SSR while the CLI keeps the default adapter implicit', () => {
+    const flags = buildFlags({ framework: 'astro', ssr: true, adapter: 'cloudflare' });
+
+    const prompt = buildAgentPrompt(flags, enOutput);
+    const command = buildCliCommand(flags, enOutput.command);
+
+    expect(prompt).toContain('Use the cloudflare adapter for Astro SSR.');
+    expect(command).not.toContain('--adapter');
+  });
+
   it('does not describe SSR or adapter for next', () => {
     const prompt = buildAgentPrompt(buildFlags({ framework: 'next', ssr: true }), enOutput);
 
