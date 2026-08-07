@@ -27,7 +27,7 @@ import { cn } from '@/lib/utils';
 
 import type { AstroAdapter, FlagState, Framework } from '@/lib/build-command';
 
-export type BooleanFlagKey = 'unit' | 'e2e' | 'commitlint' | 'mcp' | 'motion' | 'yes';
+export type BooleanFlagKey = 'unit' | 'e2e' | 'commitlint' | 'ci' | 'mcp' | 'motion' | 'yes';
 
 export type ConfiguratorMessages = {
   title: string;
@@ -37,6 +37,7 @@ export type ConfiguratorMessages = {
   unit: string;
   e2e: string;
   commitlint: string;
+  ci: string;
   mcp: string;
   motion: string;
   yes: string;
@@ -54,7 +55,7 @@ type FlagConfiguratorProps = {
   disabledKeys?: Set<BooleanFlagKey>;
 };
 
-const booleanFlags: BooleanFlagKey[] = ['unit', 'e2e', 'commitlint', 'mcp', 'motion', 'yes'];
+const booleanFlags: BooleanFlagKey[] = ['unit', 'e2e', 'commitlint', 'ci', 'mcp', 'motion', 'yes'];
 const adapters: AstroAdapter[] = ['node', 'vercel', 'netlify', 'cloudflare'];
 
 // Astro scaffolding rejects bun, so the option is gated per framework.

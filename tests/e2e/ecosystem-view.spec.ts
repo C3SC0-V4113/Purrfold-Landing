@@ -6,6 +6,7 @@ const resources = [
   { name: 'Magic UI', href: 'https://magicui.design/' },
   { name: 'coss ui', href: 'https://coss.com/ui' },
   { name: 'remocn', href: 'https://www.remocn.dev/' },
+  { name: 'ReUI', href: 'https://reui.io/' },
 ] as const;
 
 test('navigates to and renders the English ecosystem with safe resource links', async ({
@@ -32,7 +33,7 @@ test('navigates to and renders the English ecosystem with safe resource links', 
     'Community projects',
   ]);
   await expect(page.getByText('Foundation', { exact: true })).toHaveCount(2);
-  await expect(page.getByText('Community', { exact: true })).toHaveCount(4);
+  await expect(page.getByText('Community', { exact: true })).toHaveCount(5);
 
   for (const resource of resources) {
     await expect(page.getByRole('heading', { level: 3, name: resource.name })).toBeVisible();
@@ -59,7 +60,7 @@ test('renders the equivalent Spanish ecosystem categories and resources', async 
     'Proyectos de la comunidad',
   ]);
   await expect(page.getByText('Fundamento', { exact: true })).toHaveCount(2);
-  await expect(page.getByText('Comunidad', { exact: true })).toHaveCount(4);
+  await expect(page.getByText('Comunidad', { exact: true })).toHaveCount(5);
 
   for (const resource of resources) {
     await expect(page.getByRole('heading', { level: 3, name: resource.name })).toBeVisible();

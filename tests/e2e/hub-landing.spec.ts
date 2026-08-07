@@ -1,7 +1,7 @@
 ﻿import { expect, test } from '@playwright/test';
 
 const agentPrompt =
-  'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned Next.js guidance. After scaffolding, run `npm run check` to verify everything works.';
+  'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --ci --mcp` to set up the project with quality gates, testing, CI workflows, agent rules, and versioned Next.js guidance. After scaffolding, run `npm run check` to verify everything works.';
 
 test('switches between CLI and Agent tabs on the English home', async ({ page }) => {
   await page.goto('/en');

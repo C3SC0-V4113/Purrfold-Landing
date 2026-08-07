@@ -16,7 +16,7 @@ declare const messages: {
         "agent": "Agent",
         "framework": "Framework",
         "cliCommand": "npx purrfold@latest <project-directory>",
-        "agentPrompt": "I want to scaffold a new {framework} app with purrfold. Run `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --mcp` to set up the project with quality gates, testing, agent rules, and versioned {framework} guidance. After scaffolding, run `npm run check` to verify everything works.",
+        "agentPrompt": "I want to scaffold a new {framework} app with purrfold. Run `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --ci --mcp` to set up the project with quality gates, testing, CI workflows, agent rules, and versioned {framework} guidance. After scaffolding, run `npm run check` to verify everything works.",
         "copyButton": "Copy",
         "copied": "Copied!"
       },
@@ -207,6 +207,11 @@ declare const messages: {
           "name": "remocn",
           "summary": "A community registry of cinematic Remotion components distributed through a shadcn-compatible workflow.",
           "usage": "Explore it when a project needs programmable video or cinematic content components beyond a conventional web interface."
+        },
+        "reui": {
+          "name": "ReUI",
+          "summary": "A design-forward registry built on top of shadcn/ui, with a large free component set and an MCP server for agents.",
+          "usage": "Explore its free components and MCP integration when you want production-oriented patterns that stay compatible with your shadcn/ui foundation; its blocks and full templates are a paid tier."
         }
       }
     },
@@ -229,6 +234,7 @@ declare const messages: {
         "unit": "Unit tests (Vitest)",
         "e2e": "E2E tests (Playwright)",
         "commitlint": "Commit convention (commitlint)",
+        "ci": "GitHub Actions workflows (CI)",
         "mcp": "shadcn MCP for Claude/Codex/OpenCode",
         "motion": "Motion for React (motion-framer skill)",
         "yes": "Non-interactive mode (--yes)",
@@ -243,19 +249,30 @@ declare const messages: {
         "agentLabel": "Agent prompt",
         "command": "npx purrfold@latest <project-directory>",
         "agentIntro": "Scaffold a new {framework} app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.",
-        "agentInclude": "Include {options}.",
-        "agentExclude": "Do NOT include {options}.",
-        "agentOptionUnit": "unit tests (Vitest)",
-        "agentOptionE2e": "E2E tests (Playwright)",
-        "agentOptionCommitlint": "commitlint + Husky",
-        "agentOptionMcp": "shadcn MCP",
-        "agentOptionMotion": "Motion for React (motion-framer skill)",
-        "agentOptionYes": "non-interactive mode",
-        "agentSsr": "Enable Astro SSR instead of a static build.",
-        "agentAdapter": "Use the {adapter} adapter for Astro SSR.",
-        "agentPm": "Use {pm} as the package manager.",
-        "agentIcons": "Use {icons} icons.",
-        "agentPreset": "Use shadcn preset {presetId}.",
+        "agentOptionsHeading": "Use exactly these options:",
+        "agentLineInclude": "- {label}: include — pass {flag}",
+        "agentLineSkip": "- {label}: skip — pass {flag}",
+        "agentLineSkipOmit": "- {label}: skip — do not pass {flag}",
+        "agentLineValue": "- {label}: {value} — pass {flag}",
+        "agentLineValueDefault": "- {label}: {value} — default, no flag needed",
+        "agentLabelUnit": "Unit tests (Vitest)",
+        "agentLabelE2e": "E2E tests (Playwright)",
+        "agentLabelCommitlint": "Commit convention (commitlint)",
+        "agentLabelCi": "GitHub Actions workflows",
+        "agentLabelMcp": "shadcn MCP",
+        "agentLabelMotion": "Motion for React (motion-framer skill)",
+        "agentLabelYes": "Non-interactive mode",
+        "agentLabelFramework": "Framework",
+        "agentLabelSsr": "Astro rendering",
+        "agentLabelAdapter": "Astro SSR adapter",
+        "agentLabelPm": "Package manager",
+        "agentLabelPreset": "shadcn preset",
+        "agentValueSsr": "SSR (server rendering)",
+        "agentValueStatic": "static build",
+        "agentValuePresetNone": "none",
+        "agentRulesHeading": "Rules:",
+        "agentRuleExact": "- Follow the list above exactly. Do not add, remove, or substitute any option.",
+        "agentRuleHusky": "- Husky is always installed by purrfold and is not optional. The commitlint choice only controls the commitlint config and the commit-msg hook; the pre-commit and pre-push hooks are installed either way.",
         "agentOutro": "Run `npm run check` after scaffolding to verify everything works."
       },
       "flagsReference": {
@@ -275,7 +292,11 @@ declare const messages: {
           },
           {
             "flag": "--commitlint / --no-commitlint",
-            "description": "Include or skip commitlint + Husky commit-msg hook"
+            "description": "Include or skip commitlint and the commit-msg hook (Husky is always installed)"
+          },
+          {
+            "flag": "--ci / --no-ci",
+            "description": "Include or skip GitHub Actions workflows: quality.yml, plus playwright.yml with --e2e (default off)"
           },
           {
             "flag": "--ssr",

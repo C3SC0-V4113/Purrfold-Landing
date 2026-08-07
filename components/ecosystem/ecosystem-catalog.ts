@@ -1,6 +1,7 @@
 export type EcosystemCategoryId = 'foundation' | 'community';
 
-export type EcosystemResourceId = 'shadcn-ui' | 'chanh-dai' | 'magic-ui' | 'coss-ui' | 'remocn';
+export type EcosystemResourceId =
+  'shadcn-ui' | 'chanh-dai' | 'magic-ui' | 'coss-ui' | 'remocn' | 'reui';
 
 export type EcosystemCategory = {
   id: EcosystemCategoryId;
@@ -20,4 +21,5 @@ export const ecosystemResources: EcosystemResource[] = [
   { id: 'magic-ui', category: 'community', href: 'https://magicui.design/' },
   { id: 'coss-ui', category: 'community', href: 'https://coss.com/ui' },
   { id: 'remocn', category: 'community', href: 'https://www.remocn.dev/' },
+  { id: 'reui', category: 'community', href: 'https://reui.io/' },
 ];

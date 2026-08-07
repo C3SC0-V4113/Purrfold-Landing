@@ -138,6 +138,25 @@ describe('FlagConfigurator', () => {
     expect(onChange).toHaveBeenCalledExactlyOnceWith({ ...defaultFlags, motion: true });
   });
 
+  it('calls onChange when the ci flag is toggled on', () => {
+    const onChange = vi.fn();
+
+    render(
+      <FlagConfigurator
+        flags={defaultFlags}
+        messages={enInstallMessages.configurator}
+        onChange={onChange}
+      />
+    );
+
+    openCollapsible();
+
+    const ciCheckbox = screen.getByRole('checkbox', { name: enInstallMessages.configurator.ci });
+    fireEvent.click(ciCheckbox);
+
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({ ...defaultFlags, ci: true });
+  });
+
   it('calls onChange when the package manager is changed', () => {
     const onChange = vi.fn();
 

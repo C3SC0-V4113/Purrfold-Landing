@@ -35,8 +35,12 @@ describe('InstallView', () => {
 
     fireEvent.click(screen.getByRole('tab', { name: enInstallMessages.tabs.agent }));
 
+    // The agent prompt is a multi-line checklist, so keep newlines out of the
+    // default whitespace normalization.
     expect(
-      screen.getByText(buildAgentPrompt(defaultFlags, enInstallMessages.output))
+      screen.getByText(buildAgentPrompt(defaultFlags, enInstallMessages.output), {
+        normalizer: (text) => text,
+      })
     ).toBeDefined();
     expect(
       screen.queryByText(buildCliCommand(defaultFlags, enInstallMessages.output.command))

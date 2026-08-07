@@ -47,7 +47,7 @@ describe('InstallPage', () => {
     expect(screen.getByText('Using a shadcn preset')).toBeDefined();
     expect(
       screen.getByText(
-        'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+        'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
       )
     ).toBeDefined();
   });

@@ -13,7 +13,7 @@
         "agent": "Agente",
         "framework": "Framework",
         "cliCommand": "npx purrfold@latest <directorio-del-proyecto>",
-        "agentPrompt": "Quiero generar un proyecto nuevo de {framework} con purrfold. Ejecuta `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --mcp` para crear el proyecto con controles de calidad, tests, reglas para agentes y guía versionada de {framework}. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
+        "agentPrompt": "Quiero generar un proyecto nuevo de {framework} con purrfold. Ejecuta `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --ci --mcp` para crear el proyecto con controles de calidad, tests, flujos de trabajo de CI, reglas para agentes y guía versionada de {framework}. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
         "copyButton": "Copiar",
         "copied": "¡Copiado!"
       },
@@ -204,6 +204,11 @@
           "name": "remocn",
           "summary": "Un registro comunitario de componentes cinematográficos de Remotion distribuido mediante un flujo compatible con shadcn.",
           "usage": "Explóralo cuando un proyecto necesite video programable o componentes de contenido cinematográfico más allá de una interfaz web convencional."
+        },
+        "reui": {
+          "name": "ReUI",
+          "summary": "Un registro con enfoque en diseño construido sobre shadcn/ui, con un amplio conjunto de componentes gratuitos y un servidor MCP para agentes.",
+          "usage": "Explora sus componentes gratuitos y su integración con MCP cuando busques patrones orientados a producción que se mantengan compatibles con tu base de shadcn/ui; sus bloques y plantillas completas son de pago."
         }
       }
     },
@@ -226,6 +231,7 @@
         "unit": "Tests unitarios (Vitest)",
         "e2e": "Tests E2E (Playwright)",
         "commitlint": "Convención de commits (commitlint)",
+        "ci": "Flujos de trabajo de GitHub Actions (CI)",
         "mcp": "shadcn MCP para Claude/Codex/OpenCode",
         "motion": "Motion for React (skill motion-framer)",
         "yes": "Modo no interactivo (--yes)",
@@ -240,19 +246,30 @@
         "agentLabel": "Prompt para agente",
         "command": "npx purrfold@latest <directorio-del-proyecto>",
         "agentIntro": "Genera un proyecto nuevo de {framework} con purrfold (https://www.npmjs.com/package/purrfold). Lee el README o ejecuta `npx purrfold@latest info --json` para descubrir las opciones disponibles.",
-        "agentInclude": "Incluye {options}.",
-        "agentExclude": "NO incluyas {options}.",
-        "agentOptionUnit": "tests unitarios (Vitest)",
-        "agentOptionE2e": "tests E2E (Playwright)",
-        "agentOptionCommitlint": "commitlint + Husky",
-        "agentOptionMcp": "shadcn MCP",
-        "agentOptionMotion": "Motion for React (skill motion-framer)",
-        "agentOptionYes": "modo no interactivo",
-        "agentSsr": "Activa el SSR de Astro en lugar de una compilación estática.",
-        "agentAdapter": "Usa el adaptador {adapter} para el SSR de Astro.",
-        "agentPm": "Usa {pm} como administrador de paquetes.",
-        "agentIcons": "Usa iconos de {icons}.",
-        "agentPreset": "Usa el preset {presetId} de shadcn.",
+        "agentOptionsHeading": "Usa exactamente estas opciones:",
+        "agentLineInclude": "- {label}: incluir — usa {flag}",
+        "agentLineSkip": "- {label}: omitir — usa {flag}",
+        "agentLineSkipOmit": "- {label}: omitir — no uses {flag}",
+        "agentLineValue": "- {label}: {value} — usa {flag}",
+        "agentLineValueDefault": "- {label}: {value} — valor por defecto, no requiere flag",
+        "agentLabelUnit": "Tests unitarios (Vitest)",
+        "agentLabelE2e": "Tests E2E (Playwright)",
+        "agentLabelCommitlint": "Convención de commits (commitlint)",
+        "agentLabelCi": "Flujos de trabajo de GitHub Actions",
+        "agentLabelMcp": "shadcn MCP",
+        "agentLabelMotion": "Motion for React (skill motion-framer)",
+        "agentLabelYes": "Modo no interactivo",
+        "agentLabelFramework": "Framework",
+        "agentLabelSsr": "Renderizado de Astro",
+        "agentLabelAdapter": "Adaptador SSR de Astro",
+        "agentLabelPm": "Administrador de paquetes",
+        "agentLabelPreset": "Preset de shadcn",
+        "agentValueSsr": "SSR (renderizado en servidor)",
+        "agentValueStatic": "compilación estática",
+        "agentValuePresetNone": "ninguno",
+        "agentRulesHeading": "Reglas:",
+        "agentRuleExact": "- Sigue la lista anterior exactamente. No agregues, elimines ni sustituyas ninguna opción.",
+        "agentRuleHusky": "- purrfold siempre instala Husky y no es opcional. La elección de commitlint solo controla la configuración de commitlint y el hook commit-msg; los hooks pre-commit y pre-push se instalan en cualquier caso.",
         "agentOutro": "Después del scaffolding, ejecuta `npm run check` para verificar que todo funcione."
       },
       "flagsReference": {
@@ -272,7 +289,11 @@
           },
           {
             "flag": "--commitlint / --no-commitlint",
-            "description": "Incluir u omitir commitlint + el hook commit-msg de Husky"
+            "description": "Incluir u omitir commitlint y el hook commit-msg (Husky siempre se instala)"
+          },
+          {
+            "flag": "--ci / --no-ci",
+            "description": "Incluir u omitir los flujos de trabajo de GitHub Actions: quality.yml, más playwright.yml con --e2e (desactivado por defecto)"
           },
           {
             "flag": "--ssr",

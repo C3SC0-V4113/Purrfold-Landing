@@ -7,33 +7,18 @@ import {
   type FlagState,
 } from '@/lib/build-command';
 
+import { enInstallMessages } from './fixtures/install-messages';
+
 function buildFlags(overrides: Partial<FlagState> = {}): FlagState {
   return { ...defaultFlags, ...overrides };
 }
 
-const enOutput = {
-  command: 'npx purrfold@latest <project-directory>',
-  agentIntro:
-    'Scaffold a new {framework} app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.',
-  agentInclude: 'Include {options}.',
-  agentExclude: 'Do NOT include {options}.',
-  agentOptionUnit: 'unit tests (Vitest)',
-  agentOptionE2e: 'E2E tests (Playwright)',
-  agentOptionCommitlint: 'commitlint + Husky',
-  agentOptionMcp: 'shadcn MCP',
-  agentOptionMotion: 'Motion for React (motion-framer skill)',
-  agentOptionYes: 'non-interactive mode',
-  agentSsr: 'Enable Astro SSR instead of a static build.',
-  agentAdapter: 'Use the {adapter} adapter for Astro SSR.',
-  agentPm: 'Use {pm} as the package manager.',
-  agentPreset: 'Use shadcn preset {presetId}.',
-  agentOutro: 'Run `npm run check` after scaffolding to verify everything works.',
-} as const;
+const enOutput = enInstallMessages.output;
 
 describe('buildCliCommand', () => {
   it('renders the base command with default flags (explicit --no-* for off flags)', () => {
     expect(buildCliCommand(defaultFlags, enOutput.command)).toBe(
-      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
     );
   });
 
@@ -48,6 +33,7 @@ describe('buildCliCommand', () => {
       unit: true,
       e2e: true,
       commitlint: true,
+      ci: true,
       mcp: true,
       yes: true,
       pm: 'pnpm',
@@ -55,7 +41,7 @@ describe('buildCliCommand', () => {
     });
 
     expect(buildCliCommand(flags, enOutput.command)).toBe(
-      'npx purrfold@latest <project-directory> --unit --e2e --commitlint --mcp --yes --pm pnpm --shadcn-args --preset b3REw8vwo'
+      'npx purrfold@latest <project-directory> --unit --e2e --commitlint --ci --mcp --yes --pm pnpm --shadcn-args --preset b3REw8vwo'
     );
   });
 
@@ -64,6 +50,7 @@ describe('buildCliCommand', () => {
       unit: false,
       e2e: false,
       commitlint: false,
+      ci: false,
       mcp: false,
       yes: false,
       pm: 'npm',
@@ -71,7 +58,7 @@ describe('buildCliCommand', () => {
     });
 
     expect(buildCliCommand(flags, enOutput.command)).toBe(
-      'npx purrfold@latest <project-directory> --no-unit --no-e2e --no-commitlint --no-mcp'
+      'npx purrfold@latest <project-directory> --no-unit --no-e2e --no-commitlint --no-ci --no-mcp'
     );
   });
 
@@ -79,7 +66,7 @@ describe('buildCliCommand', () => {
     const flags = buildFlags({ presetId: 'abc123' });
 
     expect(buildCliCommand(flags, enOutput.command)).toBe(
-      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset abc123'
+      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset abc123'
     );
   });
 
@@ -87,7 +74,13 @@ describe('buildCliCommand', () => {
     const flags = buildFlags({ presetId: '' });
 
     expect(buildCliCommand(flags, enOutput.command)).toBe(
-      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes'
+      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes'
+    );
+  });
+
+  it('emits --ci when GitHub Actions workflows are selected', () => {
+    expect(buildCliCommand(buildFlags({ ci: true }), enOutput.command)).toContain(
+      '--no-commitlint --ci --no-mcp'
     );
   });
 
@@ -95,7 +88,7 @@ describe('buildCliCommand', () => {
     const flags = buildFlags({ framework: 'astro' });
 
     expect(buildCliCommand(flags, enOutput.command)).toBe(
-      'npx purrfold@latest <project-directory> --framework astro --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+      'npx purrfold@latest <project-directory> --framework astro --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
     );
   });
 
@@ -146,16 +139,106 @@ describe('buildCliCommand', () => {
 });
 
 describe('buildAgentPrompt', () => {
-  it('describes default selections with include/exclude', () => {
-    const prompt = buildAgentPrompt(defaultFlags, enOutput);
-
-    expect(prompt).toContain('Scaffold a new Next.js app with purrfold');
-    expect(prompt).toContain('Include unit tests (Vitest), non-interactive mode.');
-    expect(prompt).toContain(
-      'Do NOT include E2E tests (Playwright), commitlint + Husky, shadcn MCP.'
+  it('renders default flags as a per-option checklist naming every literal flag', () => {
+    expect(buildAgentPrompt(defaultFlags, enOutput)).toBe(
+      [
+        'Scaffold a new Next.js app with purrfold (https://www.npmjs.com/package/purrfold). Read the README or run `npx purrfold@latest info --json` to discover available options.',
+        '',
+        'Use exactly these options:',
+        '- Unit tests (Vitest): include — pass --unit',
+        '- E2E tests (Playwright): skip — pass --no-e2e',
+        '- Commit convention (commitlint): skip — pass --no-commitlint',
+        '- GitHub Actions workflows: skip — pass --no-ci',
+        '- shadcn MCP: skip — pass --no-mcp',
+        '- Motion for React (motion-framer skill): skip — do not pass --motion',
+        '- Non-interactive mode: include — pass --yes',
+        '- Framework: Next.js — default, no flag needed',
+        '- Package manager: npm — default, no flag needed',
+        '- shadcn preset: b0 — pass --shadcn-args --preset b0',
+        '',
+        'Rules:',
+        enOutput.agentRuleExact,
+        enOutput.agentRuleHusky,
+        '',
+        enOutput.agentOutro,
+      ].join('\n')
     );
-    expect(prompt).not.toContain('Use npm');
-    expect(prompt).toContain(enOutput.agentOutro);
+  });
+
+  it('never omits an option, so an agent never has to infer one', () => {
+    const everythingOff = buildFlags({
+      unit: false,
+      e2e: false,
+      commitlint: false,
+      ci: false,
+      mcp: false,
+      motion: false,
+      yes: false,
+      presetId: '',
+    });
+
+    const prompt = buildAgentPrompt(everythingOff, enOutput);
+
+    for (const label of [
+      enOutput.agentLabelUnit,
+      enOutput.agentLabelE2e,
+      enOutput.agentLabelCommitlint,
+      enOutput.agentLabelCi,
+      enOutput.agentLabelMcp,
+      enOutput.agentLabelMotion,
+      enOutput.agentLabelYes,
+      enOutput.agentLabelFramework,
+      enOutput.agentLabelPm,
+      enOutput.agentLabelPreset,
+    ]) {
+      expect(prompt).toContain(`- ${label}:`);
+    }
+  });
+
+  it('states one option per line instead of comma-joined lists', () => {
+    const labels = [
+      enOutput.agentLabelUnit,
+      enOutput.agentLabelE2e,
+      enOutput.agentLabelCommitlint,
+      enOutput.agentLabelCi,
+      enOutput.agentLabelMcp,
+      enOutput.agentLabelMotion,
+      enOutput.agentLabelYes,
+    ];
+    const flags = buildFlags({ unit: true, e2e: true, commitlint: true, ci: true, mcp: true });
+
+    const [, optionsBlock] = buildAgentPrompt(flags, enOutput).split('\n\n');
+    const optionLines = optionsBlock.split('\n').slice(1);
+
+    expect(optionLines.length).toBeGreaterThan(1);
+    for (const line of optionLines) {
+      expect(line).toMatch(/^- /);
+      // Grouping options onto one line was the ambiguity; never more than one.
+      expect(labels.filter((label) => line.includes(label)).length).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('always states that Husky is not optional, whatever commitlint is set to', () => {
+    expect(buildAgentPrompt(buildFlags({ commitlint: false }), enOutput)).toContain(
+      enOutput.agentRuleHusky
+    );
+    expect(buildAgentPrompt(buildFlags({ commitlint: true }), enOutput)).toContain(
+      enOutput.agentRuleHusky
+    );
+  });
+
+  it('marks options as skipped with their negative flag, or as omitted when none exists', () => {
+    const prompt = buildAgentPrompt(
+      buildFlags({ e2e: false, ci: false, motion: false, yes: false }),
+      enOutput
+    );
+
+    expect(prompt).toContain('- E2E tests (Playwright): skip — pass --no-e2e');
+    expect(prompt).toContain('- GitHub Actions workflows: skip — pass --no-ci');
+    expect(prompt).toContain(
+      '- Motion for React (motion-framer skill): skip — do not pass --motion'
+    );
+    expect(prompt).toContain('- Non-interactive mode: skip — do not pass --yes');
   });
 
   it('names Astro in the intro and describes SSR when selected', () => {
@@ -164,8 +247,9 @@ describe('buildAgentPrompt', () => {
     const prompt = buildAgentPrompt(flags, enOutput);
 
     expect(prompt).toContain('Scaffold a new Astro app with purrfold');
-    expect(prompt).toContain('Enable Astro SSR instead of a static build.');
-    expect(prompt).toContain('Use the node adapter for Astro SSR.');
+    expect(prompt).toContain('- Framework: Astro — pass --framework astro');
+    expect(prompt).toContain('- Astro rendering: SSR (server rendering) — pass --ssr');
+    expect(prompt).toContain('- Astro SSR adapter: node — pass --adapter node');
   });
 
   it('describes the cloudflare adapter for Astro SSR while the CLI keeps the default adapter implicit', () => {
@@ -174,67 +258,52 @@ describe('buildAgentPrompt', () => {
     const prompt = buildAgentPrompt(flags, enOutput);
     const command = buildCliCommand(flags, enOutput.command);
 
-    expect(prompt).toContain('Use the cloudflare adapter for Astro SSR.');
+    expect(prompt).toContain('- Astro SSR adapter: cloudflare — default, no flag needed');
     expect(command).not.toContain('--adapter');
+  });
+
+  it('names the static build for astro without SSR and omits the adapter line', () => {
+    const prompt = buildAgentPrompt(buildFlags({ framework: 'astro', ssr: false }), enOutput);
+
+    expect(prompt).toContain('- Astro rendering: static build — default, no flag needed');
+    expect(prompt).not.toContain(enOutput.agentLabelAdapter);
   });
 
   it('does not describe SSR or adapter for next', () => {
     const prompt = buildAgentPrompt(buildFlags({ framework: 'next', ssr: true }), enOutput);
 
-    expect(prompt).not.toContain('Astro SSR');
+    expect(prompt).not.toContain('Astro');
     expect(prompt).not.toContain('adapter');
   });
 
-  it('lists every selected and excluded option with non-default choices', () => {
-    const flags = buildFlags({
-      unit: true,
-      e2e: true,
-      commitlint: true,
-      mcp: true,
-      yes: true,
-      pm: 'pnpm',
-      presetId: 'b3REw8vwo',
-    });
+  it('states non-default package manager and preset choices with their flags', () => {
+    const flags = buildFlags({ pm: 'pnpm', presetId: 'b3REw8vwo' });
 
     const prompt = buildAgentPrompt(flags, enOutput);
 
-    expect(prompt).toContain(
-      'Include unit tests (Vitest), E2E tests (Playwright), commitlint + Husky, shadcn MCP, non-interactive mode.'
-    );
-    expect(prompt).not.toContain('Do NOT include');
-    expect(prompt).toContain('Use pnpm as the package manager.');
-    expect(prompt).toContain('Use shadcn preset b3REw8vwo.');
+    expect(prompt).toContain('- Package manager: pnpm — pass --pm pnpm');
+    expect(prompt).toContain('- shadcn preset: b3REw8vwo — pass --shadcn-args --preset b3REw8vwo');
   });
 
-  it('only has the exclude sentence when no boolean options are selected', () => {
-    const flags = buildFlags({
-      unit: false,
-      e2e: false,
-      commitlint: false,
-      mcp: false,
-      yes: false,
-      pm: 'bun',
-      presetId: 'preset-1',
-    });
+  it('states that no preset is used when presetId is empty', () => {
+    const prompt = buildAgentPrompt(buildFlags({ presetId: '' }), enOutput);
 
-    const prompt = buildAgentPrompt(flags, enOutput);
-
-    expect(prompt).toContain('Scaffold a new Next.js app with purrfold');
-    expect(prompt).not.toContain('Include');
-    expect(prompt).toContain(
-      'Do NOT include unit tests (Vitest), E2E tests (Playwright), commitlint + Husky, shadcn MCP.'
-    );
-    expect(prompt).toContain('Use bun as the package manager.');
-    expect(prompt).toContain('Use shadcn preset preset-1.');
-    expect(prompt).toContain(enOutput.agentOutro);
+    expect(prompt).toContain('- shadcn preset: none — default, no flag needed');
   });
 
-  it('includes Motion in the agent prompt only when enabled', () => {
+  it('falls back to npm in the prompt when bun is selected for astro', () => {
+    const prompt = buildAgentPrompt(buildFlags({ framework: 'astro', pm: 'bun' }), enOutput);
+
+    expect(prompt).toContain('- Package manager: npm — default, no flag needed');
+    expect(prompt).not.toContain('bun');
+  });
+
+  it('marks Motion as included only when enabled', () => {
     expect(buildAgentPrompt(buildFlags({ motion: true }), enOutput)).toContain(
-      'Motion for React (motion-framer skill)'
+      '- Motion for React (motion-framer skill): include — pass --motion'
     );
-    expect(buildAgentPrompt(buildFlags({ motion: false }), enOutput)).not.toContain(
-      'Motion for React'
+    expect(buildAgentPrompt(buildFlags({ motion: false }), enOutput)).toContain(
+      '- Motion for React (motion-framer skill): skip — do not pass --motion'
     );
   });
 });

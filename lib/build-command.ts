@@ -6,6 +6,7 @@ export type FlagState = {
   unit: boolean;
   e2e: boolean;
   commitlint: boolean;
+  ci: boolean;
   mcp: boolean;
   motion: boolean;
   yes: boolean;
@@ -18,18 +19,30 @@ export type FlagState = {
 
 export type AgentPromptMessages = {
   agentIntro: string;
-  agentInclude: string;
-  agentExclude: string;
-  agentOptionUnit: string;
-  agentOptionE2e: string;
-  agentOptionCommitlint: string;
-  agentOptionMcp: string;
-  agentOptionMotion: string;
-  agentOptionYes: string;
-  agentSsr: string;
-  agentAdapter: string;
-  agentPm: string;
-  agentPreset: string;
+  agentOptionsHeading: string;
+  agentLineInclude: string;
+  agentLineSkip: string;
+  agentLineSkipOmit: string;
+  agentLineValue: string;
+  agentLineValueDefault: string;
+  agentLabelUnit: string;
+  agentLabelE2e: string;
+  agentLabelCommitlint: string;
+  agentLabelCi: string;
+  agentLabelMcp: string;
+  agentLabelMotion: string;
+  agentLabelYes: string;
+  agentLabelFramework: string;
+  agentLabelSsr: string;
+  agentLabelAdapter: string;
+  agentLabelPm: string;
+  agentLabelPreset: string;
+  agentValueSsr: string;
+  agentValueStatic: string;
+  agentValuePresetNone: string;
+  agentRulesHeading: string;
+  agentRuleExact: string;
+  agentRuleHusky: string;
   agentOutro: string;
 };
 
@@ -38,6 +51,7 @@ export const defaultFlags: FlagState = {
   unit: true,
   e2e: false,
   commitlint: false,
+  ci: false,
   mcp: false,
   motion: false,
   yes: true,
@@ -59,8 +73,7 @@ const defaultAdapter: AstroAdapter = 'cloudflare';
 
 // Astro scaffolding rejects bun, so fall back to npm for the astro path.
 function resolvePackageManager(flags: FlagState): FlagState['pm'] {
-  if (flags.framework === 'astro' && flags.pm === 'bun') return 'npm';
-  return flags.pm;
+  return flags.framework === 'astro' && flags.pm === 'bun' ? 'npm' : flags.pm;
 }
 
 export function buildCliCommand(flags: FlagState, baseCommand: string): string {
@@ -81,6 +94,7 @@ export function buildCliCommand(flags: FlagState, baseCommand: string): string {
   parts.push(flags.unit ? '--unit' : '--no-unit');
   parts.push(flags.e2e ? '--e2e' : '--no-e2e');
   parts.push(flags.commitlint ? '--commitlint' : '--no-commitlint');
+  parts.push(flags.ci ? '--ci' : '--no-ci');
   parts.push(flags.mcp ? '--mcp' : '--no-mcp');
   // Motion is opt-in only (no --no-motion form).
   if (flags.motion) parts.push('--motion');
@@ -93,53 +107,138 @@ export function buildCliCommand(flags: FlagState, baseCommand: string): string {
   return parts.filter(Boolean).join(' ');
 }
 
-export function buildAgentPrompt(flags: FlagState, messages: AgentPromptMessages): string {
-  const parts: string[] = [];
+/**
+ * One rendered option of the agent prompt.
+ *
+ * Every option the CLI understands produces exactly one line, even when it is
+ * left at its default — agents that have to infer an unstated option guess
+ * wrong, so the prompt never stays silent about a choice.
+ */
+type PromptLine =
+  | { kind: 'include' | 'skip' | 'skipOmit'; label: string; flag: string }
+  | { kind: 'value'; label: string; value: string; flag: string }
+  | { kind: 'valueDefault'; label: string; value: string };
 
-  parts.push(messages.agentIntro.replace('{framework}', frameworkLabels[flags.framework]));
+// Single pass over the {token} placeholders so a value can never be reread as
+// another template's token.
+function fill(template: string, values: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (token, key: string) => values[key] ?? token);
+}
 
-  const included: string[] = [];
-  const excluded: string[] = [];
+// Negatable flags: the CLI takes an explicit --flag or --no-flag either way.
+function toggleLine(
+  label: string,
+  enabled: boolean,
+  flag: string,
+  negatedFlag: string
+): PromptLine {
+  return enabled ? { kind: 'include', label, flag } : { kind: 'skip', label, flag: negatedFlag };
+}
 
-  if (flags.unit) included.push(messages.agentOptionUnit);
-  else excluded.push(messages.agentOptionUnit);
+// Opt-in flags have no negative form, so skipping means omitting the flag.
+function optInLine(label: string, enabled: boolean, flag: string): PromptLine {
+  return enabled ? { kind: 'include', label, flag } : { kind: 'skipOmit', label, flag };
+}
 
-  if (flags.e2e) included.push(messages.agentOptionE2e);
-  else excluded.push(messages.agentOptionE2e);
+function buildPromptLines(flags: FlagState, messages: AgentPromptMessages): PromptLine[] {
+  const lines: PromptLine[] = [
+    toggleLine(messages.agentLabelUnit, flags.unit, '--unit', '--no-unit'),
+    toggleLine(messages.agentLabelE2e, flags.e2e, '--e2e', '--no-e2e'),
+    toggleLine(messages.agentLabelCommitlint, flags.commitlint, '--commitlint', '--no-commitlint'),
+    toggleLine(messages.agentLabelCi, flags.ci, '--ci', '--no-ci'),
+    toggleLine(messages.agentLabelMcp, flags.mcp, '--mcp', '--no-mcp'),
+    optInLine(messages.agentLabelMotion, flags.motion, '--motion'),
+    optInLine(messages.agentLabelYes, flags.yes, '--yes'),
+    flags.framework === 'astro'
+      ? {
+          kind: 'value',
+          label: messages.agentLabelFramework,
+          value: frameworkLabels.astro,
+          flag: '--framework astro',
+        }
+      : { kind: 'valueDefault', label: messages.agentLabelFramework, value: frameworkLabels.next },
+  ];
 
-  if (flags.commitlint) included.push(messages.agentOptionCommitlint);
-  else excluded.push(messages.agentOptionCommitlint);
+  // SSR and the adapter are Astro-only; they error on Next.
+  if (flags.framework === 'astro') {
+    lines.push(
+      flags.ssr
+        ? {
+            kind: 'value',
+            label: messages.agentLabelSsr,
+            value: messages.agentValueSsr,
+            flag: '--ssr',
+          }
+        : { kind: 'valueDefault', label: messages.agentLabelSsr, value: messages.agentValueStatic }
+    );
 
-  if (flags.mcp) included.push(messages.agentOptionMcp);
-  else excluded.push(messages.agentOptionMcp);
-
-  if (flags.motion) included.push(messages.agentOptionMotion);
-  if (flags.yes) included.push(messages.agentOptionYes);
-
-  if (included.length > 0) {
-    parts.push(messages.agentInclude.replace('{options}', included.join(', ')));
-  }
-
-  if (excluded.length > 0) {
-    parts.push(messages.agentExclude.replace('{options}', excluded.join(', ')));
-  }
-
-  // Astro-only SSR guidance.
-  if (flags.framework === 'astro' && flags.ssr) {
-    parts.push(messages.agentSsr);
-    parts.push(messages.agentAdapter.replace('{adapter}', flags.adapter));
+    if (flags.ssr) {
+      lines.push(
+        flags.adapter === defaultAdapter
+          ? { kind: 'valueDefault', label: messages.agentLabelAdapter, value: flags.adapter }
+          : {
+              kind: 'value',
+              label: messages.agentLabelAdapter,
+              value: flags.adapter,
+              flag: `--adapter ${flags.adapter}`,
+            }
+      );
+    }
   }
 
   const pm = resolvePackageManager(flags);
-  if (pm !== 'npm') {
-    parts.push(messages.agentPm.replace('{pm}', pm));
+  lines.push(
+    pm === 'npm'
+      ? { kind: 'valueDefault', label: messages.agentLabelPm, value: pm }
+      : { kind: 'value', label: messages.agentLabelPm, value: pm, flag: `--pm ${pm}` }
+  );
+
+  lines.push(
+    flags.presetId
+      ? {
+          kind: 'value',
+          label: messages.agentLabelPreset,
+          value: flags.presetId,
+          flag: `--shadcn-args --preset ${flags.presetId}`,
+        }
+      : {
+          kind: 'valueDefault',
+          label: messages.agentLabelPreset,
+          value: messages.agentValuePresetNone,
+        }
+  );
+
+  return lines;
+}
+
+function renderPromptLine(line: PromptLine, messages: AgentPromptMessages): string {
+  switch (line.kind) {
+    case 'include':
+      return fill(messages.agentLineInclude, { label: line.label, flag: line.flag });
+    case 'skip':
+      return fill(messages.agentLineSkip, { label: line.label, flag: line.flag });
+    case 'skipOmit':
+      return fill(messages.agentLineSkipOmit, { label: line.label, flag: line.flag });
+    case 'value':
+      return fill(messages.agentLineValue, {
+        label: line.label,
+        value: line.value,
+        flag: line.flag,
+      });
+    case 'valueDefault':
+      return fill(messages.agentLineValueDefault, { label: line.label, value: line.value });
   }
+}
 
-  if (flags.presetId) {
-    parts.push(messages.agentPreset.replace('{presetId}', flags.presetId));
-  }
+export function buildAgentPrompt(flags: FlagState, messages: AgentPromptMessages): string {
+  const options = buildPromptLines(flags, messages).map((line) => renderPromptLine(line, messages));
 
-  parts.push(messages.agentOutro);
-
-  return parts.join(' ');
+  // One option per line, each naming its literal CLI flag: comma-joined lists
+  // read as ambiguous groupings and have already misled agents.
+  return [
+    fill(messages.agentIntro, { framework: frameworkLabels[flags.framework] }),
+    [messages.agentOptionsHeading, ...options].join('\n'),
+    [messages.agentRulesHeading, messages.agentRuleExact, messages.agentRuleHusky].join('\n'),
+    messages.agentOutro,
+  ].join('\n\n');
 }

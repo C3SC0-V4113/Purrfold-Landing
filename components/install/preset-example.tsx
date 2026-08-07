@@ -29,6 +29,7 @@ export function PresetExample({ messages, presetId, onPresetChange }: PresetExam
     unit: true,
     e2e: true,
     commitlint: true,
+    ci: false,
     mcp: false,
     motion: false,
     yes: true,

@@ -122,7 +122,12 @@ export function InstallView({ messages, children }: InstallViewProps) {
       </SectionReveal>
 
       <SectionReveal delay={0.04}>
-        <GeneratedOutput label={outputLabel} output={output} />
+        <GeneratedOutput
+          label={outputLabel}
+          output={output}
+          // The agent prompt is a multi-line checklist; the CLI command is one line.
+          maxHeight={activeTab === 'agent' ? '560px' : undefined}
+        />
       </SectionReveal>
 
       <SectionReveal delay={0.08}>

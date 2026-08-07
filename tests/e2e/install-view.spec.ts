@@ -4,7 +4,7 @@ test('toggles boolean flags and updates the CLI output', async ({ page }) => {
   await page.goto('/en/install');
 
   const output = page.getByText(
-    'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+    'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
   );
 
   await expect(output).toBeVisible();
@@ -15,10 +15,37 @@ test('toggles boolean flags and updates the CLI output', async ({ page }) => {
 
   await expect(
     page.getByText(
-      'npx purrfold@latest <project-directory> --unit --e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+      'npx purrfold@latest <project-directory> --unit --e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
     )
   ).toBeVisible();
   await expect(output).toBeHidden();
+});
+
+test('toggles the CI flag and updates the CLI output', async ({ page }) => {
+  await page.goto('/en/install');
+
+  await page.getByRole('button', { name: 'Configure flags' }).click();
+  await page.getByRole('checkbox', { name: 'GitHub Actions workflows (CI)' }).click();
+
+  await expect(
+    page.getByText(
+      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --ci --no-mcp --yes --shadcn-args --preset b0'
+    )
+  ).toBeVisible();
+});
+
+test('renders the agent prompt as a per-option checklist', async ({ page }) => {
+  await page.goto('/en/install');
+
+  await page.getByRole('tab', { name: 'Agent' }).click();
+
+  const prompt = page.getByText('Use exactly these options:');
+  await expect(prompt).toBeVisible();
+
+  const text = (await prompt.textContent()) ?? '';
+  expect(text).toContain('- GitHub Actions workflows: skip — pass --no-ci');
+  expect(text).toContain('- Commit convention (commitlint): skip — pass --no-commitlint');
+  expect(text).toContain('Husky is always installed by purrfold and is not optional.');
 });
 
 test('selects package manager from the configurator', async ({ page }) => {
@@ -31,7 +58,7 @@ test('selects package manager from the configurator', async ({ page }) => {
 
   await expect(
     page.getByText(
-      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --pm pnpm --shadcn-args --preset b0'
+      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --pm pnpm --shadcn-args --preset b0'
     )
   ).toBeVisible();
 });
@@ -53,7 +80,7 @@ test('appends a preset ID to the generated command', async ({ page, browserName 
 
   await expect(
     page.getByText(
-      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b3REw8vwo'
+      'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b3REw8vwo'
     )
   ).toBeVisible();
 });
@@ -73,7 +100,7 @@ test('switches to the Agent tab and preserves flag selections', async ({ page })
 
   await expect(
     page.getByText(
-      'npx purrfold@latest <project-directory> --unit --e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+      'npx purrfold@latest <project-directory> --unit --e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
     )
   ).toBeVisible();
 });
@@ -88,7 +115,7 @@ test('copies the generated output to the clipboard', async ({ page, context, bro
 
   const clipboardText = await page.evaluate(async () => navigator.clipboard.readText());
   expect(clipboardText).toBe(
-    'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+    'npx purrfold@latest <project-directory> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
   );
 });
 
@@ -102,7 +129,7 @@ test('renders the Spanish install page with localized content', async ({ page })
   await expect(page.getByText('Usar un preset de shadcn')).toBeVisible();
   await expect(
     page.getByText(
-      'npx purrfold@latest <directorio-del-proyecto> --unit --no-e2e --no-commitlint --no-mcp --yes --shadcn-args --preset b0'
+      'npx purrfold@latest <directorio-del-proyecto> --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
     )
   ).toBeVisible();
 });

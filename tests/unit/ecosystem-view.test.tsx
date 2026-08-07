@@ -29,7 +29,7 @@ function assertEcosystemPage(locale: 'en' | 'es') {
     1
   );
   expect(ecosystemResources.filter((resource) => resource.category === 'community')).toHaveLength(
-    4
+    5
   );
 
   for (const category of ecosystemCategories) {
