@@ -4,6 +4,7 @@ import { type SkillSource, type SkillSourceLabels } from '@/components/skills/sk
 import {
   astroSkillCatalog,
   nextjsWorkflowSkillCatalog,
+  reactRouterSkillCatalog,
   skillCatalog,
 } from '@/components/skills/skills-catalog';
 import { getMessages } from '@/i18n/messages';
@@ -75,7 +76,9 @@ export function SkillsList({ locale }: SkillsListProps) {
     reactDoctor: t.badges.reactDoctor,
     nextjs: t.badges.nextjs,
     astro: t.badges.astro,
+    reactRouter: t.badges.reactRouter,
     motion: t.badges.motion,
+    query: t.badges.query,
   };
   const categories = [
     { key: 'architecture' as const, title: t.categories.architecture.title },
@@ -91,6 +94,10 @@ export function SkillsList({ locale }: SkillsListProps) {
   const astroPack: PackSkill[] = astroSkillCatalog.map((skill) => ({
     ...skill,
     ...t.astro.skills[skill.id as keyof typeof t.astro.skills],
+  }));
+  const reactRouterPack: PackSkill[] = reactRouterSkillCatalog.map((skill) => ({
+    ...skill,
+    ...t.reactRouter.skills[skill.id as keyof typeof t.reactRouter.skills],
   }));
 
   return (
@@ -146,6 +153,15 @@ export function SkillsList({ locale }: SkillsListProps) {
         linkLabel={t.linkLabel}
         badges={badgeLabels}
         delay={(categories.length + 1) * 0.03}
+      />
+
+      <SkillPackSection
+        title={t.reactRouter.title}
+        description={t.reactRouter.description}
+        skills={reactRouterPack}
+        linkLabel={t.linkLabel}
+        badges={badgeLabels}
+        delay={(categories.length + 2) * 0.03}
       />
     </div>
   );

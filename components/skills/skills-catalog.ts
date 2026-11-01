@@ -1,6 +1,8 @@
 import skillsLock from '../../skills-lock.json';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro' | 'motion';
+import type { SkillSource } from '@/components/skills/skill-source-badge';
+
+export type { SkillSource };
 export type SkillCategory = 'architecture' | 'framework' | 'quality' | 'typescript';
 
 export type SkillEntry = {
@@ -72,6 +74,25 @@ export const astroSkillCatalog: SkillEntry[] = [
   },
 ];
 
+// React Router's official skill ships with React Router framework mode and with
+// Vite apps that use a React Router mode (--router react-router-data|declarative).
+export const reactRouterSkillCatalog: SkillEntry[] = [
+  {
+    id: 'react-router',
+    category: 'framework',
+    source: 'react-router',
+    href: 'https://github.com/remix-run/react-router',
+  },
+];
+
+// tanstack-query is installed only with --query, next to the Query provider.
+const tanstackQuerySkill: SkillEntry = {
+  id: 'tanstack-query',
+  category: 'framework',
+  source: 'query',
+  href: 'https://github.com/pproenca/dot-skills',
+};
+
 // motion-framer is installed only with --motion; it renders in the Framework & UI
 // category with a "Requires --motion" badge (source 'motion').
 const motionFramerSkill: SkillEntry = {
@@ -98,4 +119,12 @@ export const skillCatalog: SkillEntry[] = [
     };
   }),
   motionFramerSkill,
+  tanstackQuerySkill,
 ];
+
+/** Every skill purrfold can install, across frameworks and opt-in features. */
+export const allSkillsCount =
+  skillCatalog.length +
+  nextjsWorkflowSkillCatalog.length +
+  astroSkillCatalog.length +
+  reactRouterSkillCatalog.length;

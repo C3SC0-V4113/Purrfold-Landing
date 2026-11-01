@@ -1,5 +1,34 @@
-export type Framework = 'next' | 'astro';
+export type Framework = 'next' | 'astro' | 'vite' | 'react-router';
 export type AstroAdapter = 'node' | 'vercel' | 'netlify' | 'cloudflare';
+export type ViteRouter = 'react-router-data' | 'react-router-declarative' | 'none';
+
+// Order shown in every framework picker; Next.js stays first because it is the CLI default.
+export const frameworks: Framework[] = ['next', 'astro', 'vite', 'react-router'];
+export const viteRouters: ViteRouter[] = ['react-router-data', 'react-router-declarative', 'none'];
+
+// Mirrors `npx purrfold info --json` -> frameworks[].rendering.defaultSsr.
+export function defaultSsrFor(framework: Framework): boolean {
+  return framework === 'react-router';
+}
+
+export function supportsSsr(framework: Framework): boolean {
+  return framework === 'astro' || framework === 'react-router';
+}
+
+// Astro scaffolding rejects bun; every other framework accepts all three managers.
+export function packageManagersFor(framework: Framework): FlagState['pm'][] {
+  return framework === 'astro' ? ['npm', 'pnpm'] : ['npm', 'pnpm', 'bun'];
+}
+
+/** Applies a framework switch, resetting the options whose defaults depend on it. */
+export function withFramework(flags: FlagState, framework: Framework): FlagState {
+  return {
+    ...flags,
+    framework,
+    ssr: defaultSsrFor(framework),
+    pm: packageManagersFor(framework).includes(flags.pm) ? flags.pm : 'npm',
+  };
+}
 
 export type FlagState = {
   framework: Framework;
@@ -9,9 +38,11 @@ export type FlagState = {
   ci: boolean;
   mcp: boolean;
   motion: boolean;
+  query: boolean;
   yes: boolean;
   ssr: boolean;
   adapter: AstroAdapter;
+  router: ViteRouter;
   pm: 'npm' | 'pnpm' | 'bun';
   icons: 'lucide' | 'phosphor' | 'tabler';
   presetId: string;
@@ -31,14 +62,18 @@ export type AgentPromptMessages = {
   agentLabelCi: string;
   agentLabelMcp: string;
   agentLabelMotion: string;
+  agentLabelQuery: string;
   agentLabelYes: string;
   agentLabelFramework: string;
   agentLabelSsr: string;
   agentLabelAdapter: string;
+  agentLabelRouter: string;
   agentLabelPm: string;
   agentLabelPreset: string;
   agentValueSsr: string;
   agentValueStatic: string;
+  agentValuePrerender: string;
+  routerLabels: Record<ViteRouter, string>;
   agentValuePresetNone: string;
   agentRulesHeading: string;
   agentRuleExact: string;
@@ -54,9 +89,11 @@ export const defaultFlags: FlagState = {
   ci: false,
   mcp: false,
   motion: false,
+  query: false,
   yes: true,
   ssr: false,
   adapter: 'cloudflare',
+  router: 'react-router-data',
   pm: 'npm',
   icons: 'lucide',
   presetId: 'b0',
@@ -66,28 +103,32 @@ export const defaultFlags: FlagState = {
 export const frameworkLabels: Record<Framework, string> = {
   next: 'Next.js',
   astro: 'Astro',
+  vite: 'Vite',
+  'react-router': 'React Router',
 };
 
 // Astro's default SSR adapter; only surface --adapter when it diverges.
 const defaultAdapter: AstroAdapter = 'cloudflare';
+const defaultRouter: ViteRouter = 'react-router-data';
 
-// Astro scaffolding rejects bun, so fall back to npm for the astro path.
 function resolvePackageManager(flags: FlagState): FlagState['pm'] {
-  return flags.framework === 'astro' && flags.pm === 'bun' ? 'npm' : flags.pm;
+  return packageManagersFor(flags.framework).includes(flags.pm) ? flags.pm : 'npm';
 }
 
 export function buildCliCommand(flags: FlagState, baseCommand: string): string {
   const parts = baseCommand.split(' ');
 
   // Framework selector first (Next.js is the default, so it stays implicit).
-  if (flags.framework === 'astro') {
-    parts.push('--framework', 'astro');
+  if (flags.framework !== 'next') parts.push('--framework', flags.framework);
 
-    // --ssr and --adapter are Astro-only; they error on Next.
-    if (flags.ssr) {
-      parts.push('--ssr');
-      if (flags.adapter !== defaultAdapter) parts.push('--adapter', flags.adapter);
-    }
+  // Rendering and routing flags only exist for some frameworks; elsewhere the CLI rejects them.
+  if (flags.framework === 'astro' && flags.ssr) {
+    parts.push('--ssr');
+    if (flags.adapter !== defaultAdapter) parts.push('--adapter', flags.adapter);
+  }
+  if (flags.framework === 'react-router' && !flags.ssr) parts.push('--no-ssr');
+  if (flags.framework === 'vite' && flags.router !== defaultRouter) {
+    parts.push('--router', flags.router);
   }
 
   // Boolean flags: always explicit with --flag or --no-flag
@@ -98,6 +139,7 @@ export function buildCliCommand(flags: FlagState, baseCommand: string): string {
   parts.push(flags.mcp ? '--mcp' : '--no-mcp');
   // Motion is opt-in only (no --no-motion form).
   if (flags.motion) parts.push('--motion');
+  if (flags.query) parts.push('--query');
   parts.push(flags.yes ? '--yes' : '');
 
   const pm = resolvePackageManager(flags);
@@ -148,18 +190,19 @@ function buildPromptLines(flags: FlagState, messages: AgentPromptMessages): Prom
     toggleLine(messages.agentLabelCi, flags.ci, '--ci', '--no-ci'),
     toggleLine(messages.agentLabelMcp, flags.mcp, '--mcp', '--no-mcp'),
     optInLine(messages.agentLabelMotion, flags.motion, '--motion'),
+    optInLine(messages.agentLabelQuery, flags.query, '--query'),
     optInLine(messages.agentLabelYes, flags.yes, '--yes'),
-    flags.framework === 'astro'
-      ? {
+    flags.framework === 'next'
+      ? { kind: 'valueDefault', label: messages.agentLabelFramework, value: frameworkLabels.next }
+      : {
           kind: 'value',
           label: messages.agentLabelFramework,
-          value: frameworkLabels.astro,
-          flag: '--framework astro',
-        }
-      : { kind: 'valueDefault', label: messages.agentLabelFramework, value: frameworkLabels.next },
+          value: frameworkLabels[flags.framework],
+          flag: `--framework ${flags.framework}`,
+        },
   ];
 
-  // SSR and the adapter are Astro-only; they error on Next.
+  // Astro: static by default, --ssr opts in (and unlocks --adapter).
   if (flags.framework === 'astro') {
     lines.push(
       flags.ssr
@@ -171,7 +214,38 @@ function buildPromptLines(flags: FlagState, messages: AgentPromptMessages): Prom
           }
         : { kind: 'valueDefault', label: messages.agentLabelSsr, value: messages.agentValueStatic }
     );
+  }
 
+  // React Router framework mode: SSR by default, --no-ssr prerenders instead.
+  if (flags.framework === 'react-router') {
+    lines.push(
+      flags.ssr
+        ? { kind: 'valueDefault', label: messages.agentLabelSsr, value: messages.agentValueSsr }
+        : {
+            kind: 'value',
+            label: messages.agentLabelSsr,
+            value: messages.agentValuePrerender,
+            flag: '--no-ssr',
+          }
+    );
+  }
+
+  // Vite: React Router data mode by default; --router picks another mode.
+  if (flags.framework === 'vite') {
+    const value = messages.routerLabels[flags.router];
+    lines.push(
+      flags.router === defaultRouter
+        ? { kind: 'valueDefault', label: messages.agentLabelRouter, value }
+        : {
+            kind: 'value',
+            label: messages.agentLabelRouter,
+            value,
+            flag: `--router ${flags.router}`,
+          }
+    );
+  }
+
+  if (flags.framework === 'astro') {
     if (flags.ssr) {
       lines.push(
         flags.adapter === defaultAdapter

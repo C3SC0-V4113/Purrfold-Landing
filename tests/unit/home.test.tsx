@@ -6,7 +6,7 @@ import Home from '@/app/page';
 import { ThemeProvider } from '@/components/common/theme-provider';
 import { ecosystemResources } from '@/components/ecosystem/ecosystem-catalog';
 import { qualityTools } from '@/components/quality/quality-catalog';
-import { skillCatalog } from '@/components/skills/skills-catalog';
+import { allSkillsCount } from '@/components/skills/skills-catalog';
 import { getMessages } from '@/i18n/messages';
 
 import type { LocalizedPageProps } from '@/lib/localized-page-props';
@@ -37,7 +37,7 @@ function assertLocalizedHomePage(locale: 'en' | 'es') {
   expect(
     screen.getByText(`${messages.Pages.install.flagsReference.items.length} ${cards.metrics.flags}`)
   ).toBeDefined();
-  expect(screen.getByText(`${skillCatalog.length} ${cards.metrics.skills}`)).toBeDefined();
+  expect(screen.getByText(`${allSkillsCount} ${cards.metrics.skills}`)).toBeDefined();
   expect(
     screen.getByText(
       `${qualityTools.filter((tool) => tool.status === 'default').length} ${

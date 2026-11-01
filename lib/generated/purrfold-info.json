@@ -1,0 +1,212 @@
+{
+  "name": "purrfold",
+  "version": "0.11.2",
+  "description": "Scaffold a production-ready frontend app with shadcn, quality tooling, agent docs, and Claude hooks.",
+  "install": "npx purrfold@latest <target-dir>",
+  "options": [
+    {
+      "flags": "--framework <next|astro|vite|react-router>",
+      "description": "Select the framework to scaffold.",
+      "default": "next (or prompts, with Next as the default)"
+    },
+    {
+      "flags": "--ssr",
+      "description": "Enable server-side rendering for frameworks that support it.",
+      "default": "framework default (React Router on; Astro off)"
+    },
+    {
+      "flags": "--no-ssr",
+      "description": "Disable server-side rendering; React Router prerenders the home route.",
+      "default": "framework default"
+    },
+    {
+      "flags": "--router <none|react-router-data|react-router-declarative>",
+      "description": "Select Vite routing mode; router choices are listed per framework in info --json.",
+      "default": "React Router data mode for Vite; none for frameworks with their own router"
+    },
+    {
+      "flags": "--adapter <node|vercel|netlify|cloudflare>",
+      "description": "Astro SSR adapter to install when SSR is enabled.",
+      "default": "cloudflare when SSR is enabled"
+    },
+    {
+      "flags": "--pm <npm|pnpm|bun>",
+      "description": "Package manager used to scaffold and install.",
+      "default": "prompts, or npm with --yes"
+    },
+    {
+      "flags": "--unit / --no-unit",
+      "description": "Include or skip Vitest + React Testing Library.",
+      "default": "included"
+    },
+    {
+      "flags": "--e2e / --no-e2e",
+      "description": "Include or skip Playwright end-to-end testing.",
+      "default": "skipped"
+    },
+    {
+      "flags": "--commitlint / --no-commitlint",
+      "description": "Include or skip commitlint and the commit-msg hook.",
+      "default": "skipped"
+    },
+    {
+      "flags": "--ci / --no-ci",
+      "description": "Include or skip GitHub Actions workflows (quality.yml, plus playwright.yml with --e2e).",
+      "default": "skipped"
+    },
+    {
+      "flags": "--motion",
+      "description": "Install Motion for React and the motion-framer agent skill.",
+      "default": "skipped (opt-in only)"
+    },
+    {
+      "flags": "--query",
+      "description": "Install TanStack Query, React Query Devtools, and the tanstack-query agent skill.",
+      "default": "skipped (opt-in only)"
+    },
+    {
+      "flags": "--yes",
+      "description": "Use non-interactive defaults (no prompts).",
+      "default": "interactive prompts"
+    },
+    {
+      "flags": "--dry-run",
+      "description": "Print the operations without writing files or installing packages.",
+      "default": "off"
+    },
+    {
+      "flags": "--skip-install",
+      "description": "Generate quality files without installing extra quality dependencies.",
+      "default": "off"
+    },
+    {
+      "flags": "--shadcn-args <args...>",
+      "description": "Extra arguments forwarded verbatim to `shadcn init` (including `--preset <id>`).",
+      "default": "none"
+    },
+    {
+      "flags": "--mcp / --no-mcp",
+      "description": "Install shadcn MCP for Claude, Codex, and OpenCode.",
+      "default": "skipped"
+    },
+    {
+      "flags": "--icons <lucide|phosphor|tabler>",
+      "description": "Icon library used for the cat on the home page.",
+      "default": "shadcn's choice, otherwise lucide"
+    }
+  ],
+  "scenarios": [
+    {
+      "intent": "Scaffold a React Router framework app with SSR",
+      "command": "npx purrfold@latest my-app --framework react-router --ssr --yes"
+    },
+    {
+      "intent": "Scaffold a statically prerendered React Router app",
+      "command": "npx purrfold@latest my-app --framework react-router --no-ssr --yes"
+    },
+    {
+      "intent": "Scaffold a Vite app with React Router data mode",
+      "command": "npx purrfold@latest my-app --framework vite --router react-router-data --yes"
+    },
+    {
+      "intent": "Scaffold a Vite app with React Router declarative mode",
+      "command": "npx purrfold@latest my-app --framework vite --router react-router-declarative --yes"
+    },
+    {
+      "intent": "Scaffold a Vite app without a router",
+      "command": "npx purrfold@latest my-app --framework vite --router none --yes"
+    },
+    {
+      "intent": "Scaffold a new app with the recommended defaults (unit tests, no e2e/commitlint)",
+      "command": "npx purrfold@latest my-app --yes"
+    },
+    {
+      "intent": "Scaffold an Astro app explicitly from the first prompt",
+      "command": "npx purrfold@latest my-app --framework astro --yes"
+    },
+    {
+      "intent": "Scaffold a Vite React app",
+      "command": "npx purrfold@latest my-app --framework vite --yes"
+    },
+    {
+      "intent": "Scaffold an Astro SSR app with the Cloudflare adapter",
+      "command": "npx purrfold@latest my-app --framework astro --ssr --adapter cloudflare --yes"
+    },
+    {
+      "intent": "Scaffold without any testing (no unit and no e2e)",
+      "command": "npx purrfold@latest my-app --no-unit --no-e2e --yes"
+    },
+    {
+      "intent": "Scaffold the full setup: unit + e2e + commitlint",
+      "command": "npx purrfold@latest my-app --unit --e2e --commitlint --yes"
+    },
+    {
+      "intent": "Use a specific package manager (pnpm or bun)",
+      "command": "npx purrfold@latest my-app --pm pnpm --yes"
+    },
+    {
+      "intent": "Add GitHub Actions CI workflows to the generated app",
+      "command": "npx purrfold@latest my-app --ci --yes"
+    },
+    {
+      "intent": "Install Motion for React and its agent skill",
+      "command": "npx purrfold@latest my-app --motion --yes"
+    },
+    {
+      "intent": "Install TanStack Query and its agent skill",
+      "command": "npx purrfold@latest my-app --query --yes"
+    },
+    {
+      "intent": "Pick the icon library for the home page cat",
+      "command": "npx purrfold@latest my-app --icons phosphor --yes"
+    },
+    {
+      "intent": "Initialize shadcn MCP for Claude, Codex, and OpenCode",
+      "command": "npx purrfold@latest my-app --mcp --yes"
+    },
+    {
+      "intent": "Use a shadcn preset",
+      "command": "npx purrfold@latest my-app --shadcn-args --preset b3REw8vwo --yes"
+    },
+    {
+      "intent": "Preview what would happen without writing anything",
+      "command": "npx purrfold@latest my-app --yes --dry-run"
+    },
+    {
+      "intent": "Inspect every option as structured JSON (for agents)",
+      "command": "npx purrfold@latest info --json"
+    }
+  ],
+  "frameworks": [
+    {
+      "id": "next",
+      "routers": [],
+      "defaultRouter": "none",
+      "rendering": null
+    },
+    {
+      "id": "astro",
+      "routers": [],
+      "defaultRouter": "none",
+      "rendering": {
+        "ssr": true,
+        "defaultSsr": false
+      }
+    },
+    {
+      "id": "vite",
+      "routers": ["none", "react-router-data", "react-router-declarative"],
+      "defaultRouter": "react-router-data",
+      "rendering": null
+    },
+    {
+      "id": "react-router",
+      "routers": [],
+      "defaultRouter": "none",
+      "rendering": {
+        "ssr": true,
+        "defaultSsr": true
+      }
+    }
+  ]
+}

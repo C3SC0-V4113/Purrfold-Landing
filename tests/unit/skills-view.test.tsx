@@ -53,13 +53,18 @@ function assertSkillsPage(locale: 'en' | 'es') {
     expect(screen.getByText(skill.example)).toBeDefined();
   }
 
-  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(15);
+  expect(screen.getByText(messages.reactRouter.title)).toBeDefined();
+  expect(screen.getByText(messages.reactRouter.description)).toBeDefined();
+  expect(screen.getByText(messages.skills['tanstack-query'].example)).toBeDefined();
+
+  expect(screen.getAllByRole('link', { name: messages.linkLabel })).toHaveLength(17);
   expect(screen.getAllByText(messages.badges.local)).toHaveLength(4);
   expect(screen.getAllByText(messages.badges.skillsSh)).toHaveLength(10);
   expect(screen.getAllByText(messages.badges.reactDoctor)).toHaveLength(2);
   expect(screen.getAllByText(messages.badges.nextjs)).toHaveLength(3);
   expect(screen.getAllByText(messages.badges.astro)).toHaveLength(1);
   expect(screen.getAllByText(messages.badges.motion)).toHaveLength(1);
+  expect(screen.getAllByText(messages.badges.query)).toHaveLength(1);
 }
 
 beforeEach(() => {

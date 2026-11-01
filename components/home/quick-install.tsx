@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { frameworkLabels, type Framework } from '@/lib/build-command';
+import { frameworkLabels, frameworks, type Framework } from '@/lib/build-command';
 
 export type QuickInstallMessages = {
   title: string;
@@ -26,13 +26,11 @@ type QuickInstallProps = {
   messages: QuickInstallMessages;
 };
 
-const frameworks: Framework[] = ['next', 'astro'];
-
 export function QuickInstall({ messages }: QuickInstallProps) {
   const [framework, setFramework] = useState<Framework>('next');
 
-  // Next.js is the default, so only Astro adds an explicit flag (matches the CLI).
-  const frameworkFlag = framework === 'astro' ? ' --framework astro' : '';
+  // Next.js is the CLI default, so only the other frameworks add an explicit flag.
+  const frameworkFlag = framework === 'next' ? '' : ` --framework ${framework}`;
   const cliCommand = `${messages.cliCommand}${frameworkFlag}`;
   const agentPrompt = messages.agentPrompt
     .replace(/\{framework\}/g, frameworkLabels[framework])
@@ -51,7 +49,7 @@ export function QuickInstall({ messages }: QuickInstallProps) {
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">{messages.framework}</span>
             <Select value={framework} onValueChange={(value) => setFramework(value as Framework)}>
-              <SelectTrigger className="h-8 w-32" aria-label={messages.framework}>
+              <SelectTrigger className="h-8 w-40" aria-label={messages.framework}>
                 <SelectValue>{frameworkLabels[framework]}</SelectValue>
               </SelectTrigger>
               <SelectContent>
