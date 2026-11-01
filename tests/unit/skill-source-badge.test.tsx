@@ -13,7 +13,9 @@ const labels: SkillSourceLabels = {
   reactDoctor: 'React Doctor',
   nextjs: 'Next.js',
   astro: 'Astro',
+  reactRouter: 'React Router',
   motion: 'Requires --motion',
+  query: 'Requires --query',
 };
 
 describe('SkillSourceBadge', () => {
@@ -27,7 +29,9 @@ describe('SkillSourceBadge', () => {
     ['react-doctor', 'React Doctor'],
     ['nextjs', 'Next.js'],
     ['astro', 'Astro'],
+    ['react-router', 'React Router'],
     ['motion', 'Requires --motion'],
+    ['query', 'Requires --query'],
   ] satisfies [SkillSource, string][])('renders the %s source label', (source, expected) => {
     render(<SkillSourceBadge source={source} labels={labels} />);
 

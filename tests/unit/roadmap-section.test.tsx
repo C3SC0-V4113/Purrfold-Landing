@@ -15,21 +15,21 @@ describe('RoadmapSection', () => {
     expect(screen.getByText('Next.js')).toBeDefined();
     expect(screen.getByText('Astro')).toBeDefined();
     expect(screen.getByText('Vite')).toBeDefined();
-    expect(screen.getByText('TanStack Start')).toBeDefined();
+    expect(screen.getByText('React Router')).toBeDefined();
   });
 
-  it('shows shipped and future status badges', () => {
+  it('marks every framework purrfold scaffolds as shipped', () => {
     render(<RoadmapSection locale="en" />);
 
-    expect(screen.getAllByText('Shipped')).toHaveLength(2);
-    expect(screen.getAllByText('Future')).toHaveLength(2);
+    expect(screen.getAllByText('Shipped')).toHaveLength(4);
+    expect(screen.queryByText('Future')).toBeNull();
   });
 
   it('renders Spanish roadmap copy', () => {
     render(<RoadmapSection locale="es" />);
 
     expect(screen.getByRole('heading', { name: 'Hoja de ruta' })).toBeDefined();
-    expect(screen.getAllByText('Disponible')).toHaveLength(2);
-    expect(screen.getAllByText('Próximo')).toHaveLength(2);
+    expect(screen.getAllByText('Disponible')).toHaveLength(4);
+    expect(screen.queryByText('Próximo')).toBeNull();
   });
 });

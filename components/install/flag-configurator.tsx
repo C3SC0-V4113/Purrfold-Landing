@@ -23,11 +23,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  packageManagersFor,
+  viteRouters,
+  type AstroAdapter,
+  type FlagState,
+  type ViteRouter,
+} from '@/lib/build-command';
 import { cn } from '@/lib/utils';
 
-import type { AstroAdapter, FlagState, Framework } from '@/lib/build-command';
-
-export type BooleanFlagKey = 'unit' | 'e2e' | 'commitlint' | 'ci' | 'mcp' | 'motion' | 'yes';
+export type BooleanFlagKey =
+  'unit' | 'e2e' | 'commitlint' | 'ci' | 'mcp' | 'motion' | 'query' | 'yes';
 
 export type ConfiguratorMessages = {
   title: string;
@@ -40,9 +46,12 @@ export type ConfiguratorMessages = {
   ci: string;
   mcp: string;
   motion: string;
+  query: string;
   yes: string;
   ssr: string;
   adapter: string;
+  router: string;
+  routerLabels: Record<ViteRouter, string>;
   pm: string;
   presetId: string;
   presetPlaceholder: string;
@@ -55,13 +64,17 @@ type FlagConfiguratorProps = {
   disabledKeys?: Set<BooleanFlagKey>;
 };
 
-const booleanFlags: BooleanFlagKey[] = ['unit', 'e2e', 'commitlint', 'ci', 'mcp', 'motion', 'yes'];
+const booleanFlags: BooleanFlagKey[] = [
+  'unit',
+  'e2e',
+  'commitlint',
+  'ci',
+  'mcp',
+  'motion',
+  'query',
+  'yes',
+];
 const adapters: AstroAdapter[] = ['node', 'vercel', 'netlify', 'cloudflare'];
-
-// Astro scaffolding rejects bun, so the option is gated per framework.
-function packageManagersFor(framework: Framework): FlagState['pm'][] {
-  return framework === 'astro' ? ['npm', 'pnpm'] : ['npm', 'pnpm', 'bun'];
-}
 
 export function FlagConfigurator({
   flags,
@@ -78,9 +91,11 @@ export function FlagConfigurator({
   };
 
   const isAstro = flags.framework === 'astro';
+  const isReactRouter = flags.framework === 'react-router';
+  const isVite = flags.framework === 'vite';
   const packageManagers = packageManagersFor(flags.framework);
 
-  // Astro-only fields animate in/out with popLayout so the surrounding controls
+  // Framework-only fields animate in/out with popLayout so the surrounding controls
   // reflow smoothly (ADR 0004 amendment: scoped layout animation). Movement is
   // transform + opacity, and collapses to an instant swap under reduced motion.
   const reveal = {
@@ -180,6 +195,58 @@ export function FlagConfigurator({
                     </m.div>
                   ) : null}
                 </AnimatePresence>
+              </m.div>
+            ) : null}
+            {isReactRouter ? (
+              <m.div
+                key="react-router-options"
+                layout={!shouldReduceMotion}
+                className="grid items-start gap-4 sm:grid-cols-2"
+                initial={reveal.initial}
+                animate={reveal.animate}
+                exit={reveal.exit}
+                transition={reveal.transition}
+              >
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id={`${baseId}-rr-ssr`}
+                    checked={flags.ssr}
+                    onCheckedChange={(value) => update({ ssr: value === true })}
+                  />
+                  <Label htmlFor={`${baseId}-rr-ssr`} className="font-normal text-muted-foreground">
+                    {messages.ssr}
+                  </Label>
+                </div>
+              </m.div>
+            ) : null}
+            {isVite ? (
+              <m.div
+                key="vite-options"
+                layout={!shouldReduceMotion}
+                className="grid items-start gap-4 sm:grid-cols-2"
+                initial={reveal.initial}
+                animate={reveal.animate}
+                exit={reveal.exit}
+                transition={reveal.transition}
+              >
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor={`${baseId}-router`}>{messages.router}</Label>
+                  <Select
+                    value={flags.router}
+                    onValueChange={(value) => update({ router: value as ViteRouter })}
+                  >
+                    <SelectTrigger id={`${baseId}-router`} aria-label={messages.router}>
+                      <SelectValue>{messages.routerLabels[flags.router]}</SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {viteRouters.map((router) => (
+                        <SelectItem key={router} value={router}>
+                          {messages.routerLabels[router]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </m.div>
             ) : null}
           </AnimatePresence>

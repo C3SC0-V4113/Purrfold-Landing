@@ -4,7 +4,7 @@
       "hero": {
         "eyebrow": "Agent-first",
         "title": "La base sólida para proyectos con agentes",
-        "description": "Purrfold genera proyectos Next.js y Astro agent-ready con controles de calidad, reglas para agentes, docs versionadas y shadcn UI — para que los agentes trabajen con contexto verificable desde el día uno.",
+        "description": "Purrfold genera proyectos Next.js, Astro, Vite y React Router agent-ready con controles de calidad, reglas para agentes, docs versionadas y shadcn UI — para que los agentes trabajen con contexto verificable desde el primer día.",
         "cta": "Crear proyecto"
       },
       "tabs": {
@@ -28,8 +28,7 @@
           "optionalTools": "herramientas opcionales",
           "foundationResources": "recurso base",
           "communityResources": "recursos comunitarios",
-          "nextjsSkills": "workflow skills de Next.js",
-          "astroSkills": "skills del framework Astro"
+          "frameworkSkills": "skills de framework"
         },
         "cta": {
           "install": "Abrir guía de instalación",
@@ -69,11 +68,11 @@
           },
           {
             "name": "Vite",
-            "status": "future"
+            "status": "shipped"
           },
           {
-            "name": "TanStack Start",
-            "status": "future"
+            "name": "React Router",
+            "status": "shipped"
           }
         ]
       },
@@ -88,7 +87,7 @@
   },
   "Metadata": {
     "site": {
-      "description": "Scaffolding de proyectos Next.js y Astro orientado a agentes, con controles de calidad, reglas para agentes, docs versionadas y una base de shadcn UI.",
+      "description": "Scaffolding de proyectos Next.js, Astro, Vite y React Router orientado a agentes, con controles de calidad, reglas para agentes, docs versionadas y una base de shadcn UI.",
       "keywords": [
         "Purrfold",
         "scaffolding para agentes",
@@ -106,7 +105,7 @@
       "title": "Ecosistema conectado"
     },
     "home": {
-      "description": "Purrfold ayuda a generar proyectos Next.js y Astro listos para agentes con controles de calidad, reglas AGENTS/CLAUDE, docs versionadas y una base limpia de shadcn UI.",
+      "description": "Purrfold ayuda a generar proyectos Next.js, Astro, Vite y React Router listos para agentes con controles de calidad, reglas AGENTS/CLAUDE, docs versionadas y una base limpia de shadcn UI.",
       "keywords": [
         "scaffolding de proyectos",
         "desarrollo con agentes",
@@ -235,11 +234,18 @@
         "mcp": "shadcn MCP para Claude/Codex/OpenCode",
         "motion": "Motion for React (skill motion-framer)",
         "yes": "Modo no interactivo (--yes)",
-        "ssr": "SSR de Astro (renderizado en servidor)",
+        "ssr": "Renderizado en servidor (SSR)",
         "adapter": "Adaptador SSR de Astro",
         "pm": "Administrador de paquetes",
         "presetId": "ID de preset de shadcn",
-        "presetPlaceholder": "p. ej. b3REw8vwo"
+        "presetPlaceholder": "p. ej. b3REw8vwo",
+        "query": "TanStack Query (skill tanstack-query)",
+        "router": "Router de Vite",
+        "routerLabels": {
+          "react-router-data": "React Router · modo data",
+          "react-router-declarative": "React Router · modo declarativo",
+          "none": "Sin router"
+        }
       },
       "output": {
         "cliLabel": "Comando CLI",
@@ -260,7 +266,7 @@
         "agentLabelMotion": "Motion for React (skill motion-framer)",
         "agentLabelYes": "Modo no interactivo",
         "agentLabelFramework": "Framework",
-        "agentLabelSsr": "Renderizado de Astro",
+        "agentLabelSsr": "Renderizado",
         "agentLabelAdapter": "Adaptador SSR de Astro",
         "agentLabelPm": "Administrador de paquetes",
         "agentLabelPreset": "Preset de shadcn",
@@ -270,14 +276,38 @@
         "agentRulesHeading": "Reglas:",
         "agentRuleExact": "- Sigue la lista anterior exactamente. No agregues, elimines ni sustituyas ninguna opción.",
         "agentRuleHusky": "- purrfold siempre instala Husky y no es opcional. La elección de commitlint solo controla la configuración de commitlint y el hook commit-msg; los hooks pre-commit y pre-push se instalan en cualquier caso.",
-        "agentOutro": "Después del scaffolding, ejecuta `npm run check` para verificar que todo funcione."
+        "agentOutro": "Después del scaffolding, ejecuta `npm run check` para verificar que todo funcione.",
+        "agentLabelQuery": "TanStack Query (skill tanstack-query)",
+        "agentLabelRouter": "Router de Vite",
+        "agentValuePrerender": "prerenderizado (estático)",
+        "routerLabels": {
+          "react-router-data": "React Router · modo data",
+          "react-router-declarative": "React Router · modo declarativo",
+          "none": "Sin router"
+        }
       },
       "flagsReference": {
         "title": "Todos los flags disponibles",
         "items": [
           {
-            "flag": "--framework <next|astro>",
+            "flag": "--framework <next|astro|vite|react-router>",
             "description": "Elegir el framework a generar (por defecto next)"
+          },
+          {
+            "flag": "--router <react-router-data|react-router-declarative|none>",
+            "description": "Solo Vite: React Router en modo data (por defecto), modo declarativo o sin router"
+          },
+          {
+            "flag": "--ssr / --no-ssr",
+            "description": "Astro y React Router: renderizado en servidor. Astro es estático por defecto; React Router renderiza en servidor por defecto y con --no-ssr prerenderiza /"
+          },
+          {
+            "flag": "--adapter <node|vercel|netlify|cloudflare>",
+            "description": "Solo Astro: adaptador SSR cuando el SSR está activo (por defecto cloudflare)"
+          },
+          {
+            "flag": "--pm <npm|pnpm|bun>",
+            "description": "Elegir el administrador de paquetes (Astro no admite bun)"
           },
           {
             "flag": "--unit / --no-unit",
@@ -296,28 +326,20 @@
             "description": "Incluir u omitir los flujos de trabajo de GitHub Actions: quality.yml, más playwright.yml con --e2e (desactivado por defecto)"
           },
           {
-            "flag": "--ssr",
-            "description": "Solo Astro: activar SSR en lugar de una compilación estática"
+            "flag": "--motion",
+            "description": "Instalar Motion for React y el skill motion-framer (opt-in)"
           },
           {
-            "flag": "--adapter <node|vercel|netlify|cloudflare>",
-            "description": "Solo Astro: adaptador SSR cuando el SSR está activo (por defecto cloudflare)"
-          },
-          {
-            "flag": "--shadcn-args <args...>",
-            "description": "Reenviar argumentos extra a shadcn init, incluyendo --preset <id>"
-          },
-          {
-            "flag": "--pm npm|pnpm|bun",
-            "description": "Elegir el administrador de paquetes (Astro no admite bun)"
+            "flag": "--query",
+            "description": "Instalar TanStack Query, React Query Devtools solo en desarrollo y el skill tanstack-query (opt-in)"
           },
           {
             "flag": "--mcp / --no-mcp",
             "description": "Instalar shadcn MCP para Claude, Codex y OpenCode"
           },
           {
-            "flag": "--motion",
-            "description": "Instalar Motion for React y el skill motion-framer (opt-in)"
+            "flag": "--shadcn-args <args...>",
+            "description": "Reenviar argumentos extra a shadcn init, incluyendo --preset <id>"
           },
           {
             "flag": "--icons <lucide|phosphor|tabler>",
@@ -325,7 +347,7 @@
           },
           {
             "flag": "--yes",
-            "description": "Usar valores por defecto no interactivos"
+            "description": "Usar valores por defecto no interactivos (no activa --motion ni --query)"
           },
           {
             "flag": "--skip-install",
@@ -436,7 +458,7 @@
       "title": "Superficie de skills",
       "overview": {
         "title": "Skills del scaffold y skills de framework",
-        "description": "Purrfold instala skills de scaffold compartidas para cada proyecto, más skills de workflow específicas del framework que elijas —Next.js o Astro— junto con docs versionadas y reglas AGENTS/CLAUDE."
+        "description": "Purrfold instala skills de scaffold compartidas para cada proyecto, más skills de workflow específicas del framework que elijas —Next.js, Astro o React Router— junto con docs versionadas y reglas para agentes."
       },
       "linkLabel": "Abrir skill",
       "categories": {
@@ -549,6 +571,12 @@
           "purpose": "Patrones y guía de animación para construir interfaces con Motion for React.",
           "whenHelp": "Cuando se agrega motion a un proyecto generado con --motion.",
           "example": "Ejemplo: anima la entrada de un componente con transform y opacity, respetando prefers-reduced-motion."
+        },
+        "tanstack-query": {
+          "name": "TanStack Query",
+          "purpose": "Patrones para query keys, caché, mutaciones e invalidación con TanStack Query.",
+          "whenHelp": "Cuando un proyecto generado con --query consulta o modifica datos del servidor.",
+          "example": "Ejemplo: envuelve un fetch en useQuery con una key estable e invalídala después de una mutación."
         }
       },
       "badges": {
@@ -557,7 +585,9 @@
         "reactDoctor": "React Doctor",
         "nextjs": "Next.js",
         "astro": "Astro",
-        "motion": "Requiere --motion"
+        "motion": "Requiere --motion",
+        "reactRouter": "React Router",
+        "query": "Requiere --query"
       },
       "workflow": {
         "title": "Workflow skills de Next.js",
@@ -592,6 +622,18 @@
             "purpose": "Guía de framework para construir proyectos Astro compatibles con shadcn usando islas de React.",
             "whenHelp": "Cuando se genera o extiende un proyecto Astro con el flujo de Astro de Purrfold.",
             "example": "Ejemplo: agrega una isla de React a una ruta de Astro manteniendo la salida estática por defecto."
+          }
+        }
+      },
+      "reactRouter": {
+        "title": "Skills de React Router",
+        "description": "Purrfold instala la skill oficial de React Router en proyectos React Router en modo framework y en proyectos Vite que usan un modo de React Router, desde remix-run/react-router.",
+        "skills": {
+          "react-router": {
+            "name": "React Router",
+            "purpose": "Guía oficial para rutas, loaders, actions y las APIs de datos de React Router.",
+            "whenHelp": "Cuando se agregan rutas, carga de datos o mutaciones a un proyecto React Router o Vite + React Router.",
+            "example": "Ejemplo: agrega una ruta con un loader y una action que revalida después de enviar un formulario."
           }
         }
       }

@@ -23,6 +23,8 @@ import {
   buildCliCommand,
   defaultFlags,
   frameworkLabels,
+  frameworks,
+  withFramework,
   type AgentPromptMessages,
   type FlagState,
   type Framework,
@@ -68,12 +70,7 @@ export function InstallView({ messages, children }: InstallViewProps) {
 
   // Framework is the primary decision, so it lives above the flag configurator.
   const handleFrameworkChange = (framework: Framework) => {
-    setFlags((prev) => ({
-      ...prev,
-      framework,
-      // Astro scaffolding rejects bun; fall back to npm when switching to it.
-      pm: framework === 'astro' && prev.pm === 'bun' ? 'npm' : prev.pm,
-    }));
+    setFlags((prev) => withFramework(prev, framework));
   };
 
   const output =
@@ -98,11 +95,11 @@ export function InstallView({ messages, children }: InstallViewProps) {
             value={flags.framework}
             onValueChange={(value) => handleFrameworkChange(value as Framework)}
           >
-            <SelectTrigger className="w-36" aria-label={messages.configurator.framework}>
+            <SelectTrigger className="w-40" aria-label={messages.configurator.framework}>
               <SelectValue>{frameworkLabels[flags.framework]}</SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {(['next', 'astro'] as Framework[]).map((framework) => (
+              {frameworks.map((framework) => (
                 <SelectItem key={framework} value={framework}>
                   {frameworkLabels[framework]}
                 </SelectItem>
