@@ -18,7 +18,8 @@ declare const messages: {
         "cliCommand": "npx purrfold@latest <project-directory>",
         "agentPrompt": "I want to scaffold a new {framework} app with purrfold. Run `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --ci --mcp` to set up the project with quality gates, testing, CI workflows, agent rules, and versioned {framework} guidance. After scaffolding, run `npm run check` to verify everything works.",
         "copyButton": "Copy",
-        "copied": "Copied!"
+        "copied": "Copied!",
+        "copyFailed": "Copy failed. Please try again."
       },
       "cards": {
         "title": "Explore the project surface",
@@ -461,9 +462,11 @@ declare const messages: {
       "title": "Skill surface",
       "overview": {
         "title": "Scaffold skills and framework workflow skills",
-        "description": "Purrfold installs shared scaffold skills for every project, plus workflow skills for the framework you pick — Next.js, Astro, or React Router — alongside versioned docs and agent rules."
+        "description": "Purrfold installs every selected skill with the skills CLI from skills.sh. Add any skill individually to any project; retry downloads in a generated app with bash skills.sh.",
+        "purrfoldTitle": "Purrfold CLI skill",
+        "purrfoldDescription": "Teach agents to use the Purrfold CLI. Install this skill separately; it is not installed into generated apps."
       },
-      "linkLabel": "Open skill",
+      "linkLabel": "Open on skills.sh",
       "categories": {
         "architecture": {
           "title": "Architecture & Design"
@@ -583,7 +586,7 @@ declare const messages: {
         }
       },
       "badges": {
-        "local": "Local",
+        "purrfold": "Purrfold",
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
         "nextjs": "Next.js",
@@ -639,7 +642,10 @@ declare const messages: {
             "example": "Example: add a route with a loader and an action that revalidates after a form submit."
           }
         }
-      }
+      },
+      "copyLabel": "Copy install command",
+      "copiedLabel": "Copied!",
+      "copyFailedLabel": "Copy failed. Please try again."
     }
   },
   "Footer": {

@@ -43,7 +43,8 @@ describe('CopyButton', () => {
     fireEvent.click(button);
 
     await vi.waitFor(() => {
-      expect(screen.getByRole('button', { name: 'Copied!' })).toBeDefined();
+      expect(screen.getByRole('status').textContent).toBe('Copied!');
+      expect(screen.getByRole('button', { name: 'Copy' })).toBeDefined();
     });
 
     act(() => {
@@ -53,7 +54,7 @@ describe('CopyButton', () => {
     expect(screen.getByRole('button', { name: 'Copy' })).toBeDefined();
   });
 
-  it('does not throw when the clipboard API is unavailable', async () => {
+  it('announces clipboard failures without changing the button name', async () => {
     vi.stubGlobal('navigator', { clipboard: undefined });
 
     render(<CopyButton text="npx purrfold@latest my-app" />);
@@ -61,6 +62,23 @@ describe('CopyButton', () => {
 
     expect(() => fireEvent.click(button)).not.toThrow();
 
+    await vi.waitFor(() => {
+      expect(screen.getByRole('status').textContent).toBe('Copy failed. Please try again.');
+    });
     expect(screen.getByRole('button', { name: 'Copy' })).toBeDefined();
+  });
+
+  it('announces a localized clipboard failure', async () => {
+    vi.stubGlobal('navigator', {
+      clipboard: { writeText: vi.fn().mockRejectedValue(new Error()) },
+    });
+    render(<CopyButton text="comando" label="Copiar comando" failedLabel="No se pudo copiar." />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Copiar comando' }));
+
+    await vi.waitFor(() =>
+      expect(screen.getByRole('status').textContent).toBe('No se pudo copiar.')
+    );
+    expect(screen.getByRole('button', { name: 'Copiar comando' })).toBeDefined();
   });
 });

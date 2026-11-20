@@ -3,6 +3,7 @@ import { SkillCard } from '@/components/skills/skill-card';
 import { type SkillSource, type SkillSourceLabels } from '@/components/skills/skill-source-badge';
 import {
   astroSkillCatalog,
+  buildSkillInstallCommand,
   nextjsWorkflowSkillCatalog,
   reactRouterSkillCatalog,
   skillCatalog,
@@ -20,7 +21,8 @@ type PackSkill = {
   whenHelp: string;
   example: string;
   source: SkillSource;
-  href?: string;
+  href: string;
+  installSource: `${string}/${string}`;
 };
 
 type SkillPackSectionProps = {
@@ -29,6 +31,9 @@ type SkillPackSectionProps = {
   skills: PackSkill[];
   linkLabel: string;
   badges: SkillSourceLabels;
+  copyLabel: string;
+  copiedLabel: string;
+  copyFailedLabel: string;
   delay: number;
 };
 
@@ -39,6 +44,9 @@ function SkillPackSection({
   skills,
   linkLabel,
   badges,
+  copyLabel,
+  copiedLabel,
+  copyFailedLabel,
   delay,
 }: SkillPackSectionProps) {
   return (
@@ -58,6 +66,10 @@ function SkillPackSection({
               example={skill.example}
               source={skill.source}
               href={skill.href}
+              command={buildSkillInstallCommand(skill)}
+              copyLabel={`${copyLabel}: ${skill.name}`}
+              copiedLabel={copiedLabel}
+              copyFailedLabel={copyFailedLabel}
               linkLabel={linkLabel}
               badges={badges}
             />
@@ -71,7 +83,7 @@ function SkillPackSection({
 export function SkillsList({ locale }: SkillsListProps) {
   const t = getMessages(locale).Pages.skills;
   const badgeLabels: SkillSourceLabels = {
-    local: t.badges.local,
+    purrfold: t.badges.purrfold,
     skillsSh: t.badges.skillsSh,
     reactDoctor: t.badges.reactDoctor,
     nextjs: t.badges.nextjs,
@@ -126,6 +138,10 @@ export function SkillsList({ locale }: SkillsListProps) {
                       example={msg.example}
                       source={skill.source}
                       href={skill.href}
+                      command={buildSkillInstallCommand(skill)}
+                      copyLabel={`${t.copyLabel}: ${msg.name}`}
+                      copiedLabel={t.copiedLabel}
+                      copyFailedLabel={t.copyFailedLabel}
                       linkLabel={t.linkLabel}
                       badges={badgeLabels}
                     />
@@ -143,6 +159,9 @@ export function SkillsList({ locale }: SkillsListProps) {
         skills={nextjsPack}
         linkLabel={t.linkLabel}
         badges={badgeLabels}
+        copyLabel={t.copyLabel}
+        copiedLabel={t.copiedLabel}
+        copyFailedLabel={t.copyFailedLabel}
         delay={categories.length * 0.03}
       />
 
@@ -152,6 +171,9 @@ export function SkillsList({ locale }: SkillsListProps) {
         skills={astroPack}
         linkLabel={t.linkLabel}
         badges={badgeLabels}
+        copyLabel={t.copyLabel}
+        copiedLabel={t.copiedLabel}
+        copyFailedLabel={t.copyFailedLabel}
         delay={(categories.length + 1) * 0.03}
       />
 
@@ -161,6 +183,9 @@ export function SkillsList({ locale }: SkillsListProps) {
         skills={reactRouterPack}
         linkLabel={t.linkLabel}
         badges={badgeLabels}
+        copyLabel={t.copyLabel}
+        copiedLabel={t.copiedLabel}
+        copyFailedLabel={t.copyFailedLabel}
         delay={(categories.length + 2) * 0.03}
       />
     </div>

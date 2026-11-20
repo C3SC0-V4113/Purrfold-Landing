@@ -8,7 +8,7 @@ import {
 } from '@/components/skills/skill-source-badge';
 
 const labels: SkillSourceLabels = {
-  local: 'Local',
+  purrfold: 'Purrfold',
   skillsSh: 'skills.sh',
   reactDoctor: 'React Doctor',
   nextjs: 'Next.js',
@@ -24,7 +24,7 @@ describe('SkillSourceBadge', () => {
   });
 
   it.each([
-    ['local', 'Local'],
+    ['purrfold', 'Purrfold'],
     ['skills-sh', 'skills.sh'],
     ['react-doctor', 'React Doctor'],
     ['nextjs', 'Next.js'],

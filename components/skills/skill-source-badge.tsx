@@ -1,10 +1,17 @@
 import { Badge } from '@/components/ui/badge';
 
 export type SkillSource =
-  'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro' | 'react-router' | 'motion' | 'query';
+  | 'purrfold'
+  | 'skills-sh'
+  | 'react-doctor'
+  | 'nextjs'
+  | 'astro'
+  | 'react-router'
+  | 'motion'
+  | 'query';
 
 export type SkillSourceLabels = {
-  local: string;
+  purrfold: string;
   skillsSh: string;
   reactDoctor: string;
   nextjs: string;
@@ -15,7 +22,7 @@ export type SkillSourceLabels = {
 };
 
 const variantBySource: Record<SkillSource, 'default' | 'secondary' | 'outline'> = {
-  local: 'default',
+  purrfold: 'default',
   'skills-sh': 'secondary',
   nextjs: 'secondary',
   astro: 'secondary',
@@ -26,7 +33,7 @@ const variantBySource: Record<SkillSource, 'default' | 'secondary' | 'outline'> 
 };
 
 const labelKeyBySource: Record<SkillSource, keyof SkillSourceLabels> = {
-  local: 'local',
+  purrfold: 'purrfold',
   'skills-sh': 'skillsSh',
   'react-doctor': 'reactDoctor',
   nextjs: 'nextjs',

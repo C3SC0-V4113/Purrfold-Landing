@@ -15,7 +15,8 @@
         "cliCommand": "npx purrfold@latest <directorio-del-proyecto>",
         "agentPrompt": "Quiero generar un proyecto nuevo de {framework} con purrfold. Ejecuta `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --ci --mcp` para crear el proyecto con controles de calidad, tests, flujos de trabajo de CI, reglas para agentes y guía versionada de {framework}. Después del scaffolding, ejecuta `npm run check` para verificar que todo funciona.",
         "copyButton": "Copiar",
-        "copied": "¡Copiado!"
+        "copied": "¡Copiado!",
+        "copyFailed": "No se pudo copiar. Inténtalo de nuevo."
       },
       "cards": {
         "title": "Explora la superficie del proyecto",
@@ -458,9 +459,11 @@
       "title": "Superficie de skills",
       "overview": {
         "title": "Skills del scaffold y skills de framework",
-        "description": "Purrfold instala skills de scaffold compartidas para cada proyecto, más skills de workflow específicas del framework que elijas —Next.js, Astro o React Router— junto con docs versionadas y reglas para agentes."
+        "description": "Purrfold instala cada skill seleccionada desde skills.sh con la CLI de skills. Puedes añadir cada skill por separado a cualquier proyecto; para reintentar descargas en una aplicación generada, ejecuta bash skills.sh.",
+        "purrfoldTitle": "Skill de la CLI de Purrfold",
+        "purrfoldDescription": "Enseña a los agentes a usar la CLI de Purrfold. Instala esta skill por separado; no se instala en las aplicaciones generadas."
       },
-      "linkLabel": "Abrir skill",
+      "linkLabel": "Abrir en skills.sh",
       "categories": {
         "architecture": {
           "title": "Arquitectura y diseño"
@@ -580,7 +583,7 @@
         }
       },
       "badges": {
-        "local": "Local",
+        "purrfold": "Purrfold",
         "skillsSh": "skills.sh",
         "reactDoctor": "React Doctor",
         "nextjs": "Next.js",
@@ -636,7 +639,10 @@
             "example": "Ejemplo: agrega una ruta con un loader y una action que revalida después de enviar un formulario."
           }
         }
-      }
+      },
+      "copyLabel": "Copiar comando de instalación",
+      "copiedLabel": "¡Copiado!",
+      "copyFailedLabel": "No se pudo copiar. Inténtalo de nuevo."
     }
   },
   "Footer": {
