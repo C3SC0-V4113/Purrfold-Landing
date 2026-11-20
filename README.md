@@ -41,6 +41,9 @@ English (`en`) is the default locale. Spanish (`es`) copy must remain neutral an
 - **Rendering:** server-first; client components are reserved for actual interaction.
 - **Motion:** CSS-only, compositor-friendly, and disabled for reduced-motion preferences.
 
+- **CLI facts:** `lib/generated/purrfold-info.json` is a snapshot of `npx purrfold@latest info --json`. Refresh it with `npm run sync:purrfold` after each purrfold release; `tests/unit/purrfold-info-sync.test.ts` fails when the flags reference or command builder drift from it.
+- **Skills catalog:** `components/skills/skills-catalog.ts` mirrors purrfold's `src/skills/manifest.ts` (install source, skills.sh page, `npx skills add` command). Update both together when purrfold adds or moves a skill. The root `skills-lock.json` only tracks this repo's own agent skills.
+
 See [DESIGN.md](DESIGN.md) for UI rules and [docs/adr](docs/adr) for durable decisions.
 
 ## Quality gates
