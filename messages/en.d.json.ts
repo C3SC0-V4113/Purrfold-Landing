@@ -381,7 +381,7 @@ declare const messages: {
       "overview": {
         "title": "Default quality stack",
         "description": "Purrfold installs the baseline checks by default to catch regressions early and keep feedback close to the code.",
-        "defaultNote": "React Doctor and React Scan are part of the default stack. Vitest, commitlint, and Playwright only appear when their install choices are selected."
+        "defaultNote": "React Doctor, shadcn-lint, lint-staged, and Claude hooks are included by default. React Scan is included by default except for Astro projects. GitHub Actions workflows require --ci. The check script runs lint, typecheck, format:check, and doctor:ci; it also runs test when unit tests are enabled. Purrfold skips the final check when installation is skipped."
       },
       "sections": {
         "qualityGates": {
@@ -404,12 +404,12 @@ declare const messages: {
       "tools": {
         "eslint": {
           "name": "ESLint",
-          "purpose": "Linting that enforces real project rules: effect discipline, boolean prop naming, ordered imports, type-only imports, promise safety, and console output limited to warn/error.",
+          "purpose": "Framework-specific ESLint configuration: eslint-config-next, eslint-plugin-astro, or typescript-eslint with react-hooks and (on Vite) react-refresh. It adds eslint-plugin-import, eslint-plugin-react-doctor, eslint-plugin-react-you-might-not-need-an-effect, and eslint-config-prettier, and runs with --max-warnings 0. With --unit it adds testing-library and @vitest/eslint-plugin; --e2e adds eslint-plugin-playwright; --query adds @tanstack/eslint-plugin-query.",
           "whenHelp": "When you want feedback that catches React, TypeScript, and import hygiene issues before review."
         },
         "prettier": {
           "name": "Prettier",
-          "purpose": "Opinionated formatting for consistent diffs.",
+          "purpose": "Consistent formatting with prettier-plugin-tailwindcss; Astro projects also use prettier-plugin-astro.",
           "whenHelp": "When you want formatting to stay automatic and boring."
         },
         "husky": {
@@ -444,8 +444,28 @@ declare const messages: {
         },
         "typescript": {
           "name": "TypeScript",
-          "purpose": "Static typing that catches mistakes before runtime.",
+          "purpose": "Framework typecheck commands: Next.js runs tsc --noEmit, Astro runs astro check, Vite runs tsc -b, and React Router runs react-router typegen && tsc.",
           "whenHelp": "When type safety is the fastest way to prevent regressions."
+        },
+        "shadcn-lint": {
+          "name": "@shadcn/lint",
+          "purpose": "Six shadcn rules run as errors: no-restyle, no-raw-colors, no-arbitrary-values, no-inline-styles, require-static-classes, and no-unknown-classes.",
+          "whenHelp": "When you want the design system and component conventions checked by ESLint."
+        },
+        "lint-staged": {
+          "name": "lint-staged",
+          "purpose": "Pre-commit runs lint-staged and then doctor:staged; pre-push runs the project check script.",
+          "whenHelp": "When you want focused checks before changes enter or leave a branch."
+        },
+        "github-actions": {
+          "name": "GitHub Actions",
+          "purpose": "--ci writes .github/workflows/quality.yml. It adds playwright.yml only when --e2e is also enabled. The pnpm/action-setup and oven-sh/setup-bun actions are pinned by commit SHA.",
+          "whenHelp": "When you choose --ci to run the project quality gate in GitHub Actions."
+        },
+        "claude-hooks": {
+          "name": "Claude hooks",
+          "purpose": ".claude/settings.json configures a PostToolBatch hook to run React Doctor and a Stop hook to run the project minimum evaluation through cross-platform Node scripts.",
+          "whenHelp": "When Claude Code should provide continuous checks during a work session."
         }
       },
       "badges": {

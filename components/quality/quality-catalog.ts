@@ -3,7 +3,7 @@ export type QualitySectionId =
 
 export type QualityStatus = 'default' | 'optional';
 export type QualityRole = 'quality-gate' | 'commit-signal' | 'ci-signal' | 'runtime-signal';
-export type QualityFlag = '--unit' | '--commitlint' | '--e2e';
+export type QualityFlag = '--unit' | '--commitlint' | '--e2e' | '--ci';
 
 export type QualityToolId =
   | 'eslint'
@@ -14,7 +14,11 @@ export type QualityToolId =
   | 'react-scan'
   | 'vitest'
   | 'playwright'
-  | 'typescript';
+  | 'typescript'
+  | 'shadcn-lint'
+  | 'lint-staged'
+  | 'github-actions'
+  | 'claude-hooks';
 
 export type QualitySection = {
   id: QualitySectionId;
@@ -53,6 +57,13 @@ export const qualityTools: QualityTool[] = [
     href: 'https://react-scan.com/',
   },
   {
+    id: 'shadcn-lint',
+    section: 'quality-gates',
+    role: 'quality-gate',
+    status: 'default',
+    href: 'https://ui.shadcn.com',
+  },
+  {
     id: 'eslint',
     section: 'commit-hygiene',
     role: 'commit-signal',
@@ -72,6 +83,13 @@ export const qualityTools: QualityTool[] = [
     role: 'commit-signal',
     status: 'default',
     href: 'https://typicode.github.io/husky',
+  },
+  {
+    id: 'lint-staged',
+    section: 'commit-hygiene',
+    role: 'commit-signal',
+    status: 'default',
+    href: 'https://github.com/lint-staged/lint-staged',
   },
   {
     id: 'commitlint',
@@ -96,6 +114,21 @@ export const qualityTools: QualityTool[] = [
     status: 'optional',
     flag: '--e2e',
     href: 'https://playwright.dev',
+  },
+  {
+    id: 'github-actions',
+    section: 'ci-confidence',
+    role: 'ci-signal',
+    status: 'optional',
+    flag: '--ci',
+    href: 'https://docs.github.com/actions',
+  },
+  {
+    id: 'claude-hooks',
+    section: 'quality-gates',
+    role: 'quality-gate',
+    status: 'default',
+    href: 'https://docs.anthropic.com/en/docs/claude-code/hooks',
   },
   {
     id: 'typescript',

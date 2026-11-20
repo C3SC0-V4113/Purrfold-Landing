@@ -49,7 +49,9 @@ export function QualityToolCard({
           rel="noreferrer noopener"
           className="inline-flex items-center gap-1 text-xs font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
         >
-          <span>{linkLabel}</span>
+          <span>
+            {linkLabel}: {name}
+          </span>
           <ArrowUpRightIcon className="size-3.5" />
         </a>
       </CardContent>

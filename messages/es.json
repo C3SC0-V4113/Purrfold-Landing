@@ -378,7 +378,7 @@
       "overview": {
         "title": "Base de calidad por defecto",
         "description": "Purrfold instala las comprobaciones base por defecto para detectar regresiones temprano y mantener el feedback cerca del código.",
-        "defaultNote": "React Doctor y React Scan forman parte de la base por defecto. Vitest, commitlint y Playwright solo aparecen cuando se seleccionan sus decisiones de instalación."
+        "defaultNote": "React Doctor, shadcn-lint, lint-staged y los hooks de Claude se incluyen por defecto. React Scan se incluye por defecto excepto en proyectos Astro. Los workflows de GitHub Actions requieren --ci. El script check ejecuta lint, typecheck, format:check y doctor:ci; también ejecuta test cuando las pruebas unitarias están habilitadas. Purrfold omite la comprobación final cuando se omite la instalación."
       },
       "sections": {
         "qualityGates": {
@@ -401,12 +401,12 @@
       "tools": {
         "eslint": {
           "name": "ESLint",
-          "purpose": "Linting que aplica reglas reales del proyecto: disciplina de effects, nombres de props booleanas, orden de imports, imports solo de tipos, seguridad de promesas y console limitado a warn/error.",
+          "purpose": "Configuración de ESLint según el framework: eslint-config-next, eslint-plugin-astro o typescript-eslint con react-hooks y (en Vite) react-refresh. Incluye eslint-plugin-import, eslint-plugin-react-doctor, eslint-plugin-react-you-might-not-need-an-effect y eslint-config-prettier, y se ejecuta con --max-warnings 0. --unit agrega testing-library y @vitest/eslint-plugin; --e2e agrega eslint-plugin-playwright; --query agrega @tanstack/eslint-plugin-query.",
           "whenHelp": "Cuando necesitas feedback que detecte problemas de React, TypeScript e higiene de imports antes de la revisión."
         },
         "prettier": {
           "name": "Prettier",
-          "purpose": "Formateo opinado para diffs consistentes.",
+          "purpose": "Formato consistente con prettier-plugin-tailwindcss; los proyectos Astro también usan prettier-plugin-astro.",
           "whenHelp": "Cuando necesitas que el formato siga siendo automático y predecible."
         },
         "husky": {
@@ -441,8 +441,28 @@
         },
         "typescript": {
           "name": "TypeScript",
-          "purpose": "Tipado estático que detecta errores antes del runtime.",
+          "purpose": "Comandos de verificación de tipos por framework: Next.js ejecuta tsc --noEmit, Astro ejecuta astro check, Vite ejecuta tsc -b y React Router ejecuta react-router typegen && tsc.",
           "whenHelp": "Cuando la seguridad de tipos es la forma más rápida de evitar regresiones."
+        },
+        "shadcn-lint": {
+          "name": "@shadcn/lint",
+          "purpose": "Seis reglas de shadcn se aplican como errores: no-restyle, no-raw-colors, no-arbitrary-values, no-inline-styles, require-static-classes y no-unknown-classes.",
+          "whenHelp": "Cuando necesitas que ESLint verifique el sistema de diseño y las convenciones de componentes."
+        },
+        "lint-staged": {
+          "name": "lint-staged",
+          "purpose": "Antes del commit ejecuta lint-staged y luego doctor:staged; antes del push ejecuta el script check del proyecto.",
+          "whenHelp": "Cuando necesitas comprobaciones específicas antes de incorporar cambios o enviarlos a una rama."
+        },
+        "github-actions": {
+          "name": "GitHub Actions",
+          "purpose": "--ci escribe .github/workflows/quality.yml. Agrega playwright.yml solo cuando también está habilitado --e2e. Las acciones pnpm/action-setup y oven-sh/setup-bun se fijan por SHA de commit.",
+          "whenHelp": "Cuando eliges --ci para ejecutar el control de calidad del proyecto en GitHub Actions."
+        },
+        "claude-hooks": {
+          "name": "Hooks de Claude",
+          "purpose": ".claude/settings.json configura un hook PostToolBatch para ejecutar React Doctor y un hook Stop para ejecutar la evaluación mínima del proyecto mediante scripts multiplataforma de Node.",
+          "whenHelp": "Cuando Claude Code debe ofrecer comprobaciones continuas durante una sesión de trabajo."
         }
       },
       "badges": {

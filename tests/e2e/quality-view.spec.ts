@@ -37,8 +37,8 @@ test('renders the English quality page with official links', async ({ page }) =>
   await expect(page.getByText('--commitlint')).toBeVisible();
   await expect(page.getByText('--e2e')).toBeVisible();
 
-  const links = page.getByRole('main').getByRole('link', { name: qualityPages.en.linkLabel });
-  await expect(links).toHaveCount(9);
+  const links = page.getByRole('main').getByRole('link', { name: /Official docs:/ });
+  await expect(links).toHaveCount(13);
 
   const hrefs = await links.evaluateAll((nodes) =>
     nodes.map((node) => (node as HTMLAnchorElement).href)
@@ -46,12 +46,16 @@ test('renders the English quality page with official links', async ({ page }) =>
   expect(hrefs.map((href) => href.replace(/\/$/, ''))).toEqual([
     'https://www.react.doctor',
     'https://react-scan.com',
+    'https://ui.shadcn.com',
+    'https://docs.anthropic.com/en/docs/claude-code/hooks',
     'https://eslint.org',
     'https://prettier.io',
     'https://typicode.github.io/husky',
+    'https://github.com/lint-staged/lint-staged',
     'https://commitlint.js.org',
     'https://vitest.dev',
     'https://playwright.dev',
+    'https://docs.github.com/actions',
     'https://www.typescriptlang.org',
   ]);
 
@@ -72,8 +76,8 @@ test('renders the Spanish quality page with official links', async ({ page }) =>
     ...qualityPages.es.sections,
   ]);
 
-  const links = page.getByRole('main').getByRole('link', { name: qualityPages.es.linkLabel });
-  await expect(links).toHaveCount(9);
+  const links = page.getByRole('main').getByRole('link', { name: /Documentación oficial:/ });
+  await expect(links).toHaveCount(13);
 
   const hrefs = await links.evaluateAll((nodes) =>
     nodes.map((node) => (node as HTMLAnchorElement).href)
@@ -81,12 +85,16 @@ test('renders the Spanish quality page with official links', async ({ page }) =>
   expect(hrefs.map((href) => href.replace(/\/$/, ''))).toEqual([
     'https://www.react.doctor',
     'https://react-scan.com',
+    'https://ui.shadcn.com',
+    'https://docs.anthropic.com/en/docs/claude-code/hooks',
     'https://eslint.org',
     'https://prettier.io',
     'https://typicode.github.io/husky',
+    'https://github.com/lint-staged/lint-staged',
     'https://commitlint.js.org',
     'https://vitest.dev',
     'https://playwright.dev',
+    'https://docs.github.com/actions',
     'https://www.typescriptlang.org',
   ]);
 
