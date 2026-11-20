@@ -61,19 +61,34 @@
         "items": [
           {
             "name": "Next.js",
-            "status": "shipped"
+            "status": "shipped",
+            "kind": "framework"
           },
           {
             "name": "Astro",
-            "status": "shipped"
+            "status": "shipped",
+            "kind": "framework"
           },
           {
             "name": "Vite",
-            "status": "shipped"
+            "status": "shipped",
+            "kind": "framework"
           },
           {
             "name": "React Router",
-            "status": "shipped"
+            "status": "shipped",
+            "kind": "framework"
+          },
+          {
+            "name": "TanStack Start",
+            "status": "future",
+            "kind": "framework"
+          },
+          {
+            "name": "oxlint",
+            "status": "future",
+            "kind": "tooling",
+            "description": "En evaluación como alternativa opcional a ESLint; ESLint sigue siendo la opción predeterminada."
           }
         ]
       },

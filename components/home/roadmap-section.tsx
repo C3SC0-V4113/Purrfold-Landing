@@ -22,7 +22,12 @@ export function RoadmapSection({ locale }: RoadmapSectionProps) {
             key={item.name}
             className="flex flex-1 items-center justify-between gap-2 rounded-2xl border border-border bg-card p-4 sm:flex-col sm:items-start sm:gap-3"
           >
-            <span className="font-medium text-foreground">{item.name}</span>
+            <div className="flex flex-col gap-1">
+              <span className="font-medium text-foreground">{item.name}</span>
+              {item.kind === 'tooling' && item.description ? (
+                <span className="text-sm leading-5 text-muted-foreground">{item.description}</span>
+              ) : null}
+            </div>
             <Badge variant={item.status === 'shipped' ? 'default' : 'secondary'}>
               {item.status === 'shipped' ? t.shipped : t.future}
             </Badge>

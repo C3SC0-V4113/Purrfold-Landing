@@ -8,7 +8,7 @@ describe('RoadmapSection', () => {
     document.body.innerHTML = '';
   });
 
-  it('renders the roadmap title and framework list in English', () => {
+  it('renders shipped frameworks and future roadmap items in English', () => {
     render(<RoadmapSection locale="en" />);
 
     expect(screen.getByRole('heading', { name: 'Roadmap' })).toBeDefined();
@@ -16,13 +16,16 @@ describe('RoadmapSection', () => {
     expect(screen.getByText('Astro')).toBeDefined();
     expect(screen.getByText('Vite')).toBeDefined();
     expect(screen.getByText('React Router')).toBeDefined();
-  });
-
-  it('marks every framework purrfold scaffolds as shipped', () => {
-    render(<RoadmapSection locale="en" />);
+    expect(screen.getByText('TanStack Start')).toBeDefined();
+    expect(screen.getByText('oxlint')).toBeDefined();
+    expect(
+      screen.getByText(
+        'Under consideration as an optional alternative to ESLint; ESLint remains the default.'
+      )
+    ).toBeDefined();
 
     expect(screen.getAllByText('Shipped')).toHaveLength(4);
-    expect(screen.queryByText('Future')).toBeNull();
+    expect(screen.getAllByText('Future')).toHaveLength(2);
   });
 
   it('renders Spanish roadmap copy', () => {
@@ -30,6 +33,11 @@ describe('RoadmapSection', () => {
 
     expect(screen.getByRole('heading', { name: 'Hoja de ruta' })).toBeDefined();
     expect(screen.getAllByText('Disponible')).toHaveLength(4);
-    expect(screen.queryByText('Próximo')).toBeNull();
+    expect(screen.getAllByText('Próximo')).toHaveLength(2);
+    expect(
+      screen.getByText(
+        'En evaluación como alternativa opcional a ESLint; ESLint sigue siendo la opción predeterminada.'
+      )
+    ).toBeDefined();
   });
 });
