@@ -16,7 +16,10 @@ export function RoadmapSection({ locale }: RoadmapSectionProps) {
       style={{ animationDelay: '240ms' }}
     >
       <h2 className="text-sm font-semibold text-foreground">{t.title}</h2>
-      <ul className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+      <ul
+        aria-label={t.title}
+        className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3"
+      >
         {t.items.map((item) => (
           <li
             key={item.name}

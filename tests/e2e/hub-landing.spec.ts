@@ -92,3 +92,17 @@ test('renders bilingual Spanish hub content', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Hoja de ruta' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Bases' })).toBeVisible();
 });
+
+test('wraps the Spanish roadmap cards without horizontal overflow at 640px', async ({ page }) => {
+  await page.setViewportSize({ width: 640, height: 900 });
+  await page.goto('/es');
+
+  const roadmap = page.getByRole('list', { name: 'Hoja de ruta' });
+  await expect(roadmap.getByRole('listitem')).toHaveCount(6);
+  await expect
+    .poll(() =>
+      roadmap.evaluate((list) => getComputedStyle(list).gridTemplateColumns.split(' ').length)
+    )
+    .toBe(2);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(640);
+});

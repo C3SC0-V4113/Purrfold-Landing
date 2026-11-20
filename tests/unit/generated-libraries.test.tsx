@@ -36,4 +36,21 @@ describe('generated app libraries', () => {
     expect(screen.getByText(/--motion/)).toBeDefined();
     expect(screen.getByText(/prefers-reduced-motion/)).toBeDefined();
   });
+
+  it('documents accepted icon flags and shadcn fallback behavior in both locales', () => {
+    render(<FoundationsSection locale="en" />);
+    expect(
+      screen.getByText(
+        "Optionally pass --icons lucide|phosphor|tabler. Purrfold keeps shadcn's icon choice when supported and falls back to Lucide otherwise."
+      )
+    ).toBeDefined();
+
+    document.body.innerHTML = '';
+    render(<FoundationsSection locale="es" />);
+    expect(
+      screen.getByText(
+        'De forma opcional, usa --icons lucide|phosphor|tabler. Purrfold conserva la elección de iconos de shadcn cuando es compatible y, si no, usa Lucide.'
+      )
+    ).toBeDefined();
+  });
 });

@@ -117,7 +117,7 @@ declare const messages: {
             },
             "icons": {
               "name": "Icons",
-              "description": "shadcn uses Lucide by default. Choose lucide-react, @phosphor-icons/react, or @tabler/icons-react with the optional --icons flag."
+              "description": "Optionally pass --icons lucide|phosphor|tabler. Purrfold keeps shadcn's icon choice when supported and falls back to Lucide otherwise."
             },
             "reactRouter": {
               "name": "React Router 8",

@@ -114,7 +114,7 @@
             },
             "icons": {
               "name": "Iconos",
-              "description": "shadcn usa Lucide por defecto. Elige lucide-react, @phosphor-icons/react o @tabler/icons-react con la opción --icons, que es opcional."
+              "description": "De forma opcional, usa --icons lucide|phosphor|tabler. Purrfold conserva la elección de iconos de shadcn cuando es compatible y, si no, usa Lucide."
             },
             "reactRouter": {
               "name": "React Router 8",
