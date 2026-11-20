@@ -33,9 +33,9 @@ test('renders the English quality page with official links', async ({ page }) =>
     ...qualityPages.en.sections,
   ]);
 
-  await expect(page.getByText('--unit')).toBeVisible();
-  await expect(page.getByText('--commitlint')).toBeVisible();
-  await expect(page.getByText('--e2e')).toBeVisible();
+  await expect(page.getByText('--unit', { exact: true }).first()).toBeVisible();
+  await expect(page.getByText('--commitlint', { exact: true }).first()).toBeVisible();
+  await expect(page.getByText('--e2e', { exact: true }).first()).toBeVisible();
 
   const links = page.getByRole('main').getByRole('link', { name: /Official docs:/ });
   await expect(links).toHaveCount(13);
