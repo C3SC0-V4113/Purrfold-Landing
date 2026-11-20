@@ -97,7 +97,39 @@
         "description": "Built on the primitives we trust.",
         "shadcn": "shadcn/ui",
         "nextjs": "Next.js",
-        "astro": "Astro"
+        "astro": "Astro",
+        "vite": "Vite",
+        "reactRouter": "React Router",
+        "tailwind": "Tailwind CSS",
+        "libraries": {
+          "title": "What the generated app includes",
+          "items": {
+            "shadcn": {
+              "name": "shadcn/ui",
+              "description": "Initialized with shadcn init; the selected preset determines Radix or Base UI."
+            },
+            "tailwind": {
+              "name": "Tailwind CSS v4",
+              "description": "Utility-first styling with Tailwind CSS v4."
+            },
+            "icons": {
+              "name": "Icons",
+              "description": "shadcn uses Lucide by default. Choose lucide-react, @phosphor-icons/react, or @tabler/icons-react with the optional --icons flag."
+            },
+            "reactRouter": {
+              "name": "React Router 8",
+              "description": "Vite supports React Router data or declarative mode; React Router can also scaffold in framework mode."
+            },
+            "tanstackQuery": {
+              "name": "TanStack Query",
+              "description": "--query adds TanStack Query and Devtools, shown only in development. A provider is integrated per framework; in Astro, wrap each React island that uses queries yourself."
+            },
+            "motion": {
+              "name": "Motion for React",
+              "description": "--motion adds Motion for React with a prefers-reduced-motion fallback."
+            }
+          }
+        }
       }
     }
   },

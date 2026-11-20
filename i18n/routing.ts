@@ -12,9 +12,14 @@ export const externalLinks = {
   astro: 'https://astro.build',
   github: 'https://github.com/C3SC0-V4113/Scaffold',
   linkedin: 'https://www.linkedin.com/in/francisco-jos%C3%A9-valle-cornejo/',
+  motion: 'https://motion.dev',
   nextjs: 'https://nextjs.org',
   personalWebsite: 'https://www.cescovalle.com/',
+  reactRouter: 'https://reactrouter.com',
   shadcn: 'https://ui.shadcn.com',
+  tailwind: 'https://tailwindcss.com',
+  tanstackQuery: 'https://tanstack.com/query',
+  vite: 'https://vite.dev',
 } as const;
 
 export const routing = defineRouting({

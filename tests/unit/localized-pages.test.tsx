@@ -108,10 +108,11 @@ describe('localized page rendering', () => {
     expect(githubNavbarLink.getAttribute('target')).toBe('_blank');
     expect(githubNavbarLink.getAttribute('rel')).toBe('noreferrer noopener');
     const main = screen.getByRole('main');
-    expect(within(main).getByRole('link', { name: 'shadcn/ui' }).getAttribute('href')).toBe(
+    const foundations = within(main).getByRole('list', { name: 'Foundations' });
+    expect(within(foundations).getByRole('link', { name: 'shadcn/ui' }).getAttribute('href')).toBe(
       'https://ui.shadcn.com'
     );
-    expect(within(main).getByRole('link', { name: 'Next.js' }).getAttribute('href')).toBe(
+    expect(within(foundations).getByRole('link', { name: 'Next.js' }).getAttribute('href')).toBe(
       'https://nextjs.org'
     );
     expect(within(navigation).queryByRole('link', { name: 'shadcn/ui' })).toBeNull();
