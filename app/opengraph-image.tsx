@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og';
 import { SeoCatMark } from '@/components/seo/seo-cat-mark';
 import { brandColors, siteName } from '@/lib/site';
 
-export const alt = 'Purrfold cat brand card for agent-ready Next.js project scaffolding';
+export const alt = 'Purrfold cat brand card for agent-ready app scaffolding';
 
 export const size = {
   height: 630,
@@ -116,15 +116,13 @@ export default function OpenGraphImage() {
           </div>
           <div style={brandStackStyle}>
             <div style={brandTitleStyle}>{siteName}</div>
-            <div style={eyebrowStyle}>Agent-ready Next.js scaffolding</div>
+            <div style={eyebrowStyle}>Next.js · Astro · Vite · React Router</div>
           </div>
         </div>
 
-        <div style={headlineStyle}>The solid foundation for agent-ready Next.js projects</div>
+        <div style={headlineStyle}>Agent-ready app scaffolding</div>
 
-        <div style={descriptionStyle}>
-          Quality gates, agent rules, versioned docs, and a shadcn UI foundation.
-        </div>
+        <div style={descriptionStyle}>shadcn, quality tooling, and downloadable agent skills.</div>
       </div>
     </div>,
     size

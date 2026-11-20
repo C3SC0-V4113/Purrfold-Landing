@@ -16,7 +16,7 @@ declare const messages: {
         "agent": "Agent",
         "framework": "Framework",
         "cliCommand": "npx purrfold@latest <project-directory>",
-        "agentPrompt": "I want to scaffold a new {framework} app with purrfold. Run `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --ci --mcp` to set up the project with quality gates, testing, CI workflows, agent rules, and versioned {framework} guidance. After scaffolding, run `npm run check` to verify everything works.",
+        "agentPrompt": "I want to scaffold a new {framework} app with purrfold. Run `npx purrfold@latest my-app{frameworkFlag} --yes --unit --e2e --commitlint --ci --mcp` to set up the project with quality gates, testing, CI workflows, agent rules, and {framework}-specific guidance. Add `--query` (TanStack Query) or `--motion` only if the app needs them; they are opt-in. After scaffolding, run `npm run check` to verify everything works.",
         "copyButton": "Copy",
         "copied": "Copied!",
         "copyFailed": "Copy failed. Please try again."
@@ -138,7 +138,7 @@ declare const messages: {
   },
   "Metadata": {
     "site": {
-      "description": "Agent-first scaffolding for Next.js, Astro, Vite, and React Router apps with quality gates, agent rules, versioned docs, and a shadcn UI baseline.",
+      "description": "Purrfold scaffolds Next.js, Astro, Vite, and React Router apps with shadcn, quality tooling, and downloadable agent skills from skills.sh.",
       "keywords": [
         "Purrfold",
         "agent-first scaffolding",
@@ -146,9 +146,14 @@ declare const messages: {
         "Astro starter",
         "shadcn UI",
         "quality gates",
-        "AI coding agents"
+        "AI coding agents",
+        "Vite scaffold",
+        "React Router scaffold",
+        "TanStack Query",
+        "agent skills",
+        "skills.sh"
       ],
-      "ogAlt": "Purrfold cat brand card for agent-first project scaffolding"
+      "ogAlt": "Purrfold cat brand card for agent-ready app scaffolding"
     },
     "ecosystem": {
       "description": "Explore the shadcn UI foundation and compatible community resources around Purrfold's agent-first project workflow.",
@@ -156,38 +161,59 @@ declare const messages: {
       "title": "Connected ecosystem"
     },
     "home": {
-      "description": "Purrfold helps teams scaffold agent-ready Next.js, Astro, Vite, and React Router projects with quality gates, AGENTS/CLAUDE rules, versioned docs, and a clean shadcn UI foundation.",
+      "description": "Purrfold scaffolds agent-ready Next.js, Astro, Vite, and React Router projects with shadcn, quality gates, agent skills from skills.sh, and framework guidance.",
       "keywords": [
         "project scaffolding",
         "agent-driven development",
         "AI agents",
-        "developer tooling"
+        "developer tooling",
+        "Vite scaffold",
+        "React Router scaffold",
+        "TanStack Query",
+        "agent skills",
+        "skills.sh"
       ],
       "title": "Agent-first project scaffolding"
     },
     "install": {
-      "description": "Install Purrfold from the CLI or an agent prompt and configure testing, commit hygiene, shadcn MCP, package manager, and preset options.",
+      "description": "Install Purrfold to scaffold Next.js, Astro, Vite, or React Router apps. Configure unit and E2E tests, commit hygiene, shadcn MCP, optional --ci workflows, package manager, and presets.",
       "keywords": [
         "Purrfold CLI",
         "install Purrfold",
         "Next.js scaffold",
         "Astro scaffold",
-        "shadcn preset"
+        "shadcn preset",
+        "Vite scaffold",
+        "React Router scaffold",
+        "--ci"
       ],
       "title": "Install Purrfold"
     },
     "quality": {
-      "description": "Review the linting, formatting, type checking, React diagnostics, tests, and browser signals that make Purrfold installs trustworthy.",
-      "keywords": ["quality gates", "React Doctor", "React Scan", "Vitest", "Playwright"],
+      "description": "Review quality tooling for Next.js, Astro, Vite, and React Router scaffolds, including linting, formatting, type checking, tests, browser checks, and optional --ci workflows.",
+      "keywords": [
+        "quality gates",
+        "React Doctor",
+        "React Scan",
+        "Vitest",
+        "Playwright",
+        "Vite scaffold",
+        "React Router scaffold",
+        "--ci"
+      ],
       "title": "Quality signals"
     },
     "skills": {
-      "description": "Understand the scaffold skills, agent rules, and current Next.js workflow skills that guide Purrfold projects.",
+      "description": "Review framework and project agent skills downloaded from skills.sh for Next.js, Astro, Vite, and React Router scaffolds.",
       "keywords": [
         "agent guidance",
         "Codex skills",
         "Next.js workflow skills",
-        "versioned Next.js docs"
+        "versioned Next.js docs",
+        "skills.sh",
+        "agent skills",
+        "Vite scaffold",
+        "React Router scaffold"
       ],
       "title": "Skill surface"
     }

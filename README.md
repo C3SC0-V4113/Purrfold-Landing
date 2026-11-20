@@ -1,6 +1,6 @@
 # Purrfold landing
 
-Localized Next.js 16 landing hub for explaining how Purrfold scaffolds a project, which skills it selects, which quality tools it installs, and which UI resources shape its ecosystem.
+Localized Next.js 16 landing hub for Purrfold, the CLI that scaffolds Next.js, Astro, Vite, and React Router apps with shadcn, quality tooling, and agent skills downloaded from skills.sh.
 
 ## Quick start
 
@@ -10,6 +10,13 @@ npm run dev
 ```
 
 Open `http://localhost:3000/en` or `http://localhost:3000/es`. The root route is redirect-only and negotiates the locale through `proxy.ts`.
+
+Purrfold defaults to Next.js with unit tests enabled. Select another framework explicitly or opt into CI, TanStack Query, and Motion as needed:
+
+```bash
+npx purrfold@latest my-app --framework vite --yes --unit --ci
+npx purrfold@latest my-app --framework react-router --yes --query --motion
+```
 
 ## Public routes
 
