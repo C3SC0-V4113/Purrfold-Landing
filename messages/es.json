@@ -291,7 +291,7 @@
         "items": [
           {
             "flag": "--framework <next|astro|vite|react-router>",
-            "description": "Elegir el framework a generar (por defecto next)"
+            "description": "Elegir el framework a generar (se pregunta; next es la opción por defecto)"
           },
           {
             "flag": "--router <react-router-data|react-router-declarative|none>",
@@ -303,23 +303,23 @@
           },
           {
             "flag": "--adapter <node|vercel|netlify|cloudflare>",
-            "description": "Solo Astro: adaptador SSR cuando el SSR está activo (por defecto cloudflare)"
+            "description": "Solo Astro: elegir un adaptador SSR; implica SSR (por defecto cloudflare)"
           },
           {
             "flag": "--pm <npm|pnpm|bun>",
-            "description": "Elegir el administrador de paquetes (Astro no admite bun)"
+            "description": "Elegir el administrador de paquetes (se pregunta; con --yes, detecta npm, pnpm o bun y usa npm si falla la detección; Astro rechaza bun)"
           },
           {
             "flag": "--unit / --no-unit",
-            "description": "Incluir u omitir Vitest + React Testing Library"
+            "description": "Incluir u omitir Vitest + React Testing Library (incluido por defecto)"
           },
           {
             "flag": "--e2e / --no-e2e",
-            "description": "Incluir u omitir Playwright"
+            "description": "Incluir u omitir Playwright (omitido por defecto)"
           },
           {
             "flag": "--commitlint / --no-commitlint",
-            "description": "Incluir u omitir commitlint y el hook commit-msg (Husky siempre se instala)"
+            "description": "Incluir u omitir commitlint y el hook commit-msg (omitido por defecto; los hooks estándar se generan en cualquier caso)"
           },
           {
             "flag": "--ci / --no-ci",
@@ -335,7 +335,7 @@
           },
           {
             "flag": "--mcp / --no-mcp",
-            "description": "Instalar shadcn MCP para Claude, Codex y OpenCode"
+            "description": "Ejecutar shadcn mcp init para Claude, Codex y OpenCode (omitido por defecto)"
           },
           {
             "flag": "--shadcn-args <args...>",
@@ -343,7 +343,7 @@
           },
           {
             "flag": "--icons <lucide|phosphor|tabler>",
-            "description": "Librería de iconos fallback para el gato de la home"
+            "description": "Elegir la librería de iconos del gato de la página principal; si se omite, se usa la opción de shadcn cuando es compatible y, de lo contrario, lucide"
           },
           {
             "flag": "--yes",
@@ -351,11 +351,11 @@
           },
           {
             "flag": "--skip-install",
-            "description": "Generar archivos sin instalar dependencias extra"
+            "description": "Generar archivos de calidad sin instalar dependencias de calidad adicionales"
           },
           {
             "flag": "--dry-run",
-            "description": "Previsualizar operaciones sin escribir archivos"
+            "description": "Previsualizar operaciones sin escribir archivos ni instalar paquetes"
           }
         ]
       },

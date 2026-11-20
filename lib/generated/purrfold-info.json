@@ -1,6 +1,6 @@
 {
   "name": "purrfold",
-  "version": "0.11.2",
+  "version": "0.11.6",
   "description": "Scaffold a production-ready frontend app with shadcn, quality tooling, agent docs, and Claude hooks.",
   "install": "npx purrfold@latest <target-dir>",
   "options": [

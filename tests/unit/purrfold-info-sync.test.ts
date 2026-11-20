@@ -13,9 +13,16 @@ import info from '@/lib/generated/purrfold-info.json';
 import en from '@/messages/en.json';
 import es from '@/messages/es.json';
 
+import { enInstallMessages, esInstallMessages } from './fixtures/install-messages';
+
 // Every `--flag` token in a flags string, e.g. "--ssr / --no-ssr" -> ["--ssr", "--no-ssr"].
 function flagTokens(flags: string): string[] {
   return flags.split(/[\s<]/).filter((token) => token.startsWith('--'));
+}
+
+function choices(flags: string): string[] {
+  const values = flags.match(/<([^>]*\|[^>]*)>/)?.[1];
+  return values ? values.split('|').sort() : [];
 }
 
 const cliFlags = new Set(info.options.flatMap((option) => flagTokens(option.flags)));
@@ -30,6 +37,22 @@ describe('landing content tracks `purrfold info --json`', () => {
     );
 
     expect([...documented].sort()).toEqual([...cliFlags].sort());
+  });
+
+  it.each([
+    ['en', en, enInstallMessages],
+    ['es', es, esInstallMessages],
+  ])('keeps the reference fixture and CLI choices in sync (%s)', (_locale, messages, fixture) => {
+    const items = messages.Pages.install.flagsReference.items;
+    expect(fixture.flagsReference.items).toEqual(items);
+
+    for (const item of items) {
+      for (const flag of flagTokens(item.flag)) {
+        const option = info.options.find((entry) => flagTokens(entry.flags).includes(flag));
+        expect(option, `Missing snapshot option for ${flag}`).toBeDefined();
+        expect(choices(item.flag), `Choices for ${flag}`).toEqual(choices(option?.flags ?? ''));
+      }
+    }
   });
 
   it('offers every framework the CLI scaffolds', () => {

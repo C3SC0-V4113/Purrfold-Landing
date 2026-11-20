@@ -294,7 +294,7 @@ declare const messages: {
         "items": [
           {
             "flag": "--framework <next|astro|vite|react-router>",
-            "description": "Choose the framework to scaffold (default next)"
+            "description": "Choose the framework to scaffold (prompts, with next as the default)"
           },
           {
             "flag": "--router <react-router-data|react-router-declarative|none>",
@@ -306,23 +306,23 @@ declare const messages: {
           },
           {
             "flag": "--adapter <node|vercel|netlify|cloudflare>",
-            "description": "Astro only: SSR adapter when SSR is enabled (default cloudflare)"
+            "description": "Astro only: choose an SSR adapter; implies SSR (default cloudflare)"
           },
           {
             "flag": "--pm <npm|pnpm|bun>",
-            "description": "Choose the package manager (Astro does not support bun)"
+            "description": "Choose the package manager (prompts; with --yes, detects npm, pnpm, or bun and falls back to npm if detection fails; Astro rejects bun)"
           },
           {
             "flag": "--unit / --no-unit",
-            "description": "Include or skip Vitest + React Testing Library"
+            "description": "Include or skip Vitest + React Testing Library (included by default)"
           },
           {
             "flag": "--e2e / --no-e2e",
-            "description": "Include or skip Playwright"
+            "description": "Include or skip Playwright (skipped by default)"
           },
           {
             "flag": "--commitlint / --no-commitlint",
-            "description": "Include or skip commitlint and the commit-msg hook (Husky is always installed)"
+            "description": "Include or skip commitlint and the commit-msg hook (skipped by default; standard hooks are generated regardless)"
           },
           {
             "flag": "--ci / --no-ci",
@@ -338,7 +338,7 @@ declare const messages: {
           },
           {
             "flag": "--mcp / --no-mcp",
-            "description": "Install shadcn MCP for Claude, Codex, and OpenCode"
+            "description": "Run shadcn mcp init for Claude, Codex, and OpenCode (skipped by default)"
           },
           {
             "flag": "--shadcn-args <args...>",
@@ -346,7 +346,7 @@ declare const messages: {
           },
           {
             "flag": "--icons <lucide|phosphor|tabler>",
-            "description": "Fallback icon library for the home-page cat"
+            "description": "Override the home-page cat's icon library; when omitted, use shadcn's choice if supported, otherwise lucide"
           },
           {
             "flag": "--yes",
@@ -354,11 +354,11 @@ declare const messages: {
           },
           {
             "flag": "--skip-install",
-            "description": "Generate files without installing extra dependencies"
+            "description": "Generate quality files without installing extra quality dependencies"
           },
           {
             "flag": "--dry-run",
-            "description": "Preview operations without writing files"
+            "description": "Preview operations without writing files or installing packages"
           }
         ]
       },
