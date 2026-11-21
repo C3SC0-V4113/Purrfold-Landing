@@ -1,32 +1,46 @@
 import { Badge } from '@/components/ui/badge';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro' | 'motion';
+export type SkillSource =
+  | 'purrfold'
+  | 'skills-sh'
+  | 'react-doctor'
+  | 'nextjs'
+  | 'astro'
+  | 'react-router'
+  | 'motion'
+  | 'query';
 
 export type SkillSourceLabels = {
-  local: string;
+  purrfold: string;
   skillsSh: string;
   reactDoctor: string;
   nextjs: string;
   astro: string;
+  reactRouter: string;
   motion: string;
+  query: string;
 };
 
 const variantBySource: Record<SkillSource, 'default' | 'secondary' | 'outline'> = {
-  local: 'default',
+  purrfold: 'default',
   'skills-sh': 'secondary',
   nextjs: 'secondary',
   astro: 'secondary',
+  'react-router': 'secondary',
   motion: 'outline',
+  query: 'outline',
   'react-doctor': 'outline',
 };
 
 const labelKeyBySource: Record<SkillSource, keyof SkillSourceLabels> = {
-  local: 'local',
+  purrfold: 'purrfold',
   'skills-sh': 'skillsSh',
   'react-doctor': 'reactDoctor',
   nextjs: 'nextjs',
   astro: 'astro',
+  'react-router': 'reactRouter',
   motion: 'motion',
+  query: 'query',
 };
 
 type SkillSourceBadgeProps = {

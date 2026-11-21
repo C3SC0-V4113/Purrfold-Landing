@@ -36,25 +36,39 @@ function assertQualityPage(locale: 'en' | 'es') {
     messages.sections.runtimeInsight.title,
   ]);
 
-  expect(screen.getAllByText(messages.badges.default)).toHaveLength(6);
-  expect(screen.getAllByText(messages.badges.optional)).toHaveLength(3);
+  expect(screen.getAllByText(messages.badges.default)).toHaveLength(9);
+  expect(screen.getAllByText(messages.badges.optional)).toHaveLength(4);
   expect(screen.getByText('--unit')).toBeDefined();
   expect(screen.getByText('--commitlint')).toBeDefined();
   expect(screen.getByText('--e2e')).toBeDefined();
+  expect(screen.getByText('--ci')).toBeDefined();
 
-  const officialDocs = screen.getAllByRole('link', { name: messages.linkLabel });
-  expect(officialDocs).toHaveLength(9);
-  expect(officialDocs.map((link) => link.getAttribute('href'))).toEqual([
-    'https://www.react.doctor/',
-    'https://react-scan.com/',
-    'https://eslint.org',
-    'https://prettier.io',
-    'https://typicode.github.io/husky',
-    'https://commitlint.js.org',
-    'https://vitest.dev',
-    'https://playwright.dev',
-    'https://www.typescriptlang.org',
-  ]);
+  const officialDocs = screen.getAllByRole('link');
+  expect(officialDocs).toHaveLength(13);
+  const toolIds = Object.keys(messages.tools) as Array<keyof typeof messages.tools>;
+  for (const toolId of toolIds) {
+    const tool = messages.tools[toolId];
+    const toolLink = screen.getByRole('link', { name: `${messages.linkLabel}: ${tool.name}` });
+    expect(toolLink.getAttribute('href')).toBe(
+      (
+        {
+          'react-doctor': 'https://www.react.doctor/',
+          'react-scan': 'https://react-scan.com/',
+          'shadcn-lint': 'https://ui.shadcn.com',
+          'claude-hooks': 'https://docs.anthropic.com/en/docs/claude-code/hooks',
+          eslint: 'https://eslint.org',
+          prettier: 'https://prettier.io',
+          husky: 'https://typicode.github.io/husky',
+          'lint-staged': 'https://github.com/lint-staged/lint-staged',
+          commitlint: 'https://commitlint.js.org',
+          vitest: 'https://vitest.dev',
+          playwright: 'https://playwright.dev',
+          'github-actions': 'https://docs.github.com/actions',
+          typescript: 'https://www.typescriptlang.org',
+        } as const
+      )[toolId]
+    );
+  }
 
   officialDocs.forEach((link) => {
     expect(link.getAttribute('target')).toBe('_blank');

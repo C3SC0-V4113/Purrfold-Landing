@@ -133,3 +133,30 @@ test('renders the Spanish install page with localized content', async ({ page })
     )
   ).toBeVisible();
 });
+
+test('builds Vite and React Router commands with their own options', async ({ page }) => {
+  await page.goto('/en/install');
+
+  await page.getByRole('combobox', { name: 'Framework' }).click();
+  await page.getByRole('option', { name: 'Vite' }).click();
+  await page.getByRole('button', { name: 'Configure flags' }).click();
+  await page.getByRole('combobox', { name: 'Vite router' }).click();
+  await page.getByRole('option', { name: 'No router' }).click();
+
+  await expect(
+    page.getByText(
+      'npx purrfold@latest <project-directory> --framework vite --router none --unit --no-e2e --no-commitlint --no-ci --no-mcp --yes --shadcn-args --preset b0'
+    )
+  ).toBeVisible();
+
+  await page.getByRole('combobox', { name: 'Framework' }).click();
+  await page.getByRole('option', { name: 'React Router' }).click();
+  await page.getByRole('checkbox', { name: 'Server rendering (SSR)' }).click();
+  await page.getByRole('checkbox', { name: 'TanStack Query (tanstack-query skill)' }).click();
+
+  await expect(
+    page.getByText(
+      'npx purrfold@latest <project-directory> --framework react-router --no-ssr --unit --no-e2e --no-commitlint --no-ci --no-mcp --query --yes --shadcn-args --preset b0'
+    )
+  ).toBeVisible();
+});

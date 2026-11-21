@@ -4,6 +4,7 @@ import {
   buildAgentPrompt,
   buildCliCommand,
   defaultFlags,
+  withFramework,
   type FlagState,
 } from '@/lib/build-command';
 
@@ -151,6 +152,7 @@ describe('buildAgentPrompt', () => {
         '- GitHub Actions workflows: skip — pass --no-ci',
         '- shadcn MCP: skip — pass --no-mcp',
         '- Motion for React (motion-framer skill): skip — do not pass --motion',
+        '- TanStack Query (tanstack-query skill): skip — do not pass --query',
         '- Non-interactive mode: include — pass --yes',
         '- Framework: Next.js — default, no flag needed',
         '- Package manager: npm — default, no flag needed',
@@ -248,7 +250,7 @@ describe('buildAgentPrompt', () => {
 
     expect(prompt).toContain('Scaffold a new Astro app with purrfold');
     expect(prompt).toContain('- Framework: Astro — pass --framework astro');
-    expect(prompt).toContain('- Astro rendering: SSR (server rendering) — pass --ssr');
+    expect(prompt).toContain('- Rendering: SSR (server rendering) — pass --ssr');
     expect(prompt).toContain('- Astro SSR adapter: node — pass --adapter node');
   });
 
@@ -265,7 +267,7 @@ describe('buildAgentPrompt', () => {
   it('names the static build for astro without SSR and omits the adapter line', () => {
     const prompt = buildAgentPrompt(buildFlags({ framework: 'astro', ssr: false }), enOutput);
 
-    expect(prompt).toContain('- Astro rendering: static build — default, no flag needed');
+    expect(prompt).toContain('- Rendering: static build — default, no flag needed');
     expect(prompt).not.toContain(enOutput.agentLabelAdapter);
   });
 
@@ -305,5 +307,49 @@ describe('buildAgentPrompt', () => {
     expect(buildAgentPrompt(buildFlags({ motion: false }), enOutput)).toContain(
       '- Motion for React (motion-framer skill): skip — do not pass --motion'
     );
+  });
+});
+
+describe('frameworks added in purrfold 0.9–0.11', () => {
+  const base = 'npx purrfold@latest my-app';
+
+  it('passes --framework vite and keeps the default data router implicit', () => {
+    const command = buildCliCommand(withFramework(defaultFlags, 'vite'), base);
+
+    expect(command).toContain('--framework vite');
+    expect(command).not.toContain('--router');
+  });
+
+  it('passes a non-default Vite router mode', () => {
+    const flags = { ...withFramework(defaultFlags, 'vite'), router: 'none' as const };
+
+    expect(buildCliCommand(flags, base)).toContain('--router none');
+    expect(buildAgentPrompt(flags, enOutput)).toContain(
+      '- Vite router: No router — pass --router none'
+    );
+  });
+
+  it('keeps React Router SSR implicit and passes --no-ssr for prerendering', () => {
+    const ssr = withFramework(defaultFlags, 'react-router');
+
+    expect(ssr.ssr).toBe(true);
+    expect(buildCliCommand(ssr, base)).not.toContain('ssr');
+    expect(buildCliCommand({ ...ssr, ssr: false }, base)).toContain('--no-ssr');
+    expect(buildAgentPrompt({ ...ssr, ssr: false }, enOutput)).toContain(
+      '- Rendering: prerendered (static) — pass --no-ssr'
+    );
+  });
+
+  it('resets SSR and the package manager when switching frameworks', () => {
+    const astro = withFramework({ ...defaultFlags, pm: 'bun', ssr: true }, 'astro');
+
+    expect(astro.pm).toBe('npm');
+    expect(astro.ssr).toBe(false);
+    expect(withFramework({ ...defaultFlags, pm: 'bun' }, 'vite').pm).toBe('bun');
+  });
+
+  it('adds --query only when TanStack Query is enabled', () => {
+    expect(buildCliCommand({ ...defaultFlags, query: true }, base)).toContain('--query');
+    expect(buildCliCommand(defaultFlags, base)).not.toContain('--query');
   });
 });

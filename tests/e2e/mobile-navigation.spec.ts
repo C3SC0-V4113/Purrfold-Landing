@@ -39,12 +39,14 @@ test('keeps GitHub in the navbar and moves framework links to the home foundatio
 
   await page.getByRole('button', { name: 'Close menu' }).click();
 
-  const main = page.getByRole('main');
-  await expect(main.getByRole('link', { name: 'shadcn' })).toHaveAttribute(
+  const foundations = page
+    .getByRole('main')
+    .getByRole('list', { name: 'Foundations', exact: true });
+  await expect(foundations.getByRole('link', { name: 'shadcn' })).toHaveAttribute(
     'href',
     'https://ui.shadcn.com'
   );
-  await expect(main.getByRole('link', { name: 'Next.js' })).toHaveAttribute(
+  await expect(foundations.getByRole('link', { name: 'Next.js' })).toHaveAttribute(
     'href',
     'https://nextjs.org'
   );

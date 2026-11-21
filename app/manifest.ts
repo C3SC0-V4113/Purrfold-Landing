@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     background_color: brandColors.background,
     description:
-      'Agent-ready Next.js project scaffolding with quality gates, agent rules, versioned docs, and a shadcn UI foundation.',
+      'Scaffold Next.js, Astro, Vite, and React Router apps with shadcn, quality tooling, and agent skills from skills.sh.',
     display: 'standalone',
     icons: [
       {

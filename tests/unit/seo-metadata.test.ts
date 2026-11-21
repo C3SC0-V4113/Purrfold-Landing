@@ -22,10 +22,20 @@ describe('SEO metadata foundation', () => {
     const metadata = await buildPageMetadata('en', '/install');
 
     expect(metadata.title).toBe('Install Purrfold');
-    expect(metadata.description).toContain('Install Purrfold from the CLI');
+    expect(metadata.description).toContain('scaffold Next.js, Astro, Vite, or React Router apps');
     expect(metadata.keywords).toEqual(
-      expect.arrayContaining(['Purrfold', 'Purrfold CLI', 'shadcn UI'])
+      expect.arrayContaining([
+        'Purrfold',
+        'Purrfold CLI',
+        'shadcn UI',
+        'Vite scaffold',
+        'React Router scaffold',
+        'TanStack Query',
+        'agent skills',
+        'skills.sh',
+      ])
     );
+    expect(metadata.description).toContain('--ci workflows');
     expect(metadata.alternates).toEqual({
       canonical: '/en/install',
       languages: {
@@ -43,7 +53,7 @@ describe('SEO metadata foundation', () => {
     });
     expect(metadata.openGraph?.images).toEqual([
       {
-        alt: 'Purrfold cat brand card for agent-first project scaffolding',
+        alt: 'Purrfold cat brand card for agent-ready app scaffolding',
         height: 630,
         url: '/opengraph-image',
         width: 1200,
@@ -65,9 +75,18 @@ describe('SEO metadata foundation', () => {
     const metadata = await buildPageMetadata('es', '/');
 
     expect(metadata.title).toBe('Scaffolding de proyectos para agentes');
-    expect(metadata.description).toContain('Purrfold ayuda a generar proyectos');
+    expect(metadata.description).toContain('Purrfold genera proyectos');
     expect(metadata.keywords).toEqual(
-      expect.arrayContaining(['Purrfold', 'scaffolding para agentes', 'desarrollo con agentes'])
+      expect.arrayContaining([
+        'Purrfold',
+        'scaffolding para agentes',
+        'desarrollo con agentes',
+        'scaffold de Vite',
+        'scaffold de React Router',
+        'TanStack Query',
+        'skills para agentes',
+        'skills.sh',
+      ])
     );
     expect(metadata.openGraph).toMatchObject({
       alternateLocale: ['en_US'],
@@ -75,6 +94,18 @@ describe('SEO metadata foundation', () => {
       title: 'Scaffolding de proyectos para agentes | Purrfold',
       url: '/es',
     });
+  });
+
+  it('describes current framework coverage, skills.sh, and optional CI in page metadata', async () => {
+    const [skills, quality] = await Promise.all([
+      buildPageMetadata('en', '/skills'),
+      buildPageMetadata('en', '/quality'),
+    ]);
+
+    expect(skills.description).toContain('skills.sh');
+    expect(skills.description).toContain('Next.js, Astro, Vite, and React Router');
+    expect(quality.description).toContain('Next.js, Astro, Vite, and React Router');
+    expect(quality.description).toContain('--ci workflows');
   });
 
   it('generates robots and manifest from the shared site contract', () => {
@@ -89,12 +120,14 @@ describe('SEO metadata foundation', () => {
 
     expect(manifest()).toMatchObject({
       background_color: brandColors.background,
+      description: expect.stringContaining('Next.js, Astro, Vite, and React Router'),
       display: 'standalone',
       name: siteName,
       short_name: siteName,
       start_url: '/en',
       theme_color: brandColors.primary,
     });
+    expect(manifest().description).toContain('skills from skills.sh');
     expect(manifest().icons).toEqual([
       {
         sizes: '32x32',
@@ -122,6 +155,16 @@ describe('SEO metadata foundation', () => {
     }
 
     expect(readProjectFile('components/seo/seo-cat-mark.tsx')).toContain('SeoCatMark');
+    const ogImage = readProjectFile('app/opengraph-image.tsx');
+    expect(ogImage).toContain('Next.js · Astro · Vite · React Router');
+    expect(ogImage).toContain('Agent-ready app scaffolding');
+
+    for (const relativePath of ['app/layout.tsx', 'app/manifest.ts']) {
+      const metadataSource = readProjectFile(relativePath);
+      expect(metadataSource).toContain('Next.js, Astro, Vite, and React Router');
+      expect(metadataSource).toContain('quality tooling');
+      expect(metadataSource).toContain('skills.sh');
+    }
 
     const icon = readProjectFile('app/icon.tsx');
     const appleIcon = readProjectFile('app/apple-icon.tsx');

@@ -1,7 +1,7 @@
 ﻿import { expect, test } from '@playwright/test';
 
 const agentPrompt =
-  'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --ci --mcp` to set up the project with quality gates, testing, CI workflows, agent rules, and versioned Next.js guidance. After scaffolding, run `npm run check` to verify everything works.';
+  'I want to scaffold a new Next.js app with purrfold. Run `npx purrfold@latest my-app --yes --unit --e2e --commitlint --ci --mcp` to set up the project with quality gates, testing, CI workflows, agent rules, and Next.js-specific guidance. Add `--query` (TanStack Query) or `--motion` only if the app needs them; they are opt-in. After scaffolding, run `npm run check` to verify everything works.';
 
 test('switches between CLI and Agent tabs on the English home', async ({ page }) => {
   await page.goto('/en');
@@ -37,6 +37,28 @@ test('copies the active tab content to the clipboard', async ({ page, context, b
   expect(agentClipboardText).toContain('I want to scaffold a new Next.js app with purrfold');
 });
 
+test('copies the Spanish Astro agent prompt with framework and opt-in details', async ({
+  page,
+  context,
+  browserName,
+}) => {
+  test.skip(browserName !== 'chromium', 'Clipboard permissions are only supported in Chromium');
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/es');
+
+  await page.getByRole('combobox', { name: 'Framework' }).click();
+  await page.getByRole('option', { name: 'Astro' }).click();
+  await page.getByRole('tab', { name: 'Agente' }).click();
+  await page.getByRole('button', { name: 'Copy' }).first().click();
+
+  const agentClipboardText = await page.evaluate(async () => navigator.clipboard.readText());
+  expect(agentClipboardText).toContain('--framework astro');
+  expect(agentClipboardText).toContain('guía específica de Astro');
+  expect(agentClipboardText).toContain(
+    '`--query` (TanStack Query) o `--motion` solo si la app los necesita; son opcionales.'
+  );
+});
+
 test('summary cards link to localized deep routes', async ({ page }) => {
   await page.goto('/en');
 
@@ -69,4 +91,18 @@ test('renders bilingual Spanish hub content', async ({ page }) => {
   await expect(page.getByText('npx purrfold@latest <directorio-del-proyecto>')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Hoja de ruta' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Bases' })).toBeVisible();
+});
+
+test('wraps the Spanish roadmap cards without horizontal overflow at 640px', async ({ page }) => {
+  await page.setViewportSize({ width: 640, height: 900 });
+  await page.goto('/es');
+
+  const roadmap = page.getByRole('list', { name: 'Hoja de ruta' });
+  await expect(roadmap.getByRole('listitem')).toHaveCount(6);
+  await expect
+    .poll(() =>
+      roadmap.evaluate((list) => getComputedStyle(list).gridTemplateColumns.split(' ').length)
+    )
+    .toBe(2);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(640);
 });

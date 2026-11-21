@@ -1,101 +1,75 @@
-import skillsLock from '../../skills-lock.json';
+import type { SkillSource } from '@/components/skills/skill-source-badge';
 
-export type SkillSource = 'local' | 'skills-sh' | 'react-doctor' | 'nextjs' | 'astro' | 'motion';
+export type { SkillSource };
 export type SkillCategory = 'architecture' | 'framework' | 'quality' | 'typescript';
+type InstallSource = `${string}/${string}`;
 
 export type SkillEntry = {
   id: string;
   category: SkillCategory;
   source: SkillSource;
-  href?: string;
+  installSource: InstallSource;
+  href: string;
 };
 
-type SkillsLock = {
-  skills: Record<string, { source: string; skillPath: string }>;
-};
+function skill(
+  id: string,
+  category: SkillCategory,
+  source: SkillSource,
+  installSource: InstallSource
+): SkillEntry {
+  return { id, category, source, installSource, href: `https://skills.sh/${installSource}/${id}` };
+}
 
-const skillsLockData = skillsLock as SkillsLock;
-const skillsLockIds = new Set(Object.keys(skillsLockData.skills));
-
-const buildSkillsShHref = (skillId: string) => {
-  const entry = skillsLockData.skills[skillId];
-
-  if (!entry) return undefined;
-
-  const slug = entry.skillPath.includes('/') ? entry.skillPath.split('/').at(-2) : undefined;
-
-  return `https://www.skills.sh/${entry.source}/${slug ?? ''}`.replace(/\/$/, '');
-};
-
-const baseCatalog = [
-  { id: 'architecture-decision-records', category: 'architecture' },
-  { id: 'decision-doc-sync', category: 'architecture' },
-  { id: 'project-architecture', category: 'architecture' },
-  { id: 'shadcn-component-boundaries', category: 'architecture' },
-  { id: 'vercel-composition-patterns', category: 'architecture' },
-  { id: 'shadcn', category: 'framework' },
-  { id: 'vercel-react-best-practices', category: 'framework' },
-  { id: 'playwright-best-practices', category: 'quality' },
-  { id: 'playwright-cli', category: 'quality' },
-  { id: 'project-min-evaluation', category: 'quality' },
-  { id: 'react-doctor', category: 'quality' },
-  { id: 'systematic-debugging', category: 'quality' },
-  { id: 'verification-before-completion', category: 'quality' },
-  { id: 'vitest', category: 'quality' },
-  { id: 'typescript-advanced-types', category: 'typescript' },
-] as const;
-
-const nextjsSkillsHref = 'https://github.com/vercel/next.js/tree/canary/skills';
-
-const nextjsWorkflowSkills = [
-  { id: 'next-cache-components-adoption', category: 'framework' },
-  { id: 'next-cache-components-optimizer', category: 'framework' },
-  { id: 'next-dev-loop', category: 'framework' },
-] as const;
-
-export const nextjsWorkflowSkillCatalog: SkillEntry[] = nextjsWorkflowSkills.map((skill) => ({
-  id: skill.id,
-  category: skill.category,
-  source: 'nextjs',
-  href: `${nextjsSkillsHref}/${skill.id}`,
-}));
-
-// Astro ships a single framework-exclusive skill (from astrolicious/agent-skills).
-// It gets its own section like the Next.js workflow skills, so it lives outside
-// the general category catalog.
-export const astroSkillCatalog: SkillEntry[] = [
-  {
-    id: 'astro',
-    category: 'framework',
-    source: 'astro',
-    href: 'https://github.com/astrolicious/agent-skills',
-  },
-];
-
-// motion-framer is installed only with --motion; it renders in the Framework & UI
-// category with a "Requires --motion" badge (source 'motion').
-const motionFramerSkill: SkillEntry = {
-  id: 'motion-framer',
-  category: 'framework',
-  source: 'motion',
-  href: 'https://github.com/freshtechbro/claudedesignskills',
-};
+export function buildSkillInstallCommand({
+  installSource,
+  id,
+}: Pick<SkillEntry, 'installSource' | 'id'>): string {
+  return `npx skills add ${installSource} --skill ${id}`;
+}
 
 export const skillCatalog: SkillEntry[] = [
-  ...baseCatalog.map((skill): SkillEntry => {
-    const source: SkillSource =
-      skill.id === 'react-doctor'
-        ? 'react-doctor'
-        : skillsLockIds.has(skill.id)
-          ? 'skills-sh'
-          : 'local';
-
-    return {
-      id: skill.id,
-      category: skill.category,
-      source,
-      href: source === 'skills-sh' ? buildSkillsShHref(skill.id) : undefined,
-    };
-  }),
-  motionFramerSkill,
+  skill('architecture-decision-records', 'architecture', 'skills-sh', 'wshobson/agents'),
+  skill('decision-doc-sync', 'architecture', 'purrfold', 'C3SC0-V4113/Scaffold'),
+  skill('project-architecture', 'architecture', 'purrfold', 'C3SC0-V4113/Scaffold'),
+  skill('shadcn-component-boundaries', 'architecture', 'purrfold', 'C3SC0-V4113/Scaffold'),
+  skill('vercel-composition-patterns', 'architecture', 'skills-sh', 'vercel-labs/agent-skills'),
+  skill('shadcn', 'framework', 'skills-sh', 'shadcn/ui'),
+  skill('vercel-react-best-practices', 'framework', 'skills-sh', 'vercel-labs/agent-skills'),
+  skill(
+    'playwright-best-practices',
+    'quality',
+    'skills-sh',
+    'currents-dev/playwright-best-practices-skill'
+  ),
+  skill('playwright-cli', 'quality', 'skills-sh', 'microsoft/playwright-cli'),
+  skill('project-min-evaluation', 'quality', 'purrfold', 'C3SC0-V4113/Scaffold'),
+  skill('react-doctor', 'quality', 'react-doctor', 'millionco/react-doctor'),
+  skill('systematic-debugging', 'quality', 'skills-sh', 'obra/superpowers'),
+  skill('verification-before-completion', 'quality', 'skills-sh', 'obra/superpowers'),
+  skill('vitest', 'quality', 'skills-sh', 'pproenca/dot-skills'),
+  skill('typescript-advanced-types', 'typescript', 'skills-sh', 'wshobson/agents'),
+  skill('motion-framer', 'framework', 'motion', 'freshtechbro/claudedesignskills'),
+  skill('tanstack-query', 'framework', 'query', 'pproenca/dot-skills'),
 ];
+
+export const nextjsWorkflowSkillCatalog: SkillEntry[] = [
+  skill('next-cache-components-adoption', 'framework', 'nextjs', 'vercel/next.js'),
+  skill('next-cache-components-optimizer', 'framework', 'nextjs', 'vercel/next.js'),
+  skill('next-dev-loop', 'framework', 'nextjs', 'vercel/next.js'),
+];
+
+export const astroSkillCatalog: SkillEntry[] = [
+  skill('astro', 'framework', 'astro', 'astrolicious/agent-skills'),
+];
+
+export const reactRouterSkillCatalog: SkillEntry[] = [
+  skill('react-router', 'framework', 'react-router', 'remix-run/react-router'),
+];
+
+/** Every skill purrfold can install, across frameworks and opt-in features. */
+export const allSkillsCount =
+  skillCatalog.length +
+  nextjsWorkflowSkillCatalog.length +
+  astroSkillCatalog.length +
+  reactRouterSkillCatalog.length;

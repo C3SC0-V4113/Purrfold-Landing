@@ -4,7 +4,12 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { ecosystemResources } from '@/components/ecosystem/ecosystem-catalog';
 import { SummaryCards } from '@/components/home/summary-cards';
 import { qualityTools } from '@/components/quality/quality-catalog';
-import { astroSkillCatalog, skillCatalog } from '@/components/skills/skills-catalog';
+import {
+  allSkillsCount,
+  astroSkillCatalog,
+  nextjsWorkflowSkillCatalog,
+  reactRouterSkillCatalog,
+} from '@/components/skills/skills-catalog';
 import { getMessages } from '@/i18n/messages';
 
 describe('SummaryCards', () => {
@@ -35,9 +40,15 @@ describe('SummaryCards', () => {
         `${messages.Pages.install.flagsReference.items.length} ${cards.metrics.flags}`
       )
     ).toBeDefined();
-    expect(screen.getByText(`${skillCatalog.length} ${cards.metrics.skills}`)).toBeDefined();
+    expect(screen.getByText(`${allSkillsCount} ${cards.metrics.skills}`)).toBeDefined();
     expect(
-      screen.getByText(`${astroSkillCatalog.length} ${cards.metrics.astroSkills}`)
+      screen.getByText(
+        `${
+          nextjsWorkflowSkillCatalog.length +
+          astroSkillCatalog.length +
+          reactRouterSkillCatalog.length
+        } ${cards.metrics.frameworkSkills}`
+      )
     ).toBeDefined();
     expect(
       screen.getByText(

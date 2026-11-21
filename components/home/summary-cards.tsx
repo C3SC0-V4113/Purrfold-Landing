@@ -4,9 +4,10 @@ import { ecosystemResources } from '@/components/ecosystem/ecosystem-catalog';
 import { PremiumCard } from '@/components/motion/premium-card';
 import { qualityTools } from '@/components/quality/quality-catalog';
 import {
+  allSkillsCount,
   astroSkillCatalog,
   nextjsWorkflowSkillCatalog,
-  skillCatalog,
+  reactRouterSkillCatalog,
 } from '@/components/skills/skills-catalog';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
@@ -70,9 +71,8 @@ export function SummaryCards({ locale }: SummarySectionProps) {
     },
     skills: {
       badges: [
-        `${skillCatalog.length} ${t.metrics.skills}`,
-        `${nextjsWorkflowSkillCatalog.length} ${t.metrics.nextjsSkills}`,
-        `${astroSkillCatalog.length} ${t.metrics.astroSkills}`,
+        `${allSkillsCount} ${t.metrics.skills}`,
+        `${nextjsWorkflowSkillCatalog.length + astroSkillCatalog.length + reactRouterSkillCatalog.length} ${t.metrics.frameworkSkills}`,
       ],
       highlights: featuredNextSkillIds.map((id) => pages.skills.workflow.skills[id].name),
     },

@@ -1,6 +1,6 @@
 # Purrfold landing
 
-Localized Next.js 16 landing hub for explaining how Purrfold scaffolds a project, which skills it selects, which quality tools it installs, and which UI resources shape its ecosystem.
+Localized Next.js 16 landing hub for Purrfold, the CLI that scaffolds Next.js, Astro, Vite, and React Router apps with shadcn, quality tooling, and agent skills downloaded from skills.sh.
 
 ## Quick start
 
@@ -10,6 +10,13 @@ npm run dev
 ```
 
 Open `http://localhost:3000/en` or `http://localhost:3000/es`. The root route is redirect-only and negotiates the locale through `proxy.ts`.
+
+Purrfold defaults to Next.js with unit tests enabled. Select another framework explicitly or opt into CI, TanStack Query, and Motion as needed:
+
+```bash
+npx purrfold@latest my-app --framework vite --yes --unit --ci
+npx purrfold@latest my-app --framework react-router --yes --query --motion
+```
 
 ## Public routes
 
@@ -33,6 +40,9 @@ English (`en`) is the default locale. Spanish (`es`) copy must remain neutral an
 - **UI:** shadcn/base-rhea and Base UI primitives, with semantic tokens in `app/globals.css`.
 - **Rendering:** server-first; client components are reserved for actual interaction.
 - **Motion:** CSS-only, compositor-friendly, and disabled for reduced-motion preferences.
+
+- **CLI facts:** `lib/generated/purrfold-info.json` is a snapshot of `npx purrfold@latest info --json`. Refresh it with `npm run sync:purrfold` after each purrfold release; `tests/unit/purrfold-info-sync.test.ts` fails when the flags reference or command builder drift from it.
+- **Skills catalog:** `components/skills/skills-catalog.ts` mirrors purrfold's `src/skills/manifest.ts` (install source, skills.sh page, `npx skills add` command). Update both together when purrfold adds or moves a skill. The root `skills-lock.json` only tracks this repo's own agent skills.
 
 See [DESIGN.md](DESIGN.md) for UI rules and [docs/adr](docs/adr) for durable decisions.
 

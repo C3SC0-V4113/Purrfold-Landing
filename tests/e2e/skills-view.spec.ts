@@ -24,13 +24,18 @@ test('renders the English skills page with safe outbound links', async ({ page }
     page.getByRole('heading', { level: 2, name: skillsPages.en.category })
   ).toBeVisible();
 
-  const skillLinks = page.locator('a[href^="https://www.skills.sh/"]');
-  await expect(skillLinks).toHaveCount(10);
+  const skillLinks = page.locator('a[href^="https://skills.sh/"]');
+  await expect(skillLinks).toHaveCount(23);
 
   const hrefs = await skillLinks.evaluateAll((links) =>
     links.map((link) => (link as HTMLAnchorElement).href)
   );
-  expect(hrefs).toContain('https://www.skills.sh/pproenca/dot-skills/vitest');
+  expect(hrefs).toContain('https://skills.sh/pproenca/dot-skills/vitest');
+  expect(hrefs).toContain('https://skills.sh/C3SC0-V4113/Scaffold/purrfold');
+  expect(hrefs).toContain('https://skills.sh/vercel-labs/agent-skills/vercel-composition-patterns');
+  expect(hrefs).toContain(
+    'https://skills.sh/currents-dev/playwright-best-practices-skill/playwright-best-practices'
+  );
 
   for (let index = 0; index < (await skillLinks.count()); index += 1) {
     const link = skillLinks.nth(index);
@@ -48,13 +53,18 @@ test('renders the Spanish skills page with safe outbound links', async ({ page }
     page.getByRole('heading', { level: 2, name: skillsPages.es.category })
   ).toBeVisible();
 
-  const skillLinks = page.locator('a[href^="https://www.skills.sh/"]');
-  await expect(skillLinks).toHaveCount(10);
+  const skillLinks = page.locator('a[href^="https://skills.sh/"]');
+  await expect(skillLinks).toHaveCount(23);
 
   const hrefs = await skillLinks.evaluateAll((links) =>
     links.map((link) => (link as HTMLAnchorElement).href)
   );
-  expect(hrefs).toContain('https://www.skills.sh/pproenca/dot-skills/vitest');
+  expect(hrefs).toContain('https://skills.sh/pproenca/dot-skills/vitest');
+  expect(hrefs).toContain('https://skills.sh/C3SC0-V4113/Scaffold/purrfold');
+  expect(hrefs).toContain('https://skills.sh/vercel-labs/agent-skills/vercel-composition-patterns');
+  expect(hrefs).toContain(
+    'https://skills.sh/currents-dev/playwright-best-practices-skill/playwright-best-practices'
+  );
 
   for (let index = 0; index < (await skillLinks.count()); index += 1) {
     const link = skillLinks.nth(index);
